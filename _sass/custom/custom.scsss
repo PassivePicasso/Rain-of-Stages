@@ -102,7 +102,7 @@ $body-text-color: red;
 
 $border: 1px solid;
 $border-radius: 4px;
-$border-color: $grey-lt-100;
+$border-color: $riskyellow;
 
 ////
 //// Grid system
