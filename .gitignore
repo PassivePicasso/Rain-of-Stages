@@ -2,6 +2,15 @@
 # Created by https://www.gitignore.io/api/unity
 # Edit at https://www.gitignore.io/?templates=unity
 
+_site/
+.sass-cache/
+.jekyll-metadata
+_pdf
+.DS_Store
+.idea
+vendor/
+.bundle/
+
 ### Unity ###
 # This .gitignore file should be placed at the root of your Unity project directory
 #
