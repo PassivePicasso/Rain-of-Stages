@@ -1,3 +1,29 @@
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0em;
+    margin-bottom: 0.5em;
+    font-weight: 1000;
+    line-height: 1.15;
+    color: #47204a;
+    text-decoration: underline;
+}
+
+@media (min-width: 66.5rem) 
+{
+    .side-bar {
+        width: 256px;
+    }
+}
+
+@media (min-width: 66.5rem) 
+{
+    .main-content {
+        margin-left: 288px;
+        max-width: calc((100%) - 288px);
+        width: 100%;
+    }
+}
+
+
 /*@font-face {
     font-family: RoR;
     src: url(art/RoR2TitleFont.svg) format("svg");
