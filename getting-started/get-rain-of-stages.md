@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Clone or Download Repository
+title: Get Rain of Stages
 permalink: /clone-repo
 nav_order: 2
 parent: Getting Started
