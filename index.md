@@ -13,12 +13,13 @@ Rain of Stages provides the ability to Build, Deploy, and Launch your custom con
 
 To use this project you will need a copy of Unity that matches Risk of Rain 2's current unity version. As of this writing, that is Unity 2018.4.20f1.
 
-### Setup
+### Quick Start
+ If you know the basics of Unity, C#, and Git then follow these quick start steps.
  1. Clone or download this repository 
-	* [Open in Visual Studio](git-client://clone?repo=https://github.com/PassivePicasso/Rain-of-Stages)
-	* [Open in Desktop](github-windows://openRepo/https://github.com/PassivePicasso/Rain-of-Stages)
-	* [Download Zip](https://github.com/PassivePicasso/Rain-of-Stages/archive/master.zip)
- 	  * If you downloaded the Zip, extract the contents to folder on your computer, this is where you will work from.
+	* [Open in Visual Studio](git-client://clone?repo=https://github.com/PassivePicasso/Rain-of-Stages){: .btn .btn-purple }
+	* [Open in Desktop](github-windows://openRepo/https://github.com/PassivePicasso/Rain-of-Stages){: .btn .btn-purple }
+	* [Download Zip](https://github.com/PassivePicasso/Rain-of-Stages/archive/master.zip){: .btn .btn-purple }
+ 	  
  1. Launch Unity Hub
  1. Add a project using the Add button
  1. Locate your extracted or cloned Rain of Stages directory and open the folder to create your new project.

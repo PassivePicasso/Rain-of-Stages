@@ -3,6 +3,31 @@
     src: url(art/RoR2TitleFont.svg#RiskOfRainTitle) format("svg");
 }
 
+.btn:focus:hover, .btn.selected:focus {
+    box-shadow: 0 0 0 3px #47204a;
+}
+
+.btn-purple {
+    background-image: linear-gradient(#47204a, #47204a);
+    border: 1px solid #0000;
+}
+
+.btn-purple:hover, .btn-purple.zeroclipboard-is-hover {
+    color: #fff;
+    background-color: #59628E;
+    background-image: linear-gradient(#59628E, #47204a00);
+    border: 1px solid #FFF6;
+}
+
+/*.btn-:hover {
+    border: 1px solid #FFF6;
+    background-color: #59628E;
+    box-shadow: 0 0 0 3px #47204a;
+}
+
+.btn-blue:active {
+    color: #47204a;
+}*/
 
 .navigation, .site-header, .site-footer {
     width: 100%;
@@ -33,9 +58,10 @@
 body {
     font-family: RoR, -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, roboto, noto, "segoe ui", arial, sans-serif;
     font-size: inherit;
+    font-weight: bold;
     line-height: 1.1;
     color: #fffeb2;
-    background-color: #47204a;
+    background-color: #59628E;
 }
 
 .navigation-list-link.active {
