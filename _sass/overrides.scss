@@ -1,6 +1,6 @@
 @font-face {
     font-family: RoR;
-    src: url(art/RoR2TitleFont.svg#RiskOfRainTitle) format("svg");
+    src: url(art/RoR2TitleFont.svg) format("svg");
 }
 
 .btn:focus:hover, .btn.selected:focus {
@@ -29,14 +29,46 @@
     color: #47204a;
 }*/
 
+@media (min-width: 66.5rem) 
+{
+    .main-content {
+        margin-left: 256px;
+    }
+}
+
+@media (min-width: 50rem) 
+{
+    .main-content {
+        position: relative;
+        max-width: 100%;
+        margin-left: 256px;
+    }
+}
+
+.page-header {
+    display: flex;
+    justify-content: flex-end;
+    height: 60px;
+    background-color: #59628e;
+    border-bottom: 1px solid rgba(255, 254, 178, 0.45);
+}
+
+.site-header {
+    z-index: 101;
+    height: 60px;
+    max-height: 60px;
+    border-bottom: 0px solid #000;
+}
+
 .navigation, .site-header, .site-footer {
     width: 100%;
 }
 
 .site-logo {
+    margin-top: 64px;
     width: 256px;
-    height: 80px;
-    background-image: url(https://passivepicasso.github.io/Rain-of-Stages/art/icon.png?ver=1);
+    height: 128px;
+    background-image: url(../../art/icon.png);
     background-repeat: no-repeat;
 }
 
@@ -54,13 +86,13 @@
 .side-bar {
     width: 256px;
     background-color: #59628e;
+    border-right: 1px solid rgba(255, 254, 178, 0.45);
 }
 body {
-    font-family: RoR, -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, roboto, noto, "segoe ui", arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, roboto, noto, "segoe ui", arial, sans-serif;
     font-size: inherit;
-    font-weight: bold;
     line-height: 1.1;
-    color: #fffeb2;
+    color: #fff;
     background-color: #59628E;
 }
 
@@ -68,6 +100,10 @@ body {
     font-weight: 600;
     color: #fffeb2;
     text-decoration: none;
+}
+.navigation-list-item {
+    font-size: 20px !important;
+    font-weight: normal;
 }
 
 .navigation-list-link {
@@ -78,4 +114,9 @@ body {
 
 .navigation-list-child-list .navigation-list-link {
     color: #a9b2de;
+}
+
+.navigation-list-child-list .navigation-list-link.active {
+    /*color: #a9b2de;*/
+    color: #fffeb2;
 }
