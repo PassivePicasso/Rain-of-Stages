@@ -31,8 +31,6 @@ aux_links:
   "Rain of Stages on GitHub":
     - "//github.com/PassivePicasso/Rain-of-Stages"
 
-# Build settings
-markdown: kramdown
 
 plugins:
   - jekyll-remote-theme
