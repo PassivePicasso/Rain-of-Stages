@@ -7,13 +7,11 @@
     height: 80px;
     background-image: url(https://passivepicasso.github.io/Rain-of-Stages/art/icon.png?ver=1);
     background-repeat: no-repeat;
-    background-position: middle center;
-    background-size: contain;
 }
 
 .site-title {
     padding-right: 0px;
-    padding-left: 0px;
+    padding-left: .1rem;
 }
 
 .site-header {
@@ -24,4 +22,29 @@
 
 .side-bar {
     width: 256px;
+    background-color: #59628e;
+}
+
+body {
+    font-family: RiskofRainFont, -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, roboto, noto, "segoe ui", arial, sans-serif;
+    font-size: inherit;
+    line-height: 1.4;
+    color: #fffeb2;
+    background-color: #47204a;
+}
+
+.navigation-list-link.active {
+    font-weight: 600;
+    color: #fffeb2;
+    text-decoration: none;
+}
+
+.navigation-list-link {
+    font-weight: 600;
+    color: #47204a;
+    text-decoration: none;
+}
+
+.navigation-list-child-list .navigation-list-link {
+    color: #a9b2de;
 }

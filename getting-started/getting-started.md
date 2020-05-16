@@ -1,9 +1,12 @@
 ---
-layout: page
-title: Rain of Stages
-permalink: /
-nav_order: 0
+layout: default
+title: Getting Started
+permalink: /getting-started
+nav_order: 1
+has_children: true
 ---
+
+# Getting Started
 
 #### Preparation
 
@@ -21,8 +24,7 @@ To use this project you will need a copy of Unity that matches Risk of Rain 2's 
  	  * If you downloaded the Zip, extract the contents to folder on your computer, this is where you will work from.
  1. Launch Unity Hub
  1. Add a project using the Add button
- 1. Locate your extracted or cloned Rain of Stages directory and open the folder to create your new project.
-     * The loading process will take some time so be patient.
+   * Locate your extracted or cloned Rain of Stages directory and open the folder to create your new project. The loading process will take some time so be patient.
  1. Once loaded Rain of Stages will prompt you to locate the your preferred "Risk of Rain 2.exe" 
  1. Rain of Stages will now retrieve a number of dependencies from Risk of Rain 2 as well as BepInEx from Thunderstore.io
      * Another long loading process here, unity may appear to hang at points, don't close it.
