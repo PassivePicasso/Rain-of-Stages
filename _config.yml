@@ -21,7 +21,7 @@ logo: "/art/icon.png?ver=1"
 
 description: >- # this means to ignore newlines until "baseurl:"
   Rain of Stages is a starter kit for building mods and maps for Riks of Rain 2
-baseurl: "/Rain-Of-Stages" # the subpath of your site, e.g. /blog
+baseurl: "/Rain-of-Stages" # the subpath of your site, e.g. /blog
 url: "https://passivepicasso.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  passivepicasso
 
