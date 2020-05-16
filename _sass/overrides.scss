@@ -1,0 +1,27 @@
+.navigation, .site-header, .site-footer {
+    width: 100%;
+}
+
+.site-logo {
+    width: 256px;
+    height: 80px;
+    background-image: url(https://passivepicasso.github.io/Rain-of-Stages/art/icon.png?ver=1);
+    background-repeat: no-repeat;
+    background-position: middle center;
+    background-size: contain;
+}
+
+.site-title {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.site-header {
+    display: flex;
+    min-height: 80px;
+    align-items: center;
+}
+
+.side-bar {
+    width: 256px;
+}
