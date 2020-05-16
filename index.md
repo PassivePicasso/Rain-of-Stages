@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Rain of Stages
+title: Home
 permalink: /
 nav_order: 0
 ---

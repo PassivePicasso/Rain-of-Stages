@@ -9,15 +9,15 @@ has_children: true
 
 If you've never worked with Rain of Stages before, it is recommended you proceed to the Preparation step instead of the Quick Start.
 
-[Preparation](./Preparation){: .btn .btn-purple }
+[Preparation](./preparation){: .btn  }
 
 
 ## Quick Start
  If you know the basics of Unity, C#, Git or have used Rain of Stages before then follow these quick start steps.
  1. Clone or download this repository 
-	* [Open in Visual Studio](git-client://clone?repo=https://github.com/PassivePicasso/Rain-of-Stages){: .btn .btn-purple }
-	* [Open in Desktop](github-windows://openRepo/https://github.com/PassivePicasso/Rain-of-Stages){: .btn .btn-purple }
-	* [Download Zip](https://github.com/PassivePicasso/Rain-of-Stages/archive/master.zip){: .btn .btn-purple }
+	* [Open in Visual Studio](git-client://clone?repo=https://github.com/PassivePicasso/Rain-of-Stages){: .btn }
+	* [Open in Desktop](github-windows://openRepo/https://github.com/PassivePicasso/Rain-of-Stages){: .btn }
+	* [Download Zip](https://github.com/PassivePicasso/Rain-of-Stages/archive/master.zip){: .btn }
  	  
  1. Launch Unity Hub
  1. Add a project using the Add button

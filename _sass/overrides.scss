@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: RoR;
     src: url(art/RoR2TitleFont.svg) format("svg");
 }
@@ -18,16 +18,6 @@
     background-image: linear-gradient(#59628E, #47204a00);
     border: 1px solid #FFF6;
 }
-
-/*.btn-:hover {
-    border: 1px solid #FFF6;
-    background-color: #59628E;
-    box-shadow: 0 0 0 3px #47204a;
-}
-
-.btn-blue:active {
-    color: #47204a;
-}*/
 
 @media (min-width: 66.5rem) 
 {
@@ -117,6 +107,5 @@ body {
 }
 
 .navigation-list-child-list .navigation-list-link.active {
-    /*color: #a9b2de;*/
     color: #fffeb2;
-}
+}*/
