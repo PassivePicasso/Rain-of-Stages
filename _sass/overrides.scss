@@ -1,3 +1,9 @@
+@font-face {
+    font-family: RoR;
+    src: url(art/RoR2TitleFont.svg#RiskOfRainTitle) format("svg");
+}
+
+
 .navigation, .site-header, .site-footer {
     width: 100%;
 }
@@ -24,11 +30,10 @@
     width: 256px;
     background-color: #59628e;
 }
-
 body {
-    font-family: RiskofRainFont, -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, roboto, noto, "segoe ui", arial, sans-serif;
+    font-family: RoR, -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, roboto, noto, "segoe ui", arial, sans-serif;
     font-size: inherit;
-    line-height: 1.4;
+    line-height: 1.1;
     color: #fffeb2;
     background-color: #47204a;
 }
