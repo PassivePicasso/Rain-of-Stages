@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Git
-permalink: /tools-and-resources#unity-hub
+permalink: /tools-and-resources#git
 nav_order: 3
 parent: Tools and Resources
 ---
