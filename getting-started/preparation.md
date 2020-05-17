@@ -45,16 +45,22 @@ You can acquire the appropriate version of Unity from the Unity Download archive
 ### Integrated Development Environment (IDE) 
 IDEs will help you add custom code to your deployments. Some free IDEs are Visual Studio 2019 Community Edition and Visual Studio Code
 
+[Visual Studio](https://visualstudio.microsoft.com/){: .btn }
+
 ### Git
 Git is a Version Control System, this allows you to save your work on Github and maintain a history of your changes.
 Git can also be used to download a copy of Rain of Stages
+You can acquire Git a number of ways, here are two easy options
+
+[Git for Window](https://gitforwindows.org/){: .btn }
+[GitHub Extension for Visual Studio](https://visualstudio.github.com/){: .btn }
 
 ### uTinyRipper
 uTinyRipper can be used to extract Risk of Rain 2, or other Unity Game, assets such as Textures, Sounds, and Models.
 
+[uTinyRipper on GitHub](https://github.com/mafaca/UtinyRipper){: .btn}
+
 ### dnSpy
 dnSpy will assist in debugging any custom code you write, Risk of Rain 2 code, or other code from other Managed libraries.
 
-
-
-
+[dnSpy on GitHub](https://github.com/0xd4d/dnSpy){: .btn}
