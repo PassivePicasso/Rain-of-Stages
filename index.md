@@ -9,15 +9,11 @@ Rain of Stages is a framework to assist in the creation, testing, packaging and 
 
 ## First Time Users
 
-If you've never worked with Rain of Stages before, it is recommended you proceed to the Tools and Resources section instead of the Quick Start.
+When working with Rain of Stages, it is recommended to make a copy of your Risk of Rain 2 folder to use. 
 
-[Tools and Resources](tools-and-resources){: .btn  }
+Rain of Stages provides facilities to modify your Risk of Rain 2 installation to ease debugging and testing of custom scripts and content. 
 
-## Version Map
-
-If you're unsure which Unity version you need refer to the [Version Map](versions) for more information.
-
-[Version Map](versions){: .btn }
+In some circumstances this setup could corrupt your Risk of Rain 2 installation, requiring you to re-install your copy. Using a copy for Rain of Stages will prevent long downloads in this occurrence.
 
 
 ## Quick Start

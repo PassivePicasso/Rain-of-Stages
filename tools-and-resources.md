@@ -20,18 +20,37 @@ The following button will bring you to the Unity Hub for Unity Personal download
 
 To use Rain of Stages you must install the correct version of Unity3D.
 
-Unity 2018.4.16f1 is not available to install directly in Unity Hub, however Unity Hub will allow you to manage the installation and your Unity Projects.
+If you've installed Unity Hub already, use the table below to download the correct verison of Unity 3D with it.
 
-Refer to the above table to find the correct version of Unity3D.
+{: .unity-version-table }
+Risk of Rain 2 Version | Unity Version | Unity Release Notes | Install
+:---------------------- | :------------- | :--- | :---
+ Content Update 4 | 2018.4.16f1 | [Release Notes](https://unity3d.com/unity/whats-new/2018.4.16f1){:.btn .btn-blue } | [Install with Unity Hub](unityhub://2018.4.16f1/e6e9ca02b32a){:.btn .btn-green } 
 
-You can acquire the appropriate version of Unity from the Unity Download archive.
+If the version of Unity you need is not listed here, you can find the correct Unity version by looking at your game executable's properties.
+{: .buffer-top }
+
+The File version indicates the correct version of Unity, as you can see here the version is 2018.4.16.59850  
+You may also notice the version number doesn't match, just get as close as you can, if you match the first 3 numbers you're probably on the right version.
+
+![Context Menu Properties](art/context-process-properties.png)
+![Process Details Properties](art/ror2-exe-details.png)
+
+You can acquire the appropriate version of Unity from the Unity Download archive.https://unity3d.com/get-unity/download/archive
 
 [Unity Download Archive](https://unity3d.com/get-unity/download/archive){: .btn }
 
 ## Integrated Development Environment (IDE) 
-IDEs will help you add custom code to your deployments. Some free IDEs are Visual Studio 2019 Community Edition and Visual Studio Code
+IDEs will help you add custom code to your deployments.
 
-[Visual Studio](https://visualstudio.microsoft.com/){: .btn }
+Visual Studio Code and Visual Studio Community edition can be installed with Unity extension which will improve your development experience.
+
+If you're installing Visual Studio for the first time, make sure to select the following Work Loads during your install for the best experience.
+
+![.NET desktop development](art/dotnet-desktop-development.png)
+![Game development with Unity](art/game-development-with-unity.png)
+
+[Get Visual Studio](https://visualstudio.microsoft.com/){: .btn }
 
 ## Git
 Git is a Version Control System, this allows you to save your work on Github and maintain a history of your changes.
