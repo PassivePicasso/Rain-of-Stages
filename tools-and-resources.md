@@ -53,14 +53,14 @@ If you're installing Visual Studio for the first time, make sure to select the f
 
 ## Git
 Git is a Version Control System, this allows you to save your work on Github and maintain a history of your changes.
+
 Git can also be used to download a copy of Rain of Stages
-You can acquire Git a number of ways, here are two easy options
 
 [Git for Windows](https://gitforwindows.org/){: .btn }
 [GitHub Extension for Visual Studio](https://visualstudio.github.com/){: .btn }
 
 ## uTinyRipper
-uTinyRipper can be used to extract Risk of Rain 2, or other Unity Game, assets such as Textures, Sounds, and Models.
+uTinyRipper can be used to extract assets such as Textures, Sounds, and Models from Risk of Rain 2 and other Unity Engine games.
 
 [uTinyRipper on GitHub](https://github.com/mafaca/UtinyRipper){: .btn}
 
