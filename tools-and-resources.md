@@ -27,8 +27,10 @@ Risk of Rain 2 Version | Unity Version | Unity Release Notes | Install
 :---------------------- | :------------- | :--- | :---
  Content Update 4 | 2018.4.16f1 | [Release Notes](https://unity3d.com/unity/whats-new/2018.4.16f1){:.btn .btn-blue } | [Install with Unity Hub](unityhub://2018.4.16f1/e6e9ca02b32a){:.btn .btn-green } 
 
+ > Download Links sourced from [Unity Download Archive](https://unity3d.com/get-unity/download/archive){: .btn .buffer-top }
+
+
 If the version of Unity you need is not listed here, you can find the correct Unity version by looking at your game executable's properties.
-{: .buffer-top }
 
 The File version indicates the correct version of Unity, as you can see here the version is 2018.4.16.59850  
 You may also notice the version number doesn't match, just get as close as you can, if you match the first 3 numbers you're probably on the right version.
@@ -36,9 +38,6 @@ You may also notice the version number doesn't match, just get as close as you c
 ![Context Menu Properties](art/context-process-properties.png)
 ![Process Details Properties](art/ror2-exe-details.png)
 
-You can acquire the appropriate version of Unity from the Unity Download archive.https://unity3d.com/get-unity/download/archive
-
-[Unity Download Archive](https://unity3d.com/get-unity/download/archive){: .btn }
 
 ## Integrated Development Environment (IDE) 
 IDEs will help you add custom code to your deployments.
