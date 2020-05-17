@@ -2,8 +2,7 @@
 layout: default
 title: Rain of Stages Setup
 permalink: /rain-of-stages-setup
-nav_order: 2
-parent: Getting Started
+nav_order: 3
 ---
 
 # Setting up Rain of Stages
@@ -44,8 +43,9 @@ Once located you will find your project listed in Unity hub with the name of the
 ![Project Added](./art/added-project.png)
 
 If Unity was not installed correctly, then you may see a warning icon under the project like below.
-If you encounter this, please refer back to the Unity 3D installation steps on the [Preparation Page](./preparation#unity3d)
+
+If you encounter this, please refer back to the Unity 3D installation step on the [Tools and Resources](./tools-and-resources#unity3d) page.
+
 ![Project Added](./art/unity-version-warning.png)
 
-
-
+## 

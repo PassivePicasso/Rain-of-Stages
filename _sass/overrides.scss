@@ -12,31 +12,36 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
-@media (min-width: 31.25rem) and (min-width: 50rem)
-{
+@media (min-width: 31.25rem) and (min-width: 50rem) {
     .navigation-list-item {
         font-size: 18px !important;
     }
 }
 
-@media (min-width: 66.5rem) 
-{
-    .side-bar {
-        width: 256px;
-    }
-}
-
-@media (min-width: 66.5rem) 
-{
+@media (min-width: 66.5rem) {
     .main-content {
         margin-left: 288px;
         max-width: calc((100%) - 288px);
         width: 100%;
     }
+
+    .unity-version-table {
+        table-layout: auto;
+        display: table-row;
+    }
+
+    .table-wrapper {
+        display: table-cell;
+        max-width: unset;
+        min-width: unset;
+        width: unset;
+    }
+
+    .side-bar {
+        width: 256px;
+    }
 }
 
-.table-wrapper {
-    table-layout: auto;
-    max-width: 50%;
-    width: unset;
+.buffer-top {
+    margin-top: 1em;
 }

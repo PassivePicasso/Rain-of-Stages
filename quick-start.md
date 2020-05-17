@@ -1,19 +1,12 @@
 ---
 layout: default
-title: Getting Started
-permalink: /getting-started
+title: Quick Start
+permalink: /quick-start
 nav_order: 1
-has_children: true
 ---
-## Getting Started
 
-If you've never worked with Rain of Stages before, it is recommended you proceed to the Preparation section instead of the Quick Start.
+ If you know the basics of Unity, C#, Git or have used Rain of Stages before then follow these quick start steps and jump right in.
 
-[Preparation](./preparation){: .btn  }
-
-
-## Quick Start
- If you know the basics of Unity, C#, Git or have used Rain of Stages before then follow these quick start steps.
  1. Acquire Rain of Stages
 
 	 [Clone with Visual Studio](git-client://clone?repo=https://github.com/PassivePicasso/Rain-of-Stages){: .btn }
