@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Installing Unity
-permalink: /installing-unity
+title: Install Unity
+permalink: /preparation/install-unity
 nav_order: 1
-parent: Getting Started
+parent: Preparation
 ---
 
 # Installing Unity 3D

@@ -5,4 +5,4 @@ permalink: /
 nav_order: 0
 ---
 
-# Welcome to the Rain of Stages Pages!
+Rain of Stages is a framework to assist in the creation, testing, packaging and deployment of custom Risk of Rain 2 stages and mods.
