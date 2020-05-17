@@ -31,9 +31,11 @@ The following button will bring you to the Unity Hub for Unity Personal download
 
 # Unity3D
 
-To use Rain of Stages you must install the correct version of Unity3D as of this writing.
+To use Rain of Stages you must install the correct version of Unity3D.
 
 Unity 2018.4.16f1 is not available to install directly in Unity Hub, however Unity Hub will allow you to manage the installation and your Unity Projects.
+Refer to the above table to find the correct version of Unity3D.
+
 You can acquire the appropriate version of Unity from the Unity Download archive.
 
 [Unity Download Archive](https://unity3d.com/get-unity/download/archive){: .btn }
