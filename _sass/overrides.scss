@@ -21,8 +21,8 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 66.5rem) {
     .main-content {
         margin-left: 288px;
-        max-width: calc((100%) - 288px);
-        width: 100%;
+        max-width: 1000px;
+        width: unset;
     }
 
     .unity-version-table {
