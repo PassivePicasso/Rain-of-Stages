@@ -46,7 +46,7 @@ If Unity was not installed correctly, then you may see a warning icon under the 
 
 If you encounter this, please refer back to the Unity 3D installation step on the [Tools and Resources](./tools-and-resources#unity3d) page.
 
-![Project Added](art/unity-version-warning.png)
+![Unity Version Warning](art/unity-version-warning.png)
 
 Now open your new Rain of Stages project by clicking on the new entry in the Projects list.
 

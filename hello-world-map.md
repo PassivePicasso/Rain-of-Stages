@@ -5,4 +5,6 @@ permalink: /hello-world
 nav_order: 3
 ---
 
-There are many steps to setting up your first stage but 
+For now, watch this silent video on the process of making a stage, from cloning the repo to testing in Risk of Rain 2
+
+[![Rain of Stages - A New Stage](http://img.youtube.com/vi/Su7i7ajpF68/0.jpg)](http://www.youtube.com/watch?v=Su7i7ajpF68 "Rain of Stages - New Stage")
