@@ -22,6 +22,7 @@ public class ManifestEditor : Editor
     string searchString;
     Task<IEnumerable<Package>> SearchTask = Task<IEnumerable<Package>>.FromResult(Enumerable.Empty<Package>());
     List<Package> searchResults;
+    private string dependenciesPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies");
 
     public override void OnInspectorGUI()
     {
@@ -65,7 +66,6 @@ public class ManifestEditor : Editor
                                           rect.position.y, 25, EGU.singleLineHeight);
             if (GUI.Button(buttonPosition, "x"))
             {
-                var dependenciesPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies");
                 var dependencyPath = Path.Combine(dependenciesPath, dependencySlot.stringValue);
 
                 if (Directory.Exists(dependencyPath)) Directory.Delete(dependencyPath, true);
@@ -80,6 +80,37 @@ public class ManifestEditor : Editor
             }
         }
 
+
+        if (manifest.dependencies.Any())
+            if (GL.Button("Download & Install Dependencies"))
+            {
+                List<string> lookedUpDeps = new List<string>();
+                var lookups = new List<Task<IEnumerable<Package>>>();
+                foreach (var dependency in manifest.dependencies)
+                {
+                    if (Directory.Exists(Path.Combine(dependenciesPath, dependency))) continue;
+
+                    lookups.Add(ThunderLoad.LookupPackage(dependency));
+                }
+
+                EditorApplication.update += AwaitLookup;
+
+                void AwaitLookup()
+                {
+                    if (!lookups.All(t => t.IsCompleted)) return;
+
+                    var lookupResults = lookups.Select(t => t.Result.FirstOrDefault()).Where(depPack => depPack != null);
+                    var distinctResults = lookupResults.Select(p => p.full_name).Distinct().Select(fn => lookupResults.First(t => t.full_name.Equals(fn)));
+                    foreach (var dependency in distinctResults)
+                    {
+                        if (lookedUpDeps.Contains(dependency.full_name)) continue;
+                        if (dependency.full_name.Contains("BepInExPack")) continue;
+                        lookedUpDeps.Add(dependency.full_name);
+                        InstallDependency(dependency);
+                    }
+                }
+            }
+
         rect = EGL.GetControlRect(true, EGU.singleLineHeight);
 
         var labelRect = new Rect(rect.position,
@@ -89,7 +120,6 @@ public class ManifestEditor : Editor
                         rect.size - Vector2.right * EGU.labelWidth);
 
         GUI.Label(labelRect, "Dependency Search");
-
 
 
         searchString = searchField.OnGUI(fieldRect, searchString);
@@ -130,71 +160,98 @@ public class ManifestEditor : Editor
                     dependencySlot.stringValue = result.full_name;
                     dependencySlot.serializedObject.SetIsDifferentCacheDirty();
                     dependencySlot.serializedObject.ApplyModifiedProperties();
-
-                    if (!Directory.Exists(TempDir))
-                        Directory.CreateDirectory(TempDir);
-
-                    List<Task<IEnumerable<Package>>> lookups = new List<Task<IEnumerable<Package>>>();
-
-                    foreach (var dependency in result.latest.dependencies)
-                    {
-                        if (dependency.Contains("BepInExPack")) continue;
-                        lookups.Add(ThunderLoad.LookupPackage(dependency));
-                    }
-
-                    EditorApplication.update += AwaitLookup;
-
-                    void AwaitLookup()
-                    {
-                        if (!lookups.All(t => t.IsCompleted)) return;
-
-                        EditorApplication.update -= AwaitLookup;
-
-                        var downloads = new List<Task<(Package package, string filePath)>>
-                        {
-                            ThunderLoad.DownloadPackageAsync(result, Path.Combine(TempDir, $"{result.full_name}.zip"))
-                                       .ContinueWith(dl=> (result, dl.Result))
-                        };
-
-                        var lookupResults = lookups.Select(t => t.Result.FirstOrDefault()).Where(prop => prop != null);
-                        foreach (var dependency in lookupResults)
-                        {
-                            if (dependency.full_name.Contains("BepInExPack")) continue;
-
-                            downloads.Add(ThunderLoad.DownloadPackageAsync(dependency, Path.Combine(TempDir, $"{dependency.full_name}.zip"))
-                                                     .ContinueWith(dl => (dependency, dl.Result)));
-                        }
-
-                        EditorApplication.update += FileCreated;
-
-                        void FileCreated()
-                        {
-                            if (!downloads.All(t => t.IsCompleted)) return;
-
-                            EditorApplication.update -= FileCreated;
-
-                            foreach ((Package package, string filePath) in downloads.Select(dlt => dlt.Result))
-                            {
-                                var dependencyPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies", package.full_name);
-
-                                if (Directory.Exists(dependencyPath)) Directory.Delete(dependencyPath, true);
-
-                                if (File.Exists($"{dependencyPath}.meta")) File.Delete($"{dependencyPath}.meta");
-
-                                Directory.CreateDirectory(dependencyPath);
-
-                                using (var fileStream = File.OpenRead(filePath))
-                                using (var archive = new ZipArchive(fileStream))
-                                    archive.ExtractToDirectory(Path.Combine(dependencyPath));
-                            }
-                            AssetDatabase.Refresh();
-                        }
-                    }
-
                 }
             }
+
+
             EGL.EndVertical();
         }
+    }
+
+    private static void InstallDependency(Package dependencyPackage)
+    {
+        if (!Directory.Exists(TempDir))
+            Directory.CreateDirectory(TempDir);
+
+        var lookups = new List<Task<IEnumerable<Package>>>();
+
+        List<string> lookedUpDeps = new List<string>();
+        foreach (var dependency in dependencyPackage.latest.dependencies)
+        {
+            if (lookedUpDeps.Contains(dependency)) continue;
+            if (dependency.Contains("BepInExPack")) continue;
+            lookedUpDeps.Add(dependency);
+            lookups.Add(ThunderLoad.LookupPackage(dependency));
+        }
+
+        EditorApplication.update += AwaitLookup;
+
+        void AwaitLookup()
+        {
+            var completedLookups = lookups.Where(t => t.IsCompleted);
+            var completedLookupsWithDeps = completedLookups.Where(t => t.Result.Any(package => package.latest.dependencies.Any()));
+            if (completedLookupsWithDeps.Any())
+            {
+                foreach (var package in completedLookupsWithDeps.Select(t => t.Result.First()))
+                    foreach (var dependency in package.latest.dependencies)
+                    {
+                        if (lookedUpDeps.Contains(dependency)) continue;
+                        if (dependency.Contains("BepInExPack")) continue;
+                        lookedUpDeps.Add(dependency);
+                        lookups.Add(ThunderLoad.LookupPackage(dependency));
+                    }
+            }
+
+            if (!lookups.All(t => t.IsCompleted)) return;
+
+            EditorApplication.update -= AwaitLookup;
+
+            var downloads = new List<Task<(Package package, string filePath)>>
+            {
+                ThunderLoad.DownloadPackageAsync(dependencyPackage, Path.Combine(TempDir, GetZipFileName(dependencyPackage)))
+                           .ContinueWith(dl=> (dependencyPackage, dl.Result))
+            };
+
+            var lookupResults = lookups.Select(t => t.Result.FirstOrDefault()).Where(prop => prop != null);
+            foreach (var dependency in lookupResults)
+            {
+                if (dependency.full_name.Contains("BepInExPack")) continue;
+
+                downloads.Add(ThunderLoad.DownloadPackageAsync(dependency, Path.Combine(TempDir, GetZipFileName(dependency)))
+                                         .ContinueWith(dl => (dependency, dl.Result)));
+            }
+
+            EditorApplication.update += FileCreated;
+
+            void FileCreated()
+            {
+                if (!downloads.All(t => t.IsCompleted)) return;
+
+                EditorApplication.update -= FileCreated;
+
+                foreach ((Package package, string filePath) in downloads.Select(dlt => dlt.Result))
+                {
+                    var dependencyPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies", package.full_name);
+
+                    if (Directory.Exists(dependencyPath)) Directory.Delete(dependencyPath, true);
+
+                    if (File.Exists($"{dependencyPath}.meta")) File.Delete($"{dependencyPath}.meta");
+
+                    Directory.CreateDirectory(dependencyPath);
+
+                    using (var fileStream = File.OpenRead(filePath))
+                    using (var archive = new ZipArchive(fileStream))
+                        archive.ExtractToDirectory(Path.Combine(dependencyPath));
+                }
+                AssetDatabase.Refresh();
+            }
+        }
+    }
+
+    private static string GetZipFileName(Package package) => GetZipFileName(package.full_name);
+    private static string GetZipFileName(string package)
+    {
+        return $"{package}.zip";
     }
 }
 #endif
