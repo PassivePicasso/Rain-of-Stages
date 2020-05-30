@@ -144,15 +144,13 @@ namespace RainOfStages.Deploy
 
                         if (!Directory.Exists(patcher) && !Directory.Exists(plugins) && !Directory.Exists(monomod))
                         {
-                            var modDirInfo = new DirectoryInfo(modDir);
-                            var modInfo = new DirectoryInfo(Path.Combine(plugins, deployment.Manifest.name));
-                            CopyFilesRecursively(modDirInfo, modInfo);
+                            CopyFilesRecursively(modDir, Path.Combine(bepinexDir, "plugins"));
                         }
                         else
                         {
-                            if (Directory.Exists(patcher)) CopyFilesRecursively(new DirectoryInfo(patcher), new DirectoryInfo(Path.Combine(bepinexDir, "patchers")));
-                            if (Directory.Exists(plugins)) CopyFilesRecursively(new DirectoryInfo(plugins), new DirectoryInfo(Path.Combine(bepinexDir, "plugins")));
-                            if (Directory.Exists(monomod)) CopyFilesRecursively(new DirectoryInfo(monomod), new DirectoryInfo(Path.Combine(bepinexDir, "monomod")));
+                            if (Directory.Exists(patcher)) CopyFilesRecursively(patcher, Path.Combine(bepinexDir, "patchers"));
+                            if (Directory.Exists(plugins)) CopyFilesRecursively(plugins, Path.Combine(bepinexDir, "plugins"));
+                            if (Directory.Exists(monomod)) CopyFilesRecursively(monomod, Path.Combine(bepinexDir, "monomod"));
                         }
                     }
                 }
@@ -285,16 +283,16 @@ namespace RainOfStages.Deploy
         }
 
 
-        public static DirectoryInfo CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
+        public static void CopyFilesRecursively(string source, string target)
         {
-            var newDirectoryInfo = target.CreateSubdirectory(source.Name);
-            foreach (var fileInfo in source.GetFiles().Where(f => !f.Extension.Equals("meta")))
-                fileInfo.CopyTo(Path.Combine(newDirectoryInfo.FullName, fileInfo.Name), true);
-
-            foreach (var childDirectoryInfo in source.GetDirectories())
-                CopyFilesRecursively(childDirectoryInfo, newDirectoryInfo);
-
-            return newDirectoryInfo;
+            foreach (var file in Directory.EnumerateFiles(source, "*", SearchOption.AllDirectories).Where(f => !f.EndsWith("meta")))
+            {
+                var parentDirectory = Path.GetFileName(Path.GetDirectoryName(file));
+                var targetParent = Path.GetFileName(target);
+                var subdirectory = parentDirectory.Equals(targetParent) ? target : Path.Combine(target, parentDirectory);
+                Directory.CreateDirectory(subdirectory);
+                File.Copy(file, Path.Combine(subdirectory, Path.GetFileName(file)), true);
+            }
         }
         private static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
