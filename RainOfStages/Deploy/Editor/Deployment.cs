@@ -150,9 +150,9 @@ namespace RainOfStages.Deploy
                         }
                         else
                         {
-                            if (Directory.Exists(patcher)) CopyFilesRecursively(new DirectoryInfo(patcher), new DirectoryInfo(bepinexDir));
-                            if (Directory.Exists(plugins)) CopyFilesRecursively(new DirectoryInfo(plugins), new DirectoryInfo(bepinexDir));
-                            if (Directory.Exists(monomod)) CopyFilesRecursively(new DirectoryInfo(monomod), new DirectoryInfo(bepinexDir));
+                            if (Directory.Exists(patcher)) CopyFilesRecursively(new DirectoryInfo(patcher), new DirectoryInfo(Path.Combine(bepinexDir, "patchers")));
+                            if (Directory.Exists(plugins)) CopyFilesRecursively(new DirectoryInfo(plugins), new DirectoryInfo(Path.Combine(bepinexDir, "plugins")));
+                            if (Directory.Exists(monomod)) CopyFilesRecursively(new DirectoryInfo(monomod), new DirectoryInfo(Path.Combine(bepinexDir, "monomod")));
                         }
                     }
                 }

@@ -21,33 +21,12 @@ public class ManifestEditor : Editor
     SearchField searchField;
     string searchString;
     Task<IEnumerable<Package>> SearchTask = Task<IEnumerable<Package>>.FromResult(Enumerable.Empty<Package>());
-    int reqPasses = 0;
-
     List<Package> searchResults;
-
-    private void Initialize()
-    {
-        searchField = new SearchField();
-        searchField.autoSetFocusOnFindCommand = true;
-    }
-
-    public override bool RequiresConstantRepaint()
-    {
-        var isRequired = !SearchTask.IsCompleted;
-        if (isRequired && reqPasses > 0) reqPasses--;
-        else if (searchResults == null && SearchTask.IsCompleted)
-        {
-            searchResults = SearchTask.Result.ToList();
-            Debug.Log("Found Results: " + searchResults.Count);
-            EditorApplication.Step();
-        }
-
-        return searchResults == null;
-    }
 
     public override void OnInspectorGUI()
     {
-        if (searchField == null) Initialize();
+        if (searchField == null)
+            searchField = new SearchField { autoSetFocusOnFindCommand = true };
 
         var manifest = target as Manifest;
         var manifestSo = new SerializedObject(manifest);
@@ -86,9 +65,10 @@ public class ManifestEditor : Editor
                                           rect.position.y, 25, EGU.singleLineHeight);
             if (GUI.Button(buttonPosition, "x"))
             {
-                var dependencyPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies", dependencySlot.stringValue);
-                if (Directory.Exists(dependencyPath))
-                    Directory.Delete(dependencyPath, true);
+                var dependenciesPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies");
+                var dependencyPath = Path.Combine(dependenciesPath, dependencySlot.stringValue);
+
+                if (Directory.Exists(dependencyPath)) Directory.Delete(dependencyPath, true);
 
                 dependencies.DeleteArrayElementAtIndex(i);
 
@@ -96,10 +76,9 @@ public class ManifestEditor : Editor
 
                 dependencies.serializedObject.ApplyModifiedProperties();
 
-
                 AssetDatabase.Refresh();
             }
-         }
+        }
 
         rect = EGL.GetControlRect(true, EGU.singleLineHeight);
 
@@ -119,8 +98,21 @@ public class ManifestEditor : Editor
         {
             SearchTask = ThunderLoad.LookupPackage(searchString, isCaseSensitive: false);
             searchResults = null;
+            EditorApplication.update += WaitForSearchResults;
 
-            reqPasses = 10;
+            void WaitForSearchResults()
+            {
+                if (!SearchTask.IsCompleted) return;
+
+                EditorApplication.update -= WaitForSearchResults;
+
+                searchResults = SearchTask.Result.ToList();
+                Debug.Log("Found Results: " + searchResults.Count);
+
+                Repaint();
+
+                AssetDatabase.Refresh();
+            }
         }
 
         if (string.IsNullOrEmpty(searchString)) searchResults = null;
@@ -136,31 +128,71 @@ public class ManifestEditor : Editor
                 {
                     var dependencySlot = dependencies.GetArrayElementAtIndex(dependencies.arraySize++);
                     dependencySlot.stringValue = result.full_name;
+                    dependencySlot.serializedObject.SetIsDifferentCacheDirty();
+                    dependencySlot.serializedObject.ApplyModifiedProperties();
 
-                    string filePath = Path.Combine(TempDir, $"{result.full_name}.zip");
-                    var download = ThunderLoad.DownloadPackageAsync(result, filePath);
+                    if (!Directory.Exists(TempDir))
+                        Directory.CreateDirectory(TempDir);
 
-                    download.ContinueWith(t =>
+                    List<Task<IEnumerable<Package>>> lookups = new List<Task<IEnumerable<Package>>>();
+
+                    foreach (var dependency in result.latest.dependencies)
                     {
-                        var dependencyPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies", result.name);
-                        if (Directory.Exists(dependencyPath))
-                            Directory.Delete(dependencyPath, true);
+                        if (dependency.Contains("BepInExPack")) continue;
+                        lookups.Add(ThunderLoad.LookupPackage(dependency));
+                    }
 
-                        Directory.CreateDirectory(dependencyPath);
+                    EditorApplication.update += AwaitLookup;
 
-                        using (var fileStream = File.OpenRead(filePath))
-                        using (var archive = new ZipArchive(fileStream))
-                            archive.ExtractToDirectory(Path.Combine(dependencyPath));
+                    void AwaitLookup()
+                    {
+                        if (!lookups.All(t => t.IsCompleted)) return;
 
-                        AssetDatabase.Refresh();
-                    });
+                        EditorApplication.update -= AwaitLookup;
 
-                    dependencies.serializedObject.SetIsDifferentCacheDirty();
+                        var downloads = new List<Task<(Package package, string filePath)>>
+                        {
+                            ThunderLoad.DownloadPackageAsync(result, Path.Combine(TempDir, $"{result.full_name}.zip"))
+                                       .ContinueWith(dl=> (result, dl.Result))
+                        };
 
-                    dependencies.serializedObject.ApplyModifiedProperties();
+                        var lookupResults = lookups.Select(t => t.Result.FirstOrDefault()).Where(prop => prop != null);
+                        foreach (var dependency in lookupResults)
+                        {
+                            if (dependency.full_name.Contains("BepInExPack")) continue;
+
+                            downloads.Add(ThunderLoad.DownloadPackageAsync(dependency, Path.Combine(TempDir, $"{dependency.full_name}.zip"))
+                                                     .ContinueWith(dl => (dependency, dl.Result)));
+                        }
+
+                        EditorApplication.update += FileCreated;
+
+                        void FileCreated()
+                        {
+                            if (!downloads.All(t => t.IsCompleted)) return;
+
+                            EditorApplication.update -= FileCreated;
+
+                            foreach ((Package package, string filePath) in downloads.Select(dlt => dlt.Result))
+                            {
+                                var dependencyPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Dependencies", package.full_name);
+
+                                if (Directory.Exists(dependencyPath)) Directory.Delete(dependencyPath, true);
+
+                                if (File.Exists($"{dependencyPath}.meta")) File.Delete($"{dependencyPath}.meta");
+
+                                Directory.CreateDirectory(dependencyPath);
+
+                                using (var fileStream = File.OpenRead(filePath))
+                                using (var archive = new ZipArchive(fileStream))
+                                    archive.ExtractToDirectory(Path.Combine(dependencyPath));
+                            }
+                            AssetDatabase.Refresh();
+                        }
+                    }
+
                 }
             }
-
             EGL.EndVertical();
         }
     }
