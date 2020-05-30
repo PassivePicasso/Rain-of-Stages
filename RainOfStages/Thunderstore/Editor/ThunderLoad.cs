@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace RainOfStages.Thunderstore
 
         internal static List<Page> loadedPages = new List<Page>();
 
-        public static async Task<Package> LookupPackage(string name, int pageIndex = 1)
+        public static async Task<IEnumerable<Package>> LookupPackage(string name, int pageIndex = 1, bool isCaseSensitive = true)
         {
             using (WebClient client = new WebClient())
             {
@@ -39,7 +40,9 @@ namespace RainOfStages.Thunderstore
                     loadedPages.Add(page);
                 }
 
-                var targetPackage = page.results.FirstOrDefault(package => package.name.Contains(name));
+                CompareInfo comparer = CultureInfo.CurrentCulture.CompareInfo;
+                var compareOptions = isCaseSensitive ? CompareOptions.None : CompareOptions.IgnoreCase;
+                var targetPackage = page.results.Where(package => comparer.IndexOf(package.name, name, compareOptions) >= 0);
 
                 return targetPackage == null ? await LookupPackage(name) : targetPackage;
             }

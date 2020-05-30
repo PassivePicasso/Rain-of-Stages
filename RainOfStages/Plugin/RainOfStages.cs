@@ -40,34 +40,10 @@ namespace RainOfStages.Plugin
 
         public RainOfStages()
         {
-            Logger.LogWarning("Constructor Executed");
+            Logger.LogWarning("Initializing");
 
             var sdAwake = typeof(SceneDef).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic);
             var scInit = typeof(SceneCatalog).GetMethod("Init", BindingFlags.Static | BindingFlags.NonPublic);
-
-            if (!Chainloader.PluginInfos.ContainsKey("R2API"))
-            {
-                RoR2Application.isModded = true;
-
-                try
-                {
-                    var consoleRedirectorType = typeof(RoR2.RoR2Application).GetNestedType("UnitySystemConsoleRedirector", BindingFlags.NonPublic);
-                    Logger.LogMessage($"{consoleRedirectorType.FullName} found in {typeof(RoR2Application).FullName}");
-                    var redirect = consoleRedirectorType.GetMethod("Redirect", BindingFlags.Public | BindingFlags.Static);
-                    Logger.LogMessage($"{redirect.Name}() found in {consoleRedirectorType.FullName}");
-                    HookEndpointManager.Add<Hook>(redirect, (Hook)(_ => { }));
-                }
-                catch (Exception e)
-                {
-                    Logger.LogError("Failed to redirect console");
-                }
-
-                var qpbcStart = typeof(QuickPlayButtonController).GetMethod("Start", BindingFlags.Instance | BindingFlags.NonPublic);
-                var digmOnEnable = typeof(DisableIfGameModded).GetMethod("OnEnable", BindingFlags.Instance | BindingFlags.Public);
-                HookEndpointManager.Add<Hook<QuickPlayButtonController>>(qpbcStart, (Hook<QuickPlayButtonController>)DisableQuickPlay);
-                HookEndpointManager.Add<Hook<DisableIfGameModded>>(digmOnEnable, (Hook<DisableIfGameModded>)DisableIfGameModded_Start);
-            }
-
             HookEndpointManager.Add<Hook<SceneDef>>(sdAwake, (Hook<SceneDef>)SceneDef_Awake);
             HookEndpointManager.Add<Hook>(scInit, (Hook)Init);
 
@@ -113,6 +89,9 @@ namespace RainOfStages.Plugin
         public void Awake()
         {
             Logger.LogInfo("Initializing Rain of Stages");
+
+            SetupModdingSystems();
+
             LoadedScenes = new List<AssetBundle>();
             sceneDefList = new List<SceneDef>();
 
@@ -183,6 +162,35 @@ namespace RainOfStages.Plugin
 
 
             Initialized?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void SetupModdingSystems()
+        {
+            if (!Chainloader.PluginInfos.ContainsKey("R2API"))
+            {
+                Logger.LogWarning("Enabling modding systems");
+                RoR2Application.isModded = true;
+
+                try
+                {
+                    var consoleRedirectorType = typeof(RoR2.RoR2Application).GetNestedType("UnitySystemConsoleRedirector", BindingFlags.NonPublic);
+                    Logger.LogMessage($"{consoleRedirectorType.FullName} found in {typeof(RoR2Application).FullName}");
+
+                    var redirect = consoleRedirectorType.GetMethod("Redirect", BindingFlags.Public | BindingFlags.Static);
+                    Logger.LogMessage($"{redirect.Name}() found in {consoleRedirectorType.FullName}");
+
+                    HookEndpointManager.Add<Hook>(redirect, (Hook)(_ => { }));
+                }
+                catch (Exception e)
+                {
+                    Logger.LogError("Failed to redirect console");
+                }
+
+                var qpbcStart = typeof(QuickPlayButtonController).GetMethod("Start", BindingFlags.Instance | BindingFlags.NonPublic);
+                var digmOnEnable = typeof(DisableIfGameModded).GetMethod("OnEnable", BindingFlags.Instance | BindingFlags.Public);
+                HookEndpointManager.Add<Hook<QuickPlayButtonController>>(qpbcStart, (Hook<QuickPlayButtonController>)DisableQuickPlay);
+                HookEndpointManager.Add<Hook<DisableIfGameModded>>(digmOnEnable, (Hook<DisableIfGameModded>)DisableIfGameModded_Start);
+            }
         }
 
         private static void DisableQuickPlay(Action<QuickPlayButtonController> orig, QuickPlayButtonController self) => self.gameObject.SetActive(false);
