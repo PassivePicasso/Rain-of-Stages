@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Networking;
 using Path = System.IO.Path;
 using Run = PassivePicasso.ThunderKit.Proxy.RoR2.Run;
 
@@ -32,23 +33,27 @@ namespace PassivePicasso.RainOfStages.Plugin
             public FileInfo File;
             public string[] Content;
         }
-        private const string NamePrefix = "      Name: ";
 
         public static RainOfStages Instance { get; private set; }
 
         public static event EventHandler Initialized;
 
-        public static List<AssetBundle> StageManifestBundles;
-        public static List<AssetBundle> RunManifestBundles;
-        public static List<AssetBundle> OtherBundles;
-        public static List<AssetBundle> SceneBundles;
+        private static List<AssetBundle> stageManifestBundles;
+        private static List<AssetBundle> runManifestBundles;
+        private static List<AssetBundle> otherBundles;
+        private static List<AssetBundle> sceneBundles;
 
-        public IReadOnlyList<string> RunNames => Instance.runNames.AsReadOnly();
-        public IReadOnlyList<Run> Runs => Instance.runs.AsReadOnly();
+        public static IReadOnlyList<AssetBundle> StageManifestBundles { get => stageManifestBundles.AsReadOnly(); }
+        public static IReadOnlyList<AssetBundle> RunManifestBundles { get => runManifestBundles.AsReadOnly(); }
+        public static IReadOnlyList<AssetBundle> OtherBundles { get => otherBundles.AsReadOnly(); }
+        public static IReadOnlyList<AssetBundle> SceneBundles { get => sceneBundles.AsReadOnly(); }
+
+        public IReadOnlyList<string> GameModeNames => Instance.gameModeNames.AsReadOnly();
+        public IReadOnlyList<Run> GameModes => Instance.gameModes.AsReadOnly();
         public IReadOnlyList<SceneDef> SceneDefinitions => Instance.sceneDefinitions.AsReadOnly();
 
-        private List<Run> runs = new List<Run>();
-        private List<string> runNames = new List<string> { "ClassicRun" };
+        private List<Run> gameModes = new List<Run>();
+        private List<string> gameModeNames = new List<string> { "ClassicRun" };
         private List<SceneDef> sceneDefinitions = new List<SceneDef>();
         private FieldInfo gameModeCatalogIndexField = typeof(GameModeCatalog).GetField("indexToPrefabComponents", BindingFlags.NonPublic | BindingFlags.Static);
 
@@ -57,6 +62,7 @@ namespace PassivePicasso.RainOfStages.Plugin
         private bool countInitialized;
 
         public ManualLogSource RoSLog => base.Logger;
+
 
         public RainOfStages()
         {
@@ -91,9 +97,9 @@ namespace PassivePicasso.RainOfStages.Plugin
         {
             HookAttribute.ApplyHooks(typeof(ModdingHooks));
             HookAttribute.ApplyHooks(typeof(SceneCatalogHooks));
-            HookAttribute.ApplyHooks(typeof(ConfigureCampaignPanel));
+            HookAttribute.ApplyHooks(typeof(GameModePanel));
 
-            GameModeCatalog.getAdditionalEntries += ProvideAdditionalRuns;
+            GameModeCatalog.getAdditionalEntries += ProvideAdditionalGameModes;
             SceneCatalog.getAdditionalEntries += ProvideAdditionalSceneDefs;
         }
 
@@ -118,22 +124,13 @@ namespace PassivePicasso.RainOfStages.Plugin
             RoSLog.LogInfo("Initializing Rain of Stages");
             Initialize();
 
-            //var preGameController = typeof(RoR2Application).Assembly.GetType("RoR2.PreGameController", false);
-            //var gameModeConVar = preGameController.GetNestedType("RoR2.GameModeConVar", BindingFlags.NonPublic);
-            //var instanceField = gameModeConVar.GetField("instance", BindingFlags.Public | BindingFlags.Static);
-
-            //var gameModeConVarInstance = Activator.CreateInstance(gameModeConVar, "gamemode", ConVarFlags.ExecuteOnServer, "ClassicRun", "Sets the specified game mode as the one to use in the next run.");
-            //instanceField.SetValue(null, gameModeConVarInstance);
-
-            //typeof(RoR2.Console).GetField("allConVars", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(RoR2.Console.instance, gameModeConVar);
-
             var dir = GetPluginsDirectory();
 
             if (dir == null) throw new ArgumentException(@"invalid plugin path detected, could not find expected ""plugins"" folder in parent tree");
 
             LoadAssetBundles(dir);
             RoSLog.LogInfo($"Loaded Scene Definitions: {sceneDefinitions.Select(sd => sd.baseSceneName).Aggregate((a, b) => $"{a}, {b}")}");
-            RoSLog.LogInfo($"Loaded Custom Runs: {runs.Select(run => run.name).Aggregate((a, b) => $"{a}, {b}")}");
+            RoSLog.LogInfo($"Loaded Custom Runs: {gameModes.Select(run => run.name).Aggregate((a, b) => $"{a}, {b}")}");
 
 
             Initialized?.Invoke(this, EventArgs.Empty);
@@ -147,9 +144,9 @@ namespace PassivePicasso.RainOfStages.Plugin
 
                 RoR2.Run[] runs = (global::RoR2.Run[])value;
 
-                runNames = runs.Select(r => r.name).Distinct().Where(run => !forbiddenRuns.Contains(run)).ToList();
+                gameModeNames = runs.Select(r => r.name).Distinct().Where(run => !forbiddenRuns.Contains(run)).ToList();
 
-                RoSLog.LogInfo($"Loaded Custom Runs: {runNames.Aggregate((a, b) => $"{a}, {b}")}");
+                RoSLog.LogInfo($"Loaded Custom Runs: {gameModeNames.Aggregate((a, b) => $"{a}, {b}")}");
 
                 countInitialized = true;
             }
@@ -161,11 +158,11 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         private void Initialize()
         {
-            StageManifestBundles = new List<AssetBundle>();
-            RunManifestBundles = new List<AssetBundle>();
-            OtherBundles = new List<AssetBundle>();
-            SceneBundles = new List<AssetBundle>();
-            runs = new List<Run>();
+            stageManifestBundles = new List<AssetBundle>();
+            runManifestBundles = new List<AssetBundle>();
+            otherBundles = new List<AssetBundle>();
+            sceneBundles = new List<AssetBundle>();
+            gameModes = new List<Run>();
             sceneDefinitions = new List<SceneDef>();
         }
 
@@ -207,19 +204,19 @@ namespace PassivePicasso.RainOfStages.Plugin
                             switch (bundle.name)
                             {
                                 case "stagemanifest":
-                                    StageManifestBundles.Add(bundle);
+                                    stageManifestBundles.Add(bundle);
                                     break;
                                 case "runmanifest":
-                                    RunManifestBundles.Add(bundle);
+                                    runManifestBundles.Add(bundle);
                                     break;
                                 default:
                                     if (bundle.isStreamedSceneAssetBundle)
                                     {
-                                        SceneBundles.Add(bundle);
+                                        sceneBundles.Add(bundle);
                                         RoSLog.LogInfo($"Loaded Scene {definitionBundle}");
                                     }
                                     else
-                                        OtherBundles.Add(bundle);
+                                        otherBundles.Add(bundle);
 
                                     break;
                             }
@@ -241,17 +238,22 @@ namespace PassivePicasso.RainOfStages.Plugin
             foreach (var bundle in RunManifestBundles)
             {
                 var customRuns = bundle.LoadAllAssets<GameObject>().Select(go => go.GetComponent<Run>()).Where(run => run != null);
-                if (customRuns.Any()) runs.AddRange(customRuns);
+                if (customRuns.Any())
+                {
+                    gameModes.AddRange(customRuns);
+                    foreach(var customRun in customRuns)
+                        ClientScene.RegisterPrefab(customRun.gameObject);
+                }
             }
         }
 
         #endregion
 
         #region Catalog Injection
-        private void ProvideAdditionalRuns(List<GameObject> obj)
+        private void ProvideAdditionalGameModes(List<GameObject> obj)
         {
             RoSLog.LogMessage("Loading additional runs");
-            obj.AddRange(runs.Select(r => r.gameObject));
+            obj.AddRange(gameModes.Select(r => r.gameObject));
             addedModeEntries = true;
         }
         private void ProvideAdditionalSceneDefs(List<SceneDef> sceneDefinitions)

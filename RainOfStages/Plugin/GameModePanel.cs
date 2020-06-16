@@ -15,15 +15,15 @@ namespace PassivePicasso.RainOfStages.UI
     using RainOfStages = Plugin.RainOfStages;
     using Run = ThunderKit.Proxy.RoR2.Run;
 
-    public class ConfigureCampaignPanel : NetworkBehaviour
+    public class GameModePanel : NetworkBehaviour
     {
         static readonly Regex gameModeCheck = new Regex(".*gamemode\\s(\\w+);.*", RegexOptions.Compiled | RegexOptions.Singleline);
         static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
 
-        private static ConfigureCampaignPanel instance;
+        private static GameModePanel instance;
 
         [SyncVar]
-        private int selectedRunIndex;
+        private int gameModeIndex;
 
         public Button nextButton;
         public Button previousButton;
@@ -32,18 +32,18 @@ namespace PassivePicasso.RainOfStages.UI
 
         public Texture2D defaultimage;
 
-        IReadOnlyList<string> RunNames => RainOfStages.Instance.RunNames;
-        IReadOnlyList<Run> Runs => RainOfStages.Instance.Runs;
+        IReadOnlyList<string> GameModeNames => RainOfStages.Instance.GameModeNames;
+        IReadOnlyList<Run> GameModes => RainOfStages.Instance.GameModes;
 
 
         // Start is called before the first frame update
         void OnEnable()
         {
-            nextButton.onClick.AddListener(CmdNextRun);
-            previousButton.onClick.AddListener(CmdPreviousRun);
+            nextButton.onClick.AddListener(NextRun);
+            previousButton.onClick.AddListener(PreviousRun);
             UpdateRunSelection(previewImage, campaignTitle);
 
-            ConfigureCampaignPanel.instance = this;
+            GameModePanel.instance = this;
         }
 
         private void OnDisable()
@@ -51,7 +51,7 @@ namespace PassivePicasso.RainOfStages.UI
             nextButton.onClick.RemoveAllListeners();
             previousButton.onClick.RemoveAllListeners();
 
-            ConfigureCampaignPanel.instance = null;
+            GameModePanel.instance = null;
         }
 
         [Hook(typeof(RoR2.Console))]
@@ -64,41 +64,31 @@ namespace PassivePicasso.RainOfStages.UI
             if (match.Success)
             {
                 var runName = match.Groups[1].Value;
-                var index = instance.RunNames.ToList().IndexOf(runName);
-                if (index != instance.selectedRunIndex)
-                    instance.selectedRunIndex = index;
+                var index = instance.GameModeNames.ToList().IndexOf(runName);
+                if (index != instance.gameModeIndex)
+                    instance.gameModeIndex = index;
 
-                if (instance.selectedRunIndex == -1) instance.selectedRunIndex = 0;
+                if (instance.gameModeIndex == -1) instance.gameModeIndex = 0;
+                instance.UpdateRunSelection(instance.previewImage, instance.campaignTitle); 
                 if (NetworkServer.active)
                 {
-                    PreGameController.instance.NetworkgameModeIndex = instance.selectedRunIndex;
+                    PreGameController.instance.NetworkgameModeIndex = GameModeCatalog.FindGameModeIndex(instance.GameModeNames[instance.gameModeIndex]);
+                    PreGameController.instance.runSeed = GameModeCatalog.GetGameModePrefabComponent(PreGameController.instance.gameModeIndex).GenerateSeedForNewRun();
                 }
-
-                instance.UpdateRunSelection(instance.previewImage, instance.campaignTitle);
             }
         }
 
-        //[Hook("RoR2.PreGameController+GameModeConVar")]
-        //public void SetString(string newValue)
-        //{
-        //    if (NetworkServer.active)
-        //    {
-        //    }
-        //}
-
-        [Command]
-        void CmdNextRun()
+        void NextRun()
         {
-            if (++selectedRunIndex >= RunNames.Count) selectedRunIndex = 0;
-            Send($"gamemode {RunNames[selectedRunIndex]};");
+            if (++gameModeIndex >= GameModeNames.Count) gameModeIndex = 0;
+            Send($"gamemode {GameModeNames[gameModeIndex]};");
         }
 
 
-        [Command]
-        void CmdPreviousRun()
+        void PreviousRun()
         {
-            if (--selectedRunIndex < 0) selectedRunIndex = RunNames.Count - 1;
-            Send($"gamemode {RunNames[selectedRunIndex]};");
+            if (--gameModeIndex < 0) gameModeIndex = GameModeNames.Count - 1;
+            Send($"gamemode {GameModeNames[gameModeIndex]};");
         }
 
         void Send(string command)
@@ -113,7 +103,7 @@ namespace PassivePicasso.RainOfStages.UI
 
         private void UpdateRunSelection(Image previewImage, TMP_Text textComponent)
         {
-            string selectedRun = RunNames[selectedRunIndex];
+            string selectedRun = GameModeNames[gameModeIndex];
             Logger.LogInfo($"Selected Run: {selectedRun}");
             var run = GameModeCatalog.FindGameModePrefabComponent(selectedRun) as Run;
             if (previewImage)
@@ -123,13 +113,13 @@ namespace PassivePicasso.RainOfStages.UI
                 if (run && run.previewTexture)
                     previewTexture = run.previewTexture;
                 else
-                    previewTexture = Runs.FirstOrDefault(rn => rn.name.Equals(selectedRun))?.previewTexture;
+                    previewTexture = GameModes.FirstOrDefault(rn => rn.name.Equals(selectedRun))?.previewTexture;
 
                 Texture2D texture2D = previewTexture ? previewTexture : defaultimage;
                 if (texture2D)
                     previewImage.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), Vector2.zero);
             }
-            textComponent.text = RunNames[selectedRunIndex];
+            textComponent.text = GameModeNames[gameModeIndex];
         }
     }
 }
