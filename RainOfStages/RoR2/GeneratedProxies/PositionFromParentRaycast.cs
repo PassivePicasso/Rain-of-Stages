@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class PositionFromParentRaycast : global::PositionFromParentRaycast {}
+    public partial class PositionFromParentRaycast : global::PositionFromParentRaycast {}
 }

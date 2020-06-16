@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class EntityStateManager : global::EntityStateManager {}
+    public partial class EntityStateManager : global::EntityStateManager {}
 }

@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class VFXAttributes : global::RoR2.VFXAttributes {}
+    public partial class VFXAttributes : global::RoR2.VFXAttributes {}
 }

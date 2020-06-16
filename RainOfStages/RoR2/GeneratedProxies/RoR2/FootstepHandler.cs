@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class FootstepHandler : global::RoR2.FootstepHandler {}
+    public partial class FootstepHandler : global::RoR2.FootstepHandler {}
 }

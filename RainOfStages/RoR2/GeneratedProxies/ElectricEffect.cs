@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class ElectricEffect : global::ElectricEffect {}
+    public partial class ElectricEffect : global::ElectricEffect {}
 }

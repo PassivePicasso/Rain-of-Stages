@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class BezierCurveLine : global::BezierCurveLine {}
+    public partial class BezierCurveLine : global::BezierCurveLine {}
 }

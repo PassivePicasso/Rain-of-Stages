@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class BeginRapidlyActivatingAndDeactivating : global::BeginRapidlyActivatingAndDeactivating {}
+    public partial class BeginRapidlyActivatingAndDeactivating : global::BeginRapidlyActivatingAndDeactivating {}
 }

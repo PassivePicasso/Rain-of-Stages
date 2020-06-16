@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class FocusedConvergenceAnimator : global::FocusedConvergenceAnimator {}
+    public partial class FocusedConvergenceAnimator : global::FocusedConvergenceAnimator {}
 }

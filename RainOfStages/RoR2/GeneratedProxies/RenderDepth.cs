@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class RenderDepth : global::RenderDepth {}
+    public partial class RenderDepth : global::RenderDepth {}
 }

@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class ZiplineController : global::RoR2.ZiplineController {}
+    public partial class ZiplineController : global::RoR2.ZiplineController {}
 }

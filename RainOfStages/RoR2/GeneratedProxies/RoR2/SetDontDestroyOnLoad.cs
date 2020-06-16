@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class SetDontDestroyOnLoad : global::RoR2.SetDontDestroyOnLoad {}
+    public partial class SetDontDestroyOnLoad : global::RoR2.SetDontDestroyOnLoad {}
 }

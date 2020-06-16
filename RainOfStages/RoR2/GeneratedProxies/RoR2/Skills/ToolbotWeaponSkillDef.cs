@@ -1,5 +1,5 @@
 using global::RoR2.Skills;
-namespace RainOfStages.Proxy.RoR2.Skills
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Skills
 {
-    public class ToolbotWeaponSkillDef : global::RoR2.Skills.ToolbotWeaponSkillDef {}
+    public partial class ToolbotWeaponSkillDef : global::RoR2.Skills.ToolbotWeaponSkillDef {}
 }

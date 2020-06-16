@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class DustStreakManager : global::RoR2.DustStreakManager {}
+    public partial class DustStreakManager : global::RoR2.DustStreakManager {}
 }

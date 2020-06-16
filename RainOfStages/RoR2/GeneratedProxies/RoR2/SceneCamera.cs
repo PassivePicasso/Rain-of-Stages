@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class SceneCamera : global::RoR2.SceneCamera {}
+    public partial class SceneCamera : global::RoR2.SceneCamera {}
 }

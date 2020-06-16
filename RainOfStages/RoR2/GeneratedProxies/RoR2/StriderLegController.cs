@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class StriderLegController : global::RoR2.StriderLegController {}
+    public partial class StriderLegController : global::RoR2.StriderLegController {}
 }

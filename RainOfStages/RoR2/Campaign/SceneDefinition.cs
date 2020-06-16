@@ -1,7 +1,7 @@
 ﻿using RoR2;
 using System.Collections.Generic;
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.RainOfStages.Proxy
 {
     public class SceneDefinition : SceneDef
     {

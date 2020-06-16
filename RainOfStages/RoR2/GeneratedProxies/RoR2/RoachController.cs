@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class RoachController : global::RoR2.RoachController {}
+    public partial class RoachController : global::RoR2.RoachController {}
 }

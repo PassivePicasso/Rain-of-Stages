@@ -1,5 +1,5 @@
 using global::RoR2.Skills;
-namespace RainOfStages.Proxy.RoR2.Skills
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Skills
 {
-    public class SkillDef : global::RoR2.Skills.SkillDef {}
+    public partial class SkillDef : global::RoR2.Skills.SkillDef {}
 }

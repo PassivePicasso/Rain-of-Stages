@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class HealthPickup : global::RoR2.HealthPickup {}
+    public partial class HealthPickup : global::RoR2.HealthPickup {}
 }

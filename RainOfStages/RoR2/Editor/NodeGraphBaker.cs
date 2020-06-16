@@ -1,4 +1,4 @@
-﻿using RainOfStages.Configurators;
+﻿using PassivePicasso.RainOfStages.Configurators;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,9 +9,9 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using GraphType = RoR2.Navigation.MapNodeGroup.GraphType;
 using MapNodeGroup = RoR2.Navigation.MapNodeGroup;
-using SceneInfo = RainOfStages.Proxy.RoR2.SceneInfo;
+using SceneInfo = PassivePicasso.ThunderKit.Proxy.RoR2.SceneInfo;
 
-namespace RainOfStages
+namespace PassivePicasso.RainOfStages
 {
     public class NodeGraphBaker : ScriptableObject
     {
@@ -170,7 +170,7 @@ namespace RainOfStages
             var innerWatch = new Stopwatch();
             innerWatch.Start();
 
-            var nodeGraph = CreateInstance<Proxy.NodeGraph>();
+            var nodeGraph = CreateInstance<ThunderKit.Proxy.RoR2.Navigation.NodeGraph>();
             nodeGraph.name = $"{name}NodeGraph";
 
             mapNodeGroup.graphType = graphType;

@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class DynamicBoneCollider : global::DynamicBoneCollider {}
+    public partial class DynamicBoneCollider : global::DynamicBoneCollider {}
 }

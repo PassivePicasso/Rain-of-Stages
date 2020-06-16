@@ -1,5 +1,5 @@
 using global::RoR2.UI;
-namespace RainOfStages.Proxy.RoR2.UI
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.UI
 {
-    public class MoneyText : global::RoR2.UI.MoneyText {}
+    public partial class MoneyText : global::RoR2.UI.MoneyText {}
 }

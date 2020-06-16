@@ -1,5 +1,5 @@
 using global::RoR2.UI;
-namespace RainOfStages.Proxy.RoR2.UI
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.UI
 {
-    public class VoteInfoPanelController : global::RoR2.UI.VoteInfoPanelController {}
+    public partial class VoteInfoPanelController : global::RoR2.UI.VoteInfoPanelController {}
 }

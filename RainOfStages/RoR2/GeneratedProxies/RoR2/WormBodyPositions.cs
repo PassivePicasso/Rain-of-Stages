@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class WormBodyPositions : global::RoR2.WormBodyPositions {}
+    public partial class WormBodyPositions : global::RoR2.WormBodyPositions {}
 }

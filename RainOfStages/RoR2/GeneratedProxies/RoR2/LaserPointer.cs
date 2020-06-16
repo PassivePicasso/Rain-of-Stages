@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class LaserPointer : global::RoR2.LaserPointer {}
+    public partial class LaserPointer : global::RoR2.LaserPointer {}
 }

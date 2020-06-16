@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class POISecretChest : global::POISecretChest {}
+    public partial class POISecretChest : global::POISecretChest {}
 }

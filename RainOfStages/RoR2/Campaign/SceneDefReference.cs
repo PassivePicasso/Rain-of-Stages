@@ -1,6 +1,6 @@
 ﻿using RoR2;
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.RainOfStages.Proxy
 {
     public class SceneDefReference : SceneDef
     {

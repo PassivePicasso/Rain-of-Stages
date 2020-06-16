@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class FallBootsLights : global::RoR2.FallBootsLights {}
+    public partial class FallBootsLights : global::RoR2.FallBootsLights {}
 }

@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class EntityStateMachine : global::RoR2.EntityStateMachine {}
+    public partial class EntityStateMachine : global::RoR2.EntityStateMachine {}
 }

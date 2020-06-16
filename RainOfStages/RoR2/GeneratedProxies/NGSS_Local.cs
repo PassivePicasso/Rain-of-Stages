@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class NGSS_Local : global::NGSS_Local {}
+    public partial class NGSS_Local : global::NGSS_Local {}
 }

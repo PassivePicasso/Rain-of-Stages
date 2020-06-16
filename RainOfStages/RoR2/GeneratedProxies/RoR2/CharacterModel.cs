@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class CharacterModel : global::RoR2.CharacterModel {}
+    public partial class CharacterModel : global::RoR2.CharacterModel {}
 }

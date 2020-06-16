@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class TracerBehavior : global::TracerBehavior {}
+    public partial class TracerBehavior : global::TracerBehavior {}
 }

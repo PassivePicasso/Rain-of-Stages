@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class PingerController : global::RoR2.PingerController {}
+    public partial class PingerController : global::RoR2.PingerController {}
 }

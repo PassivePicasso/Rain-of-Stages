@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class DeskPlantController : global::RoR2.DeskPlantController {}
+    public partial class DeskPlantController : global::RoR2.DeskPlantController {}
 }

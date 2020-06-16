@@ -1,5 +1,5 @@
 using global::RoR2.UI;
-namespace RainOfStages.Proxy.RoR2.UI
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.UI
 {
-    public class SettingsPanelController : global::RoR2.UI.SettingsPanelController {}
+    public partial class SettingsPanelController : global::RoR2.UI.SettingsPanelController {}
 }

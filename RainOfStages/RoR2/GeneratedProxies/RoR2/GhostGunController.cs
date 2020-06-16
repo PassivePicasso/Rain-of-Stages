@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class GhostGunController : global::RoR2.GhostGunController {}
+    public partial class GhostGunController : global::RoR2.GhostGunController {}
 }

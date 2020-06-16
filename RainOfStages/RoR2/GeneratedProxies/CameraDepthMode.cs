@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class CameraDepthMode : global::CameraDepthMode {}
+    public partial class CameraDepthMode : global::CameraDepthMode {}
 }

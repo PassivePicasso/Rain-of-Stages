@@ -1,10 +1,10 @@
-﻿using RainOfStages.Proxy.RoR2;
+﻿using PassivePicasso.ThunderKit.Proxy.RoR2;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 
-namespace RainOfStages.Editor
+namespace PassivePicasso.RainOfStages.Editor
 {
     public class DCCSProcessor
     {

@@ -1,5 +1,5 @@
 using global::RoR2.CharacterAI;
-namespace RainOfStages.Proxy.RoR2.CharacterAI
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.CharacterAI
 {
-    public class EmergencyDroneCustomTarget : global::RoR2.CharacterAI.EmergencyDroneCustomTarget {}
+    public partial class EmergencyDroneCustomTarget : global::RoR2.CharacterAI.EmergencyDroneCustomTarget {}
 }

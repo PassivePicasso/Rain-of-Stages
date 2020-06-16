@@ -1,5 +1,5 @@
 using global::RoR2.Mecanim;
-namespace RainOfStages.Proxy.RoR2.Mecanim
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Mecanim
 {
-    public class PlaySoundOnEnter : global::RoR2.Mecanim.PlaySoundOnEnter {}
+    public partial class PlaySoundOnEnter : global::RoR2.Mecanim.PlaySoundOnEnter {}
 }

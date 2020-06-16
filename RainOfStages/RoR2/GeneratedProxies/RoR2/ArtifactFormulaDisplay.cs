@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class ArtifactFormulaDisplay : global::RoR2.ArtifactFormulaDisplay {}
+    public partial class ArtifactFormulaDisplay : global::RoR2.ArtifactFormulaDisplay {}
 }

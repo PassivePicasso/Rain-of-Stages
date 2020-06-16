@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class HoverOverHead : global::HoverOverHead {}
+    public partial class HoverOverHead : global::HoverOverHead {}
 }

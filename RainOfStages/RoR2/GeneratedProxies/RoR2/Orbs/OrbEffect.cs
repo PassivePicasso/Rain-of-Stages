@@ -1,5 +1,5 @@
 using global::RoR2.Orbs;
-namespace RainOfStages.Proxy.RoR2.Orbs
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Orbs
 {
-    public class OrbEffect : global::RoR2.Orbs.OrbEffect {}
+    public partial class OrbEffect : global::RoR2.Orbs.OrbEffect {}
 }

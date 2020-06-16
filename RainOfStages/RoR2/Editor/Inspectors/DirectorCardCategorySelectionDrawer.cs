@@ -4,7 +4,7 @@ using System.Linq;
 using RoR2;
 using System.Collections.Generic;
 
-namespace RainOfStages.Editor
+namespace PassivePicasso.RainOfStages.Editor
 {
     [CustomPropertyDrawer(typeof(DirectorCardCategorySelection), true)]
     public class DirectorCardCategorySelectionDrawer : PropertyDrawer

@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class ShrinePlaceTotem : global::ShrinePlaceTotem {}
+    public partial class ShrinePlaceTotem : global::ShrinePlaceTotem {}
 }

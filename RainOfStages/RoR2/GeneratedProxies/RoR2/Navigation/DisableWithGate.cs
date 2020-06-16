@@ -1,5 +1,5 @@
 using global::RoR2.Navigation;
-namespace RainOfStages.Proxy.RoR2.Navigation
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Navigation
 {
-    public class DisableWithGate : global::RoR2.Navigation.DisableWithGate {}
+    public partial class DisableWithGate : global::RoR2.Navigation.DisableWithGate {}
 }

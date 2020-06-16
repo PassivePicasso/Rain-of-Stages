@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.RainOfStages.Proxy
 {
     public class BodySpawnCard : global::RoR2.BodySpawnCard, IProxyReference<global::RoR2.SpawnCard>
     {

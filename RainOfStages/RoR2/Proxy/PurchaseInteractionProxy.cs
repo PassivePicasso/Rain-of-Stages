@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RainOfStages.Interactable
+namespace PassivePicasso.RainOfStages.Interactable
 {
     [Serializable]
     public class PurchaseEvent : UnityEvent<Interactor>

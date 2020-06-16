@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class FogControl : global::FogControl {}
+    public partial class FogControl : global::FogControl {}
 }

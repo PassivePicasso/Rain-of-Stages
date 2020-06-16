@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class ArtifactTrialMissionController : global::RoR2.ArtifactTrialMissionController {}
+    public partial class ArtifactTrialMissionController : global::RoR2.ArtifactTrialMissionController {}
 }

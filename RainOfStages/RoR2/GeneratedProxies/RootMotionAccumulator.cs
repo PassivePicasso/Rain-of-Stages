@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class RootMotionAccumulator : global::RootMotionAccumulator {}
+    public partial class RootMotionAccumulator : global::RootMotionAccumulator {}
 }

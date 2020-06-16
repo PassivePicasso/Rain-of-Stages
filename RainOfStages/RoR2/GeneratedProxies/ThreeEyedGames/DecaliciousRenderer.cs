@@ -1,5 +1,5 @@
 using global::ThreeEyedGames;
-namespace RainOfStages.Proxy.ThreeEyedGames
+namespace PassivePicasso.ThunderKit.Proxy.ThreeEyedGames
 {
-    public class DecaliciousRenderer : global::ThreeEyedGames.DecaliciousRenderer {}
+    public partial class DecaliciousRenderer : global::ThreeEyedGames.DecaliciousRenderer {}
 }

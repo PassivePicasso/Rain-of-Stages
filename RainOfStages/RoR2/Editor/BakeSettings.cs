@@ -1,12 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
-#if UNITY_EDITOR
-using RainOfStages.Utilities;
-using UnityEditor;
-#endif
 
-namespace RainOfStages
+namespace PassivePicasso.RainOfStages
 {
     public class BakeSettings : ScriptableObject
     {

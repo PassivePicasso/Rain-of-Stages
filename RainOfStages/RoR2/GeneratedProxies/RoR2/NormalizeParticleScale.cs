@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class NormalizeParticleScale : global::RoR2.NormalizeParticleScale {}
+    public partial class NormalizeParticleScale : global::RoR2.NormalizeParticleScale {}
 }

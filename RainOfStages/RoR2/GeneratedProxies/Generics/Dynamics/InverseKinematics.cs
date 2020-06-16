@@ -1,5 +1,5 @@
 using global::Generics.Dynamics;
-namespace RainOfStages.Proxy.Generics.Dynamics
+namespace PassivePicasso.ThunderKit.Proxy.Generics.Dynamics
 {
-    public class InverseKinematics : global::Generics.Dynamics.InverseKinematics {}
+    public partial class InverseKinematics : global::Generics.Dynamics.InverseKinematics {}
 }

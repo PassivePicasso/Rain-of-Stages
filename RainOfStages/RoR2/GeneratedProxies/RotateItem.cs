@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class RotateItem : global::RotateItem {}
+    public partial class RotateItem : global::RotateItem {}
 }

@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class BeamPointsFromTransforms : global::BeamPointsFromTransforms {}
+    public partial class BeamPointsFromTransforms : global::BeamPointsFromTransforms {}
 }

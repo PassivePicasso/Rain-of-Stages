@@ -1,5 +1,5 @@
 using global::RoR2.Projectile;
-namespace RainOfStages.Proxy.RoR2.Projectile
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Projectile
 {
-    public class ProjectileOverlapAttack : global::RoR2.Projectile.ProjectileOverlapAttack {}
+    public partial class ProjectileOverlapAttack : global::RoR2.Projectile.ProjectileOverlapAttack {}
 }

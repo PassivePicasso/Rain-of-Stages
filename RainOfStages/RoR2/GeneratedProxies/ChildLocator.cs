@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class ChildLocator : global::ChildLocator {}
+    public partial class ChildLocator : global::ChildLocator {}
 }

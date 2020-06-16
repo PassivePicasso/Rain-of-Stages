@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RainOfStages.Configurators
+namespace PassivePicasso.RainOfStages.Configurators
 {
     public static class MeshExtension
     {

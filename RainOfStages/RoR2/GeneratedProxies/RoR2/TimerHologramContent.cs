@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class TimerHologramContent : global::RoR2.TimerHologramContent {}
+    public partial class TimerHologramContent : global::RoR2.TimerHologramContent {}
 }

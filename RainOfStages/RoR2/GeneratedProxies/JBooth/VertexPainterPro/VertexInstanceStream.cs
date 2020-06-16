@@ -1,5 +1,5 @@
 using global::JBooth.VertexPainterPro;
-namespace RainOfStages.Proxy.JBooth.VertexPainterPro
+namespace PassivePicasso.ThunderKit.Proxy.JBooth.VertexPainterPro
 {
-    public class VertexInstanceStream : global::JBooth.VertexPainterPro.VertexInstanceStream {}
+    public partial class VertexInstanceStream : global::JBooth.VertexPainterPro.VertexInstanceStream {}
 }

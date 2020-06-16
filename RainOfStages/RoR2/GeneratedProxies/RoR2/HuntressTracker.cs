@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class HuntressTracker : global::RoR2.HuntressTracker {}
+    public partial class HuntressTracker : global::RoR2.HuntressTracker {}
 }

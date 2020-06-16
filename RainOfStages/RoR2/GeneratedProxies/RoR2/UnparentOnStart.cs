@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class UnparentOnStart : global::RoR2.UnparentOnStart {}
+    public partial class UnparentOnStart : global::RoR2.UnparentOnStart {}
 }

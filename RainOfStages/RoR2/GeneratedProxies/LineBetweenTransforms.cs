@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class LineBetweenTransforms : global::LineBetweenTransforms {}
+    public partial class LineBetweenTransforms : global::LineBetweenTransforms {}
 }

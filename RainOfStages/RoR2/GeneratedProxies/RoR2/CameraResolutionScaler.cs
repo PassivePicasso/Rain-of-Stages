@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class CameraResolutionScaler : global::RoR2.CameraResolutionScaler {}
+    public partial class CameraResolutionScaler : global::RoR2.CameraResolutionScaler {}
 }

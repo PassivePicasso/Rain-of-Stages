@@ -1,5 +1,5 @@
 using global::EntityLogic;
-namespace RainOfStages.Proxy.EntityLogic
+namespace PassivePicasso.ThunderKit.Proxy.EntityLogic
 {
-    public class Counter : global::EntityLogic.Counter {}
+    public partial class Counter : global::EntityLogic.Counter {}
 }

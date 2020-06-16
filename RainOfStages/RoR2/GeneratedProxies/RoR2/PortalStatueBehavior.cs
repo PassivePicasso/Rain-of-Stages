@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class PortalStatueBehavior : global::RoR2.PortalStatueBehavior {}
+    public partial class PortalStatueBehavior : global::RoR2.PortalStatueBehavior {}
 }

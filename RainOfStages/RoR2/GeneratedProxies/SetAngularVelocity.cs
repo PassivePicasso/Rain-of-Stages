@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class SetAngularVelocity : global::SetAngularVelocity {}
+    public partial class SetAngularVelocity : global::SetAngularVelocity {}
 }

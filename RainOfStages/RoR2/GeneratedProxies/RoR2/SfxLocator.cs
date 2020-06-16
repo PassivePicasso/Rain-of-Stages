@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class SfxLocator : global::RoR2.SfxLocator {}
+    public partial class SfxLocator : global::RoR2.SfxLocator {}
 }

@@ -1,5 +1,5 @@
 using global::RoR2.UI;
-namespace RainOfStages.Proxy.RoR2.UI
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.UI
 {
-    public class GenericNotification : global::RoR2.UI.GenericNotification {}
+    public partial class GenericNotification : global::RoR2.UI.GenericNotification {}
 }

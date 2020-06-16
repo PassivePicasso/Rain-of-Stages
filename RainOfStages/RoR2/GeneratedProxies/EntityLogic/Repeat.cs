@@ -1,5 +1,5 @@
 using global::EntityLogic;
-namespace RainOfStages.Proxy.EntityLogic
+namespace PassivePicasso.ThunderKit.Proxy.EntityLogic
 {
-    public class Repeat : global::EntityLogic.Repeat {}
+    public partial class Repeat : global::EntityLogic.Repeat {}
 }

@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class BasicBezierSpline : global::RoR2.BasicBezierSpline {}
+    public partial class BasicBezierSpline : global::RoR2.BasicBezierSpline {}
 }

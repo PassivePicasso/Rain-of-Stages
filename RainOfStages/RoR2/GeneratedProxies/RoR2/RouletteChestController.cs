@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class RouletteChestController : global::RoR2.RouletteChestController {}
+    public partial class RouletteChestController : global::RoR2.RouletteChestController {}
 }

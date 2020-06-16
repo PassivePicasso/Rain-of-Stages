@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class VectorPID : global::VectorPID {}
+    public partial class VectorPID : global::VectorPID {}
 }

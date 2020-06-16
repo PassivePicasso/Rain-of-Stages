@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class ContactDamage : global::RoR2.ContactDamage {}
+    public partial class ContactDamage : global::RoR2.ContactDamage {}
 }

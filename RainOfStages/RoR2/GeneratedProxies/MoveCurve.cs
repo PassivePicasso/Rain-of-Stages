@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class MoveCurve : global::MoveCurve {}
+    public partial class MoveCurve : global::MoveCurve {}
 }

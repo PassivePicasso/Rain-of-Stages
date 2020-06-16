@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class ConstrainToScreen : global::RoR2.ConstrainToScreen {}
+    public partial class ConstrainToScreen : global::RoR2.ConstrainToScreen {}
 }

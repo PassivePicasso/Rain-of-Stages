@@ -1,5 +1,5 @@
 using global::KinematicCharacterController;
-namespace RainOfStages.Proxy.KinematicCharacterController
+namespace PassivePicasso.ThunderKit.Proxy.KinematicCharacterController
 {
-    public class KinematicCharacterMotor : global::KinematicCharacterController.KinematicCharacterMotor {}
+    public partial class KinematicCharacterMotor : global::KinematicCharacterController.KinematicCharacterMotor {}
 }

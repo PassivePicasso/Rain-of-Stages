@@ -1,8 +1,7 @@
 {
     "name": "RainOfStages.RoR2.Editor",
     "references": [
-        "RainOfStages.RoR2",
-        "RainOfStages.Utilities"
+        "RainOfStages.RoR2"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

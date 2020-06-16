@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class ApplyTorqueOnStart : global::RoR2.ApplyTorqueOnStart {}
+    public partial class ApplyTorqueOnStart : global::RoR2.ApplyTorqueOnStart {}
 }

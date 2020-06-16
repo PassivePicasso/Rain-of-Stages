@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class PreGameController : global::RoR2.PreGameController {}
+    public partial class PreGameController : global::RoR2.PreGameController {}
 }

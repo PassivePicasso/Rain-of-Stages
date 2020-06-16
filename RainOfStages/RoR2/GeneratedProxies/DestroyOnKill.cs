@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class DestroyOnKill : global::DestroyOnKill {}
+    public partial class DestroyOnKill : global::DestroyOnKill {}
 }

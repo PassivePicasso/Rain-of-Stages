@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class ForcePose : global::ForcePose {}
+    public partial class ForcePose : global::ForcePose {}
 }

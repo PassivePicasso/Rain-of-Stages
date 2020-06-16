@@ -94,9 +94,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleporterSpawnCard: {fileID: 11400000, guid: f6f59d96e3c6e074884c86e1a62c6fff,
     type: 2}
-  expRewardCoefficient: 0
-  eliteBias: 0
-  spawnDistanceMultiplier: 0
+  expRewardCoefficient: 0.06666667
+  eliteBias: 2
+  spawnDistanceMultiplier: 6
   teleporterInstance: {fileID: 0}
 --- !u!114 &6474242042706043886
 MonoBehaviour:
@@ -115,10 +115,12 @@ MonoBehaviour:
   expRewardCoefficient: 0.2
   minSeriesSpawnInterval: 0.1
   maxSeriesSpawnInterval: 1
-  minRerollSpawnInterval: 2.3333333
-  maxRerollSpawnInterval: 4.3333335
-  moneyWaveIntervals: []
-  creditMultiplier: 1
+  minRerollSpawnInterval: 4.5
+  maxRerollSpawnInterval: 9
+  moneyWaveIntervals:
+  - min: 1
+    max: 1
+  creditMultiplier: 0.75
   spawnDistanceMultiplier: 1
   shouldSpawnOneWave: 0
   targetPlayers: 1
@@ -150,10 +152,12 @@ MonoBehaviour:
   expRewardCoefficient: 0.2
   minSeriesSpawnInterval: 0.1
   maxSeriesSpawnInterval: 1
-  minRerollSpawnInterval: 2.3333333
-  maxRerollSpawnInterval: 4.3333335
-  moneyWaveIntervals: []
-  creditMultiplier: 1
+  minRerollSpawnInterval: 22.5
+  maxRerollSpawnInterval: 30
+  moneyWaveIntervals:
+  - min: 1
+    max: 1
+  creditMultiplier: 0.75
   spawnDistanceMultiplier: 1
   shouldSpawnOneWave: 0
   targetPlayers: 1

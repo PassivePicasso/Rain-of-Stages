@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class DamageNumberManager : global::RoR2.DamageNumberManager {}
+    public partial class DamageNumberManager : global::RoR2.DamageNumberManager {}
 }

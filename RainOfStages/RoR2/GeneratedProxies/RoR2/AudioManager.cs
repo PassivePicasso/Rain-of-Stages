@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class AudioManager : global::RoR2.AudioManager {}
+    public partial class AudioManager : global::RoR2.AudioManager {}
 }

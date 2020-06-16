@@ -1,5 +1,5 @@
 using global::RoR2.Projectile;
-namespace RainOfStages.Proxy.RoR2.Projectile
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Projectile
 {
-    public class ProjectileDeployToOwner : global::RoR2.Projectile.ProjectileDeployToOwner {}
+    public partial class ProjectileDeployToOwner : global::RoR2.Projectile.ProjectileDeployToOwner {}
 }

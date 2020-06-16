@@ -1,5 +1,5 @@
 using global::ThreeEyedGames;
-namespace RainOfStages.Proxy.ThreeEyedGames
+namespace PassivePicasso.ThunderKit.Proxy.ThreeEyedGames
 {
-    public class Decal : global::ThreeEyedGames.Decal {}
+    public partial class Decal : global::ThreeEyedGames.Decal {}
 }

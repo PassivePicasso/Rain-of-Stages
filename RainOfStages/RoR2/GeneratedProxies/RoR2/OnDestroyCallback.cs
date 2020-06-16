@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class OnDestroyCallback : global::RoR2.OnDestroyCallback {}
+    public partial class OnDestroyCallback : global::RoR2.OnDestroyCallback {}
 }

@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class PhysicsController : global::PhysicsController {}
+    public partial class PhysicsController : global::PhysicsController {}
 }

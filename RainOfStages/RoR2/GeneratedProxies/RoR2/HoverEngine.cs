@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class HoverEngine : global::RoR2.HoverEngine {}
+    public partial class HoverEngine : global::RoR2.HoverEngine {}
 }

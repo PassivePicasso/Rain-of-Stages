@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class DisableOnStart : global::DisableOnStart {}
+    public partial class DisableOnStart : global::DisableOnStart {}
 }

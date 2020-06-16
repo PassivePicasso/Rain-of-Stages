@@ -1,5 +1,5 @@
 using global::RoR2.Projectile;
-namespace RainOfStages.Proxy.RoR2.Projectile
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Projectile
 {
-    public class ProjectileDirectionalTargetFinder : global::RoR2.Projectile.ProjectileDirectionalTargetFinder {}
+    public partial class ProjectileDirectionalTargetFinder : global::RoR2.Projectile.ProjectileDirectionalTargetFinder {}
 }

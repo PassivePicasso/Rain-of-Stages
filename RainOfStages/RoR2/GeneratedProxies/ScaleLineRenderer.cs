@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class ScaleLineRenderer : global::ScaleLineRenderer {}
+    public partial class ScaleLineRenderer : global::ScaleLineRenderer {}
 }

@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class PhysicsImpactSpeedModifier : global::PhysicsImpactSpeedModifier {}
+    public partial class PhysicsImpactSpeedModifier : global::PhysicsImpactSpeedModifier {}
 }

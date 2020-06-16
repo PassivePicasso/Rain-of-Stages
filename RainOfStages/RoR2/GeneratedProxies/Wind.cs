@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class Wind : global::Wind {}
+    public partial class Wind : global::Wind {}
 }

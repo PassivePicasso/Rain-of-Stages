@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class FireAuraController : global::RoR2.FireAuraController {}
+    public partial class FireAuraController : global::RoR2.FireAuraController {}
 }

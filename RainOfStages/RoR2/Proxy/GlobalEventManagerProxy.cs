@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RainOfStages
+namespace PassivePicasso.RainOfStages.Proxy
 {
     public class GlobalEventManagerProxy : MonoBehaviour
     {

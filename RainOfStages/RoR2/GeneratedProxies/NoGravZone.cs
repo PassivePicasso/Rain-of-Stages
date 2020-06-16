@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class NoGravZone : global::NoGravZone {}
+    public partial class NoGravZone : global::NoGravZone {}
 }

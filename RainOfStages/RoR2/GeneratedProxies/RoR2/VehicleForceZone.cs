@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class VehicleForceZone : global::RoR2.VehicleForceZone {}
+    public partial class VehicleForceZone : global::RoR2.VehicleForceZone {}
 }

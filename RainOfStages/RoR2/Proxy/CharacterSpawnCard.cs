@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using UnityEngine;
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.RainOfStages.Proxy
 {
     public class CharacterSpawnCard : global::RoR2.CharacterSpawnCard, IProxyReference<global::RoR2.SpawnCard>
     {

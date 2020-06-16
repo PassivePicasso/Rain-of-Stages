@@ -1,22 +1,19 @@
-﻿using RainOfStages.Proxy;
-using RainOfStages.Proxy.RoR2;
-using RainOfStages.Utilities;
+﻿using PassivePicasso.RainOfStages.Proxy;
+using PassivePicasso.RainOfStages.Utilities;
+using PassivePicasso.ThunderKit.Proxy.RoR2;
+using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using BodySpawnCard = RainOfStages.Proxy.BodySpawnCard;
-using InteractableSpawnCard = RainOfStages.Proxy.InteractableSpawnCard;
-using CharacterSpawnCard = RainOfStages.Proxy.CharacterSpawnCard;
+using BodySpawnCard = PassivePicasso.RainOfStages.Proxy.BodySpawnCard;
+using CharacterSpawnCard = PassivePicasso.RainOfStages.Proxy.CharacterSpawnCard;
+using InteractableSpawnCard = PassivePicasso.RainOfStages.Proxy.InteractableSpawnCard;
 
-namespace RainOfStages.Editor
+namespace PassivePicasso.RainOfStages.Editor
 {
     public class CreateAsset : ScriptableObject
     {
-        public GameObject Director;
-        public GameObject GlobalEventManager;
-        public GameObject SceneInfo;
-
         [MenuItem("Assets/Rain of Stages/" + nameof(SurfaceDef))]
         public static void CreateSurfaceDef() => ScriptableHelper.CreateAsset<SurfaceDef>();
 
@@ -34,22 +31,22 @@ namespace RainOfStages.Editor
         public static void CreateBodySpawnCard() => ScriptableHelper.CreateAsset<BodySpawnCard>();
 
 
-        [MenuItem("Assets/Rain of Stages/Stages/" + nameof(SceneDefReference))]
+        [MenuItem("Assets/Rain of Stages/Stages/" + nameof(SceneDefReference), priority = 2)]
         public static void CreateSceneDefReference() => ScriptableHelper.CreateAsset<SceneDefReference>();
 
-        [MenuItem("Assets/Rain of Stages/Stages/" + nameof(SceneDefinition))]
+        [MenuItem("Assets/Rain of Stages/Stages/" + nameof(SceneDefinition), priority = 2)]
         public static void CreateCustomSceneProxy() => ScriptableHelper.CreateAsset<SceneDefinition>();
 
-        [MenuItem("Assets/Rain of Stages/Stages/New Stage")]
+        [MenuItem("Assets/Rain of Stages/New Stag&e", priority = 1)]
         public static void CreateStage()
         {
-            var createAsset = ScriptableObject.CreateInstance<CreateAsset>();
+            var defaultGameObjects = ScriptableObject.CreateInstance<DefaultGameObjects>();
 
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            PrefabUtility.InstantiatePrefab(createAsset.Director, scene);
-            PrefabUtility.InstantiatePrefab(createAsset.GlobalEventManager, scene);
-            PrefabUtility.InstantiatePrefab(createAsset.SceneInfo, scene);
+            PrefabUtility.InstantiatePrefab(defaultGameObjects.Director, scene);
+            PrefabUtility.InstantiatePrefab(defaultGameObjects.GlobalEventManager, scene);
+            PrefabUtility.InstantiatePrefab(defaultGameObjects.SceneInfo, scene);
             var worldObject = new GameObject("World");
             worldObject.layer = LayerMask.NameToLayer("World");
 
@@ -77,19 +74,53 @@ namespace RainOfStages.Editor
 
             DynamicGI.UpdateEnvironment();
             EditorSceneManager.MarkSceneDirty(scene);
-
-
-            //var tab = new LightingExplorerTab()
-
         }
 
+        [MenuItem("Assets/Rain of Stages/New Ru&n", priority = 1)]
+        public static void CreateRun()
+        {
+            var selectedPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            if (selectedPath.EndsWith(".prefab"))
+                selectedPath = Path.GetDirectoryName(selectedPath);
+
+            string name = $"CustomRun";
+            string localPath = GetUniquePath(name, selectedPath);
+            name = Path.GetFileNameWithoutExtension(localPath);
+            GameObject runObject = new GameObject(name, typeof(Run),
+                                                        typeof(TeamManager),
+                                                        typeof(RunCameraManager),
+                                                        typeof(RunArtifactManager),
+                                                        typeof(NetworkRuleBook));
+            CreateNew(runObject, localPath);
+            DestroyImmediate(runObject);
+        }
+
+        public static string GetUniquePath(string name, string rootPath = "Assets")
+        {
+            int i = -1;
+            string localPath = GetPath(name, rootPath, i);
+
+            //Check if the Prefab and/or name already exists at the path
+            while (AssetDatabase.LoadAssetAtPath(localPath, typeof(GameObject)))
+                localPath = GetPath(name, rootPath, ++i);
+            return localPath;
+        }
+
+        //Set the path as within the Assets folder, and name it as the GameObject's name with the .prefab format
+        public static string GetPath(string name, string rootPath = "Assets", int postfix = -1) => $"{rootPath}/{name}{(postfix > -1 ? $"_{postfix}" : "")}.prefab";
+
+        // Disable the menu item if no selection is in place
+        [MenuItem("Assets/Rain of Stages/Run", true)]
+        public static bool ValidateCreatePrefab() => Selection.activeObject != null;
+
+        public static void CreateNew(GameObject obj, string localPath)
+        {
+            //Create a new Prefab at the path given
+            Object prefab = PrefabUtility.CreatePrefab(localPath, obj);
+            PrefabUtility.ReplacePrefab(obj, prefab, ReplacePrefabOptions.ConnectToPrefab);
+        }
 
         [MenuItem("Assets/Rain of Stages/Modding Assets/" + nameof(BakeSettings))]
         public static void CreateBakeSettings() => ScriptableHelper.CreateAsset<BakeSettings>();
-
-
-        //[MenuItem("Tools/Rain of Stages/Generate Proxies")]
-        public static void GenerateProxies() => ProxyGenerator.GenerateProxies(typeof(RoR2.RoR2Application), "RoR2");
-
     }
 }

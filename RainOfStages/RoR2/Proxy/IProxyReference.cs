@@ -1,4 +1,4 @@
-﻿namespace RainOfStages.Proxy
+﻿namespace PassivePicasso.RainOfStages.Proxy
 {
     internal interface IProxyReference<T> where T : UnityEngine.Object
     {

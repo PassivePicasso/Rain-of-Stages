@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class MaulingRockZoneManager : global::MaulingRockZoneManager {}
+    public partial class MaulingRockZoneManager : global::MaulingRockZoneManager {}
 }

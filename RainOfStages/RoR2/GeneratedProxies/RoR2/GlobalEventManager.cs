@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class GlobalEventManager : global::RoR2.GlobalEventManager {}
+    public partial class GlobalEventManager : global::RoR2.GlobalEventManager {}
 }

@@ -1,5 +1,5 @@
 using global::RoR2.UI.MainMenu;
-namespace RainOfStages.Proxy.RoR2.UI.MainMenu
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.UI.MainMenu
 {
-    public class BaseMainMenuScreen : global::RoR2.UI.MainMenu.BaseMainMenuScreen {}
+    public partial class BaseMainMenuScreen : global::RoR2.UI.MainMenu.BaseMainMenuScreen {}
 }

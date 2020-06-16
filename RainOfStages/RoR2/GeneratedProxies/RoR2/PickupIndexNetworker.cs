@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class PickupIndexNetworker : global::RoR2.PickupIndexNetworker {}
+    public partial class PickupIndexNetworker : global::RoR2.PickupIndexNetworker {}
 }

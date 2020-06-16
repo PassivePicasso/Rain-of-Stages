@@ -1,5 +1,5 @@
 using global::RoR2.UI;
-namespace RainOfStages.Proxy.RoR2.UI
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.UI
 {
-    public class ScoreboardController : global::RoR2.UI.ScoreboardController {}
+    public partial class ScoreboardController : global::RoR2.UI.ScoreboardController {}
 }

@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class FireworkLauncher : global::RoR2.FireworkLauncher {}
+    public partial class FireworkLauncher : global::RoR2.FireworkLauncher {}
 }

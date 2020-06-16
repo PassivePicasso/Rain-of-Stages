@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class Visualizer : global::Visualizer {}
+    public partial class Visualizer : global::Visualizer {}
 }

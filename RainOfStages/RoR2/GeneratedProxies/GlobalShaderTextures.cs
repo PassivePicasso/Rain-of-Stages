@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class GlobalShaderTextures : global::GlobalShaderTextures {}
+    public partial class GlobalShaderTextures : global::GlobalShaderTextures {}
 }

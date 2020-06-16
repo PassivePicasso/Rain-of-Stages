@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class RenderInFrontOfParticles : global::RenderInFrontOfParticles {}
+    public partial class RenderInFrontOfParticles : global::RenderInFrontOfParticles {}
 }

@@ -1,5 +1,5 @@
 using global::LeTai.Asset.TranslucentImage;
-namespace RainOfStages.Proxy.LeTai.Asset.TranslucentImage
+namespace PassivePicasso.ThunderKit.Proxy.LeTai.Asset.TranslucentImage
 {
-    public class TranslucentImageSource : global::LeTai.Asset.TranslucentImage.TranslucentImageSource {}
+    public partial class TranslucentImageSource : global::LeTai.Asset.TranslucentImage.TranslucentImageSource {}
 }

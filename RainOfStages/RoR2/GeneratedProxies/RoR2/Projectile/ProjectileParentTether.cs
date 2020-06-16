@@ -1,5 +1,5 @@
 using global::RoR2.Projectile;
-namespace RainOfStages.Proxy.RoR2.Projectile
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Projectile
 {
-    public class ProjectileParentTether : global::RoR2.Projectile.ProjectileParentTether {}
+    public partial class ProjectileParentTether : global::RoR2.Projectile.ProjectileParentTether {}
 }

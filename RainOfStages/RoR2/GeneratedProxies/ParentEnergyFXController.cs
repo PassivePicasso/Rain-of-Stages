@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class ParentEnergyFXController : global::ParentEnergyFXController {}
+    public partial class ParentEnergyFXController : global::ParentEnergyFXController {}
 }

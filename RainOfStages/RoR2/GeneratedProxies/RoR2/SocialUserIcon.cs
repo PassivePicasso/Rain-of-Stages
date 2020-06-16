@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class SocialUserIcon : global::RoR2.SocialUserIcon {}
+    public partial class SocialUserIcon : global::RoR2.SocialUserIcon {}
 }

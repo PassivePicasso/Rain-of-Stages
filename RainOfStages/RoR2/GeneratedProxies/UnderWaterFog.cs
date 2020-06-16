@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class UnderWaterFog : global::UnderWaterFog {}
+    public partial class UnderWaterFog : global::UnderWaterFog {}
 }

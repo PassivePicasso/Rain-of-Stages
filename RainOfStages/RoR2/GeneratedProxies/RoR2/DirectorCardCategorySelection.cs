@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class DirectorCardCategorySelection : global::RoR2.DirectorCardCategorySelection {}
+    public partial class DirectorCardCategorySelection : global::RoR2.DirectorCardCategorySelection {}
 }

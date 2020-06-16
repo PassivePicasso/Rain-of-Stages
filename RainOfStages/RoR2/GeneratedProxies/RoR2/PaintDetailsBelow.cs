@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class PaintDetailsBelow : global::RoR2.PaintDetailsBelow {}
+    public partial class PaintDetailsBelow : global::RoR2.PaintDetailsBelow {}
 }

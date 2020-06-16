@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class NGSS_ContactShadows : global::NGSS_ContactShadows {}
+    public partial class NGSS_ContactShadows : global::NGSS_ContactShadows {}
 }

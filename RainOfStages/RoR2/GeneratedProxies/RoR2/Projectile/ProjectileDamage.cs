@@ -1,5 +1,5 @@
 using global::RoR2.Projectile;
-namespace RainOfStages.Proxy.RoR2.Projectile
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.Projectile
 {
-    public class ProjectileDamage : global::RoR2.Projectile.ProjectileDamage {}
+    public partial class ProjectileDamage : global::RoR2.Projectile.ProjectileDamage {}
 }

@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class ScaledCamera : global::ScaledCamera {}
+    public partial class ScaledCamera : global::ScaledCamera {}
 }

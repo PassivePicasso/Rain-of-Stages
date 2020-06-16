@@ -1,5 +1,5 @@
 using global::RoR2.UI.LogBook;
-namespace RainOfStages.Proxy.RoR2.UI.LogBook
+namespace PassivePicasso.ThunderKit.Proxy.RoR2.UI.LogBook
 {
-    public class LogBookController : global::RoR2.UI.LogBook.LogBookController {}
+    public partial class LogBookController : global::RoR2.UI.LogBook.LogBookController {}
 }

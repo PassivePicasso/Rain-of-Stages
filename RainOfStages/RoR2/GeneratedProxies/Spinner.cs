@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class Spinner : global::Spinner {}
+    public partial class Spinner : global::Spinner {}
 }

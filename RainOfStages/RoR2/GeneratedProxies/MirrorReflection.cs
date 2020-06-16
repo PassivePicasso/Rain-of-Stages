@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class MirrorReflection : global::MirrorReflection {}
+    public partial class MirrorReflection : global::MirrorReflection {}
 }

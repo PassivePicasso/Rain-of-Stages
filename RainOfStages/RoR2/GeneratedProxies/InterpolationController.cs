@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class InterpolationController : global::InterpolationController {}
+    public partial class InterpolationController : global::InterpolationController {}
 }

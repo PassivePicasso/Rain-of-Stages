@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class WarningIndicator : global::WarningIndicator {}
+    public partial class WarningIndicator : global::WarningIndicator {}
 }

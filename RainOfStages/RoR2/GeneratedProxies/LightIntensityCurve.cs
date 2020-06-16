@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class LightIntensityCurve : global::LightIntensityCurve {}
+    public partial class LightIntensityCurve : global::LightIntensityCurve {}
 }

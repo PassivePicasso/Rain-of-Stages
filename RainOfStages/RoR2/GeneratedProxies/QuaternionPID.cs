@@ -1,5 +1,5 @@
 
-namespace RainOfStages.Proxy
+namespace PassivePicasso.ThunderKit.Proxy
 {
-    public class QuaternionPID : global::QuaternionPID {}
+    public partial class QuaternionPID : global::QuaternionPID {}
 }

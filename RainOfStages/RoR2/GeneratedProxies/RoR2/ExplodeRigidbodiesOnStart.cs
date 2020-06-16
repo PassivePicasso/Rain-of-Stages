@@ -1,5 +1,5 @@
 using global::RoR2;
-namespace RainOfStages.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
-    public class ExplodeRigidbodiesOnStart : global::RoR2.ExplodeRigidbodiesOnStart {}
+    public partial class ExplodeRigidbodiesOnStart : global::RoR2.ExplodeRigidbodiesOnStart {}
 }
