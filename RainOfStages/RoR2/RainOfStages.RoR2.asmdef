@@ -7,8 +7,13 @@
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "BepInEx.dll",
+        "MonoMod.RuntimeDetour.dll",
+        "Assembly-CSharp.dll",
+        "Rewired_CSharp.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": []
 }

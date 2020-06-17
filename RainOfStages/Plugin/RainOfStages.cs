@@ -3,6 +3,7 @@ using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using MonoMod.RuntimeDetour.HookGen;
 using PassivePicasso.RainOfStages.Hooks;
+using PassivePicasso.RainOfStages.Monomod;
 using PassivePicasso.RainOfStages.Proxy;
 using PassivePicasso.RainOfStages.UI;
 using RoR2;
@@ -70,6 +71,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             RoSLog.LogWarning("Constructor Executed");
 
             DetourAttribute.Logger = RoSLog;
+            HookAttribute.Logger = RoSLog;
 
             ApplyAttributes();
 
@@ -98,6 +100,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             HookAttribute.ApplyHooks(typeof(ModdingHooks));
             HookAttribute.ApplyHooks(typeof(SceneCatalogHooks));
             HookAttribute.ApplyHooks(typeof(GameModePanel));
+            HookAttribute.ApplyHooks(typeof(ThunderKit.Proxy.RoR2.GlobalEventManager));
 
             GameModeCatalog.getAdditionalEntries += ProvideAdditionalGameModes;
             SceneCatalog.getAdditionalEntries += ProvideAdditionalSceneDefs;

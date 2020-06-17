@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 
 
-namespace PassivePicasso.RainOfStages
+namespace PassivePicasso.RainOfStages.Monomod
 {
     internal class DetourMap
     {

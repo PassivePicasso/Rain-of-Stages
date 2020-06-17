@@ -21,7 +21,7 @@ namespace PassivePicasso.RainOfStages.Editor
         public string RunName;
 
 
-        [MenuItem("Assets/Rain of Stages/Create Run")]
+        [MenuItem("Assets/Rain of Stages/Create Ru&n", priority = 1)]
         static void CreateWizard()
         {
             var ror2ModKitAsm = typeof(Proxy.BodySpawnCard).Assembly;

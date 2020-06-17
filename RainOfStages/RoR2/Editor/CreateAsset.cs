@@ -57,7 +57,7 @@ namespace PassivePicasso.RainOfStages.Editor
             light.type = LightType.Directional;
             light.intensity = 1.2f;
             (float h, float s, float v) color = (0, 0, 0);
-            Color.RGBToHSV(Color.cyan, out color.h, out color.s, out color.v);
+            Color.RGBToHSV(Color.white, out color.h, out color.s, out color.v);
             color.s = 0.5f;
             color.v = 0.8f;
             light.lightmapBakeType = LightmapBakeType.Realtime;
@@ -76,25 +76,6 @@ namespace PassivePicasso.RainOfStages.Editor
             EditorSceneManager.MarkSceneDirty(scene);
         }
 
-        [MenuItem("Assets/Rain of Stages/New Ru&n", priority = 1)]
-        public static void CreateRun()
-        {
-            var selectedPath = AssetDatabase.GetAssetPath(Selection.activeObject);
-            if (selectedPath.EndsWith(".prefab"))
-                selectedPath = Path.GetDirectoryName(selectedPath);
-
-            string name = $"CustomRun";
-            string localPath = GetUniquePath(name, selectedPath);
-            name = Path.GetFileNameWithoutExtension(localPath);
-            GameObject runObject = new GameObject(name, typeof(Run),
-                                                        typeof(TeamManager),
-                                                        typeof(RunCameraManager),
-                                                        typeof(RunArtifactManager),
-                                                        typeof(NetworkRuleBook));
-            CreateNew(runObject, localPath);
-            DestroyImmediate(runObject);
-        }
-
         public static string GetUniquePath(string name, string rootPath = "Assets")
         {
             int i = -1;
@@ -109,9 +90,6 @@ namespace PassivePicasso.RainOfStages.Editor
         //Set the path as within the Assets folder, and name it as the GameObject's name with the .prefab format
         public static string GetPath(string name, string rootPath = "Assets", int postfix = -1) => $"{rootPath}/{name}{(postfix > -1 ? $"_{postfix}" : "")}.prefab";
 
-        // Disable the menu item if no selection is in place
-        [MenuItem("Assets/Rain of Stages/Run", true)]
-        public static bool ValidateCreatePrefab() => Selection.activeObject != null;
 
         public static void CreateNew(GameObject obj, string localPath)
         {

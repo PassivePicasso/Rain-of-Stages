@@ -6,17 +6,8 @@ using System.Linq;
 using System.Reflection;
 
 
-namespace PassivePicasso.RainOfStages
+namespace PassivePicasso.RainOfStages.Monomod
 {
-    using RainOfStages = PassivePicasso.RainOfStages.Plugin.RainOfStages;
-    [Flags]
-    public enum OrigInvocation
-    {
-        Before = 0x0,
-        Skip = 0x2,
-        After = 0x1,
-    }
-
     internal class HookMap
     {
         public MethodInfo SourceMethod;
@@ -28,7 +19,7 @@ namespace PassivePicasso.RainOfStages
     {
 
         private static readonly ParameterModifier[] EmptyPMs = new ParameterModifier[0];
-        public static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
+        public static ManualLogSource Logger;
 
         public string MethodName { get; }
         public bool IsStatic { get; }

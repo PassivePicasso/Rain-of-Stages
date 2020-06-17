@@ -1,4 +1,5 @@
 ﻿using BepInEx.Logging;
+using PassivePicasso.RainOfStages.Monomod;
 using PassivePicasso.RainOfStages.Proxy;
 using RoR2;
 using RoR2.UI;
