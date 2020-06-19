@@ -33,13 +33,6 @@ namespace PassivePicasso.RainOfStages.Hooks
             convar.flags = ConVarFlags.ExecuteOnServer;
         }
 
-        //[Hook(typeof(RoR2.Console))]
-        //public static void SubmitCmd(Action<RoR2.Console, NetworkUser, string, bool> orig, RoR2.Console self, NetworkUser sender, string cmd, bool recordSubmit = false)
-        //{
-        //    Logger.LogInfo($"processing cmd: {cmd}");
-        //    orig(self, sender, cmd, recordSubmit);
-        //}
-
         [Hook(typeof(DisableIfGameModded))]
         public static void OnEnable(Action<DisableIfGameModded> orig, DisableIfGameModded self) => self.gameObject.SetActive(false);
 
