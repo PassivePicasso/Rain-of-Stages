@@ -78,20 +78,6 @@ namespace PassivePicasso.RainOfStages.Plugin
             if (!Chainloader.PluginInfos.ContainsKey("R2API"))
             {
                 RoR2Application.isModded = true;
-
-                try
-                {
-                    var consoleRedirectorType = typeof(RoR2.RoR2Application).GetNestedType("UnitySystemConsoleRedirector", BindingFlags.NonPublic);
-                    RoSLog.LogMessage($"{consoleRedirectorType.FullName} found in {typeof(RoR2Application).FullName}");
-                    var redirect = consoleRedirectorType.GetMethod("Redirect", BindingFlags.Public | BindingFlags.Static);
-                    RoSLog.LogMessage($"{redirect.Name}() found in {consoleRedirectorType.FullName}");
-                    HookEndpointManager.Add<Action>(redirect, (Action)(() => { }));
-                }
-                catch (Exception)
-                {
-                    RoSLog.LogError("Failed to redirect console");
-                }
-
             }
         }
 
