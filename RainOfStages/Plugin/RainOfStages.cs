@@ -97,10 +97,19 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         private void ApplyAttributes()
         {
-            HookAttribute.ApplyHooks(typeof(ModdingHooks));
-            HookAttribute.ApplyHooks(typeof(SceneCatalogHooks));
-            HookAttribute.ApplyHooks(typeof(GameModePanel));
-            HookAttribute.ApplyHooks(typeof(ThunderKit.Proxy.RoR2.GlobalEventManager));
+            HookAttribute.Logger = RoSLog;
+            var types = new[] { typeof(ModdingHooks), typeof(SceneCatalogHooks),
+                //typeof(GameModePanel),
+                typeof(ThunderKit.Proxy.RoR2.GlobalEventManager),
+            };
+            foreach (var type in types)
+            {
+                try
+                {
+                    HookAttribute.ApplyHooks(type);
+                }
+                catch { }
+            }
 
             GameModeCatalog.getAdditionalEntries += ProvideAdditionalGameModes;
             SceneCatalog.getAdditionalEntries += ProvideAdditionalSceneDefs;
@@ -244,7 +253,7 @@ namespace PassivePicasso.RainOfStages.Plugin
                 if (customRuns.Any())
                 {
                     gameModes.AddRange(customRuns);
-                    foreach(var customRun in customRuns)
+                    foreach (var customRun in customRuns)
                         ClientScene.RegisterPrefab(customRun.gameObject);
                 }
             }

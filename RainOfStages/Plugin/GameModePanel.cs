@@ -73,7 +73,6 @@ namespace PassivePicasso.RainOfStages.UI
                 instance.UpdateRunSelection(instance.previewImage, instance.campaignTitle); 
                 if (NetworkServer.active)
                 {
-                    PreGameController.instance.NetworkgameModeIndex = GameModeCatalog.FindGameModeIndex(instance.GameModeNames[instance.gameModeIndex]);
                     PreGameController.instance.runSeed = GameModeCatalog.GetGameModePrefabComponent(PreGameController.instance.gameModeIndex).GenerateSeedForNewRun();
                 }
             }
@@ -100,7 +99,6 @@ namespace PassivePicasso.RainOfStages.UI
                 sender = localPlayersList[0];
             RoR2.Console.instance.SubmitCmd(sender, command, true);
         }
-
 
         private void UpdateRunSelection(Image previewImage, TMP_Text textComponent)
         {

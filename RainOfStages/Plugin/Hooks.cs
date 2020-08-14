@@ -3,7 +3,9 @@ using PassivePicasso.RainOfStages.Monomod;
 using PassivePicasso.RainOfStages.Proxy;
 using RoR2;
 using RoR2.UI;
+using RoR2.UI.MainMenu;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -48,7 +50,8 @@ namespace PassivePicasso.RainOfStages.Hooks
             orig(self);
         }
 
-        [Hook(typeof(CharacterSelectController), "Start")]
+        //Disable vote Selector
+        //[Hook(typeof(CharacterSelectController), "Start")]
         private static void CharacterSelectController_Start(Action<CharacterSelectController> orig, CharacterSelectController self)
         {
             orig(self);
@@ -76,6 +79,49 @@ namespace PassivePicasso.RainOfStages.Hooks
             {
                 Logger.LogMessage("Finished Main Menu Modifications");
             }
+        }
+
+
+        static IReadOnlyList<string> GameModeNames => RainOfStages.Instance.GameModeNames;
+        [Hook(typeof(MainMenuController), "Start")]
+        public static void MainMenuController_Start(Action<MainMenuController> orig, MainMenuController self)
+        {
+            orig(self);
+            try
+            {
+                Logger.LogMessage("Adding GameModes to Alternate GameMOdes menu");
+
+                var weeklyButton = GameObject.Find("GenericMenuButton (Weekly)");
+                var juicedPanel = weeklyButton.transform.parent;
+
+
+                foreach (var gameMode in GameModeNames)
+                {
+                    var copied = GameObject.Instantiate(weeklyButton);
+                    copied.transform.parent = juicedPanel;
+                    GameObject.DestroyImmediate(copied.GetComponent<RoR2.DisableIfGameModded>());
+                    copied.SetActive(true);
+
+                    var tmc = copied.GetComponent<LanguageTextMeshController>();
+                    tmc.token = gameMode;
+
+                    var consoleFunctions = copied.GetComponent<RoR2.ConsoleFunctions>();
+
+                    copied.GetComponent<HGButton>()
+                          .onClick.AddListener(() => consoleFunctions.SubmitCmd($"transition_command \"set_scene {gameMode}\""));
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.LogError("Error Adding Run Selector to Main Menu");
+                Logger.LogError(e.Message);
+                Logger.LogError(e.StackTrace);
+            }
+            finally
+            {
+                Logger.LogMessage("Finished Main Menu Modifications");
+            }
+
         }
     }
     internal class SceneCatalogHooks
