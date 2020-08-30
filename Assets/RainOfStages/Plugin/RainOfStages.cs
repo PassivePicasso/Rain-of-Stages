@@ -81,7 +81,8 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         private void ApplyAttributes()
         {
-            HookAttribute.Logger = RoSLog;
+            HookAttribute.Logger = RoSLog; 
+            try { HookAttribute.ApplyHooks<SceneCatalogHook>(); } catch (Exception e) { Logger.LogError(e); }
             try { HookAttribute.ApplyHooks<NonProxyHooks>(); } catch (Exception e) { Logger.LogError(e); }
             try { HookAttribute.ApplyHooks<ThunderKit.Proxy.RoR2.GlobalEventManager>(); } catch (Exception e) { Logger.LogError(e); }
 

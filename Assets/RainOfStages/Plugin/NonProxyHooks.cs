@@ -64,12 +64,15 @@ namespace PassivePicasso.RainOfStages.Hooks
                 orig(self);
             }
         }
+    }
 
+    public class SceneCatalogHook
+    {
         [Hook(typeof(SceneCatalog), isStatic: true)]
         private static void Init(Action orig)
         {
             orig();
-            HookAttribute.DisableHooks(typeof(NonProxyHooks));
+            HookAttribute.DisableHooks(typeof(SceneCatalogHook));
 
             var lookups = SceneCatalog.allSceneDefs.ToDictionary(sd => sd.baseSceneName);
 
