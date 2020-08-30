@@ -1,46 +1,21 @@
-﻿using PassivePicasso.ThunderKit.Proxy.RoR2;
-using System.Linq;
-using UnityEditor;
-using UnityEngine;
-
+﻿using RoR2;
 
 namespace PassivePicasso.RainOfStages.Editor.DataPreProcessors
 {
-    public class DCCSProcessor
+    public class DCCSProcessor : DataPreProcessor<DirectorCardCategorySelection, DCCSProcessor>
     {
-        public static string[] CategorySelectionGuids;
-        public static DirectorCardCategorySelection[] CategorySelections;
-        public static DirectorCardCategorySelection[] MonsterSelections;
-        public static DirectorCardCategorySelection[] InteractableSelections;
-        public static DirectorCardCategorySelection[] MonsterFamilies;
-
-        static int waitTime = 10;
-        static float elapsed = 0;
-
-        private static void UpdateSelectionsCache()
+        public override string Group(DirectorCardCategorySelection instance)
         {
-            string[] set = AssetDatabase.FindAssets("t:DirectorCardCategorySelection");
-
-            elapsed += Time.deltaTime;
-            if (elapsed < waitTime) return;
-            elapsed = 0;
-
-            CategorySelectionGuids = set;
-
-            CategorySelections = set.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-                                .Select(path => AssetDatabase.LoadAssetAtPath<DirectorCardCategorySelection>(path))
-                                .ToArray();
-
-            MonsterSelections = CategorySelections.Where(dccs => dccs.name.Contains("Monsters")).ToArray();
-            InteractableSelections = CategorySelections.Where(dccs => dccs.name.Contains("Interactables")).ToArray();
-            MonsterFamilies = CategorySelections.Where(dccs => dccs.name.Contains("Family")).ToArray();
-        }
-
-        [InitializeOnLoadMethod()]
-        static void Initialize()
-        {
-            EditorApplication.update += UpdateSelectionsCache;
-            UpdateSelectionsCache();
+            switch (instance.name)
+            {
+                case string name when name.Contains("Monsters"):
+                    return "Monster Categories";
+                case string name when name.Contains("Interactables"):
+                    return "Interactable Categories";
+                case string name when name.Contains("Family"):
+                    return "Monster Family Categories";
+            }
+            return base.Group(instance);
         }
     }
 }
