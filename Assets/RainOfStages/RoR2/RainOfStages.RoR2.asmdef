@@ -1,0 +1,19 @@
+{
+    "name": "RainOfStages.RoR2",
+    "references": [
+        "Unity.TextMeshPro"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "BepInEx.dll",
+        "MonoMod.RuntimeDetour.dll",
+        "Assembly-CSharp.dll",
+        "Rewired_CSharp.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

@@ -1,0 +1,16 @@
+{
+    "name": "RainOfStages.RoR2.Editor",
+    "references": [
+        "RainOfStages.RoR2"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
