@@ -73,46 +73,22 @@ namespace PassivePicasso.RainOfStages.Plugin
 
             ApplyAttributes();
 
-            //if (!Chainloader.PluginInfos.ContainsKey("R2API"))
-            //{
-            //    RoR2Application.isModded = true;
-            //}
+            if (!Chainloader.PluginInfos.ContainsKey("R2API"))
+            {
+                RoR2Application.isModded = true;
+            }
         }
 
         private void ApplyAttributes()
         {
             HookAttribute.Logger = RoSLog;
-            var types = new[] { typeof(ModdingHooks), typeof(SceneCatalogHooks),
-                //typeof(GameModePanel),
-                typeof(ThunderKit.Proxy.RoR2.GlobalEventManager),
-            };
-            foreach (var type in types)
-            {
-                try
-                {
-                    HookAttribute.ApplyHooks(type);
-                }
-                catch { }
-            }
+            try { HookAttribute.ApplyHooks<NonProxyHooks>(); } catch (Exception e) { Logger.LogError(e); }
+            try { HookAttribute.ApplyHooks<ThunderKit.Proxy.RoR2.GlobalEventManager>(); } catch (Exception e) { Logger.LogError(e); }
 
             GameModeCatalog.getAdditionalEntries += ProvideAdditionalGameModes;
             SceneCatalog.getAdditionalEntries += ProvideAdditionalSceneDefs;
         }
 
-        //private void OnDisable()
-        //{
-        //    DetourAttribute.DisableDetours(typeof(RainOfStages));
-
-        //    HookAttribute.DisableHooks(typeof(ConfigureCampaignPanel));
-        //    HookAttribute.DisableHooks(typeof(RainOfStages));
-        //    HookAttribute.DisableHooks(typeof(ModdingHooks));
-        //    HookAttribute.DisableHooks(typeof(SceneCatalogHooks));
-        //    HookAttribute.DisableHooks(typeof(QuickPlayButtonControllerHooks));
-        //    HookAttribute.DisableHooks(typeof(SceneDefHooks));
-
-        //    GameModeCatalog.getAdditionalEntries -= ProvideAdditionalRuns;
-        //    SceneCatalog.getAdditionalEntries -= ProvideAdditionalSceneDefs;
-        //}
 
         #region Messages
         public void Awake()
@@ -125,9 +101,15 @@ namespace PassivePicasso.RainOfStages.Plugin
             if (dir == null) throw new ArgumentException(@"invalid plugin path detected, could not find expected ""plugins"" folder in parent tree");
 
             LoadAssetBundles(dir);
-            RoSLog.LogInfo($"Loaded Scene Definitions: {sceneDefinitions.Select(sd => sd.baseSceneName).Aggregate((a, b) => $"{a}, {b}")}");
-            RoSLog.LogInfo($"Loaded Custom Runs: {gameModes.Select(run => run.name).Aggregate((a, b) => $"{a}, {b}")}");
+            if (sceneDefinitions.Any())
+                RoSLog.LogInfo($"Loaded Scene Definitions: {sceneDefinitions.Select(sd => sd.baseSceneName).Aggregate((a, b) => $"{a}, {b}")}");
+            else
+                RoSLog.LogInfo($"Loaded no Scene Definitions");
 
+            if (gameModes.Any())
+                RoSLog.LogInfo($"Loaded Runs: {gameModes.Select(run => run.name).Aggregate((a, b) => $"{a}, {b}")}");
+            else
+                RoSLog.LogInfo($"No extra runs loaded");
 
             Initialized?.Invoke(this, EventArgs.Empty);
         }

@@ -3,6 +3,7 @@ using UnityEditor;
 using System.Linq;
 using RoR2;
 using System.Collections.Generic;
+using PassivePicasso.RainOfStages.Editor.DataPreProcessors;
 
 namespace PassivePicasso.RainOfStages.Editor
 {

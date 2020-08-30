@@ -12,7 +12,8 @@
         "BepInEx.dll",
         "MonoMod.RuntimeDetour.dll",
         "Assembly-CSharp.dll",
-        "Rewired_CSharp.dll"
+        "Rewired_CSharp.dll",
+        "Wwise.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": []
