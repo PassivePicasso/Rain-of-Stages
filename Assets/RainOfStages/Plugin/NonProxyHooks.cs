@@ -64,12 +64,17 @@ namespace PassivePicasso.RainOfStages.Hooks
                 orig(self);
             }
         }
+    }
+
+    public class SceneCatalogHooks
+    {
+        static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
 
         [Hook(typeof(SceneCatalog), isStatic: true)]
         private static void Init(Action orig)
         {
             orig();
-            HookAttribute.DisableHooks(typeof(NonProxyHooks));
+            HookAttribute.DisableHooks(typeof(SceneCatalogHooks));
 
             var lookups = SceneCatalog.allSceneDefs.ToDictionary(sd => sd.baseSceneName);
 
