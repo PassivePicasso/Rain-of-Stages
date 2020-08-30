@@ -66,7 +66,7 @@ namespace PassivePicasso.RainOfStages.Hooks
         }
     }
 
-    public class SceneCatalogHooks
+    internal class SceneCatalogHooks
     {
         static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
 
