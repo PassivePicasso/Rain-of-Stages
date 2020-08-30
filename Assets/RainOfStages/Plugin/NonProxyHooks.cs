@@ -7,40 +7,17 @@ using RoR2.UI.MainMenu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace PassivePicasso.RainOfStages.Hooks
 {
     using RainOfStages = Plugin.RainOfStages;
-    internal class ModdingHooks
+    internal class NonProxyHooks
     {
         static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
-        private static FieldInfo[] sceneDefFields = typeof(SceneDef).GetFields(BindingFlags.Public | BindingFlags.Instance);
-
-        [Hook(typeof(SceneDef))]
-        private static void Awake(Action<SceneDef> orig, SceneDef self)
-        {
-            if (self is SceneDefReference sdr)
-            {
-                var def = Resources.Load<SceneDef>($"SceneDefs/{sdr.name}");
-                foreach (var field in sceneDefFields)
-                    field.SetValue(self, field.GetValue(def));
-            }
-            orig(self);
-        }
-
-        [Hook(typeof(PreGameController.GameModeConVar), "SetString")]
-        public static void SetString(Action<PreGameController.GameModeConVar, string> orig, PreGameController.GameModeConVar self, string newValue)
-        {
-            Logger.LogInfo($"Setting GameMode = {newValue}");
-            orig(self, newValue);
-            Logger.LogInfo($"Set GameModePrefab = {self.runPrefabComponent}");
-        }
-
         static IReadOnlyList<string> GameModeNames => RainOfStages.Instance.GameModeNames;
+
         [Hook(typeof(MainMenuController), "Start")]
         private static void MainMenuController_Start(Action<MainMenuController> orig, MainMenuController self)
         {

@@ -1,5 +1,6 @@
 ﻿using PassivePicasso.RainOfStages.Proxy;
 using PassivePicasso.RainOfStages.Utilities;
+using PassivePicasso.ThunderKit.Proxy;
 using PassivePicasso.ThunderKit.Proxy.RoR2;
 using System.IO;
 using UnityEditor;
@@ -20,6 +21,8 @@ namespace PassivePicasso.RainOfStages.Editor
         [MenuItem("Assets/Rain of Stages/" + nameof(DirectorCardCategorySelection))]
         public static void CreateDirectorCardCategorySelection() => ScriptableHelper.CreateAsset<DirectorCardCategorySelection>();
 
+        [MenuItem("Assets/Rain of Stages/" + nameof(MusicTrackDefRef))]
+        public static void CreateMusicTrackDefRef() => ScriptableHelper.CreateAsset<MusicTrackDefRef>();
 
         [MenuItem("Assets/Rain of Stages/SpawnCards/" + nameof(SpawnCard))]
         public static void CreateSpawnCard() => ScriptableHelper.CreateAsset<SpawnCard>();

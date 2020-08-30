@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace PassivePicasso.RainOfStages.Editor
+namespace PassivePicasso.RainOfStages.Editor.DataPreProcessors
 {
     public class DCCSProcessor
     {

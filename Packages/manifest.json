@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.passivepicasso.rainofstages": "file:../RainOfStages",
     "com.passivepicasso.thunderkit": "https://github.com/PassivePicasso/ThunderKit.git",
     "com.unity.assetbundlebrowser": "1.7.0",
     "com.unity.package-manager-ui": "2.0.8",
@@ -38,5 +37,11 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.passivepicasso.thunderkit": {
+      "revision": "HEAD",
+      "hash": "f8fb949d835b0ade8bfa93ad1b1e5888754c4814"
+    }
   }
 }

@@ -46,6 +46,7 @@ namespace PassivePicasso.RainOfStages.Monomod
             => type.GetMethods(bindingFlags)
                    .Select(mi => new HookMap { SourceMethod = mi, Hook = mi.GetCustomAttributes<HookAttribute>().FirstOrDefault() })
                    .Where(dm => dm.Hook != null);
+        public static void ApplyHooks<T>() => ApplyHooks(typeof(T));
         public static void ApplyHooks(Type type)
         {
             var retargets = GetRetargets(type, BindingFlags.Public | BindingFlags.Static)
