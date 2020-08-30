@@ -79,3 +79,5 @@ crashlytics-build.properties
 /ros_temp
 /bbepis-BepInExPack.zip
 /Assets/ProBuilder Data
+/Assets/.gitignore
+/ProjectSettings/Packages/com.unity.polybrush
