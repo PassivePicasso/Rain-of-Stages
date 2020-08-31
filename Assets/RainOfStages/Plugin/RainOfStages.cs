@@ -31,6 +31,7 @@ namespace PassivePicasso.RainOfStages.Plugin
         {
             public FileInfo File;
             public string[] Content;
+            public Manifest manifest;
         }
 
         public static RainOfStages Instance { get; private set; }
@@ -55,7 +56,7 @@ namespace PassivePicasso.RainOfStages.Plugin
         private List<string> gameModeNames = new List<string> { "ClassicRun" };
         private List<SceneDef> sceneDefinitions = new List<SceneDef>();
         private FieldInfo gameModeCatalogIndexField = typeof(GameModeCatalog).GetField("indexToPrefabComponents", BindingFlags.NonPublic | BindingFlags.Static);
-
+        private List<Manifest> manifests = new List<Manifest>();
         private string[] forbiddenRuns = new[] { "BaseDefenseRun", "WeeklyRun" };
         private bool addedModeEntries;
         private bool countInitialized;
@@ -79,18 +80,6 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-        private void ApplyAttributes()
-        {
-            HookAttribute.Logger = RoSLog; 
-            try { HookAttribute.ApplyHooks<SceneCatalogHooks>(); } catch (Exception e) { Logger.LogError(e); }
-            try { HookAttribute.ApplyHooks<NonProxyHooks>(); } catch (Exception e) { Logger.LogError(e); }
-            try { HookAttribute.ApplyHooks<ThunderKit.Proxy.RoR2.GlobalEventManager>(); } catch (Exception e) { Logger.LogError(e); }
-
-            GameModeCatalog.getAdditionalEntries += ProvideAdditionalGameModes;
-            SceneCatalog.getAdditionalEntries += ProvideAdditionalSceneDefs;
-        }
-
-
         #region Messages
         public void Awake()
         {
@@ -102,6 +91,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             if (dir == null) throw new ArgumentException(@"invalid plugin path detected, could not find expected ""plugins"" folder in parent tree");
 
             LoadAssetBundles(dir);
+
             if (sceneDefinitions.Any())
                 RoSLog.LogInfo($"Loaded Scene Definitions: {sceneDefinitions.Select(sd => sd.baseSceneName).Aggregate((a, b) => $"{a}, {b}")}");
             else
@@ -111,6 +101,19 @@ namespace PassivePicasso.RainOfStages.Plugin
                 RoSLog.LogInfo($"Loaded Runs: {gameModes.Select(run => run.name).Aggregate((a, b) => $"{a}, {b}")}");
             else
                 RoSLog.LogInfo($"No extra runs loaded");
+
+            Logger.LogInfo($"found {manifests.Count} map manifests");
+            if (manifests.Count != 0)
+            {
+                var hashSet = new HashSet<string>();
+                var guids = manifests.Select(manifest => $"{manifest.name};{manifest.version_number}");
+                var orderedGuids = guids.OrderBy(value => value);
+                var newOrderedGuids = orderedGuids.Where(guid => !NetworkModCompatibilityHelper.networkModList.Contains(guid)).ToArray();
+                Logger.LogInfo($"[NetworkCompatibility] Adding to the networkModList\r\n\t{newOrderedGuids.Aggregate((a, b) => $"{a}\r\n\t{b}")}");
+
+                foreach (var mod in newOrderedGuids)
+                    NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append(mod);
+            }
 
             Initialized?.Invoke(this, EventArgs.Empty);
         }
@@ -129,15 +132,26 @@ namespace PassivePicasso.RainOfStages.Plugin
 
                 countInitialized = true;
             }
-
         }
 
         #endregion
 
         #region Methods
 
+        private void ApplyAttributes()
+        {
+            HookAttribute.Logger = RoSLog;
+            try { HookAttribute.ApplyHooks<SceneCatalogHooks>(); } catch (Exception e) { Logger.LogError(e); }
+            try { HookAttribute.ApplyHooks<NonProxyHooks>(); } catch (Exception e) { Logger.LogError(e); }
+            try { HookAttribute.ApplyHooks<ThunderKit.Proxy.RoR2.GlobalEventManager>(); } catch (Exception e) { Logger.LogError(e); }
+
+            GameModeCatalog.getAdditionalEntries += ProvideAdditionalGameModes;
+            SceneCatalog.getAdditionalEntries += ProvideAdditionalSceneDefs;
+        }
+
         private void Initialize()
         {
+            manifests = new List<Manifest>();
             stageManifestBundles = new List<AssetBundle>();
             runManifestBundles = new List<AssetBundle>();
             otherBundles = new List<AssetBundle>();
@@ -163,6 +177,15 @@ namespace PassivePicasso.RainOfStages.Plugin
                                   .Select(manifestFile => new ManifestMap { File = manifestFile, Content = File.ReadAllLines(manifestFile.FullName) })
                                   .Where(mfm => mfm.Content.Any(line => line.StartsWith("AssetBundleManifest:")))
                                   .Where(mfm => mfm.Content.Any(line => line.Contains("stagemanifest") || line.Contains("runmanifest")))
+                                  .Select(mfm =>
+                                  {
+                                      var manifestPath = Path.Combine(mfm.File.DirectoryName, "manifest.json");
+                                      var manifest = File.Exists(manifestPath) ? File.ReadAllText(manifestPath) : null;
+                                      if (!string.IsNullOrEmpty(manifest))
+                                          mfm.manifest = JsonUtility.FromJson<Manifest>(manifest);
+
+                                      return mfm;
+                                  })
                                   .ToArray();
 
             RoSLog.LogInfo($"Loaded Rain of Stages compatible AssetBundles");
@@ -176,6 +199,8 @@ namespace PassivePicasso.RainOfStages.Plugin
                     var namedBundle = AssetBundle.LoadFromFile(abmPath);
                     var manifest = namedBundle.LoadAsset<AssetBundleManifest>("assetbundlemanifest");
                     var dependentBundles = manifest.GetAllAssetBundles();
+                    manifests.Add(mfm.manifest);
+
                     foreach (var definitionBundle in dependentBundles)
                         try
                         {
