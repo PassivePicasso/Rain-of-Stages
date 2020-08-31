@@ -1,4 +1,5 @@
-﻿using RoR2;
+#if THUNDERKIT_CONFIGURED
+using RoR2;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -52,3 +53,4 @@ namespace PassivePicasso.RainOfStages.Interactable
         public abstract void OnPurchase(Interactor interactor);
     }
 }
+#endif

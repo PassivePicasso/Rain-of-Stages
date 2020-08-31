@@ -1,4 +1,5 @@
-﻿using RoR2;
+#if THUNDERKIT_CONFIGURED
+using RoR2;
 using System.Collections.Generic;
 
 namespace PassivePicasso.RainOfStages.Proxy
@@ -9,3 +10,4 @@ namespace PassivePicasso.RainOfStages.Proxy
         public List<SceneDefReference> destionationInjections;
     }
 }
+#endif

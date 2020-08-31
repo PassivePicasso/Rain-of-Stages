@@ -1,4 +1,5 @@
-﻿using BepInEx.Logging;
+#if THUNDERKIT_CONFIGURED
+using BepInEx.Logging;
 using MonoMod.RuntimeDetour;
 using System;
 using System.Collections.Generic;
@@ -100,3 +101,4 @@ namespace PassivePicasso.RainOfStages.Monomod
         }
     }
 }
+#endif

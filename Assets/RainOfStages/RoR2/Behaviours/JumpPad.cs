@@ -1,4 +1,5 @@
-﻿using EntityStates.Missions.Arena.NullWard;
+#if THUNDERKIT_CONFIGURED
+using EntityStates.Missions.Arena.NullWard;
 using RoR2;
 using UnityEngine;
 
@@ -103,3 +104,4 @@ namespace RainOfStages.Behaviours
         }
     }
 }
+#endif

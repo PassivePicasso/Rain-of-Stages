@@ -1,4 +1,5 @@
-﻿using RoR2.Navigation;
+#if THUNDERKIT_CONFIGURED
+using RoR2.Navigation;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -19,3 +20,4 @@ public class NodeGraphEditor : Editor
         }
     }
 }
+#endif

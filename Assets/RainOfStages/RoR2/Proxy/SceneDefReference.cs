@@ -1,4 +1,5 @@
-﻿using PassivePicasso.RainOfStages.Monomod;
+#if THUNDERKIT_CONFIGURED
+using PassivePicasso.RainOfStages.Monomod;
 using RoR2;
 using System;
 using System.Reflection;
@@ -30,3 +31,4 @@ namespace PassivePicasso.RainOfStages.Proxy
         }
     }
 }
+#endif

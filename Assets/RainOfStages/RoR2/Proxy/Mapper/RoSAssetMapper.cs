@@ -1,4 +1,5 @@
-﻿using System.Linq;
+#if THUNDERKIT_CONFIGURED
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Reflection;
@@ -69,3 +70,4 @@ namespace RainOfStages.Behaviours
         }
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+#if THUNDERKIT_CONFIGURED
+using UnityEngine;
 
 namespace PassivePicasso.RainOfStages.Configurators
 {
@@ -22,3 +23,4 @@ namespace PassivePicasso.RainOfStages.Configurators
         }
     }
 }
+#endif

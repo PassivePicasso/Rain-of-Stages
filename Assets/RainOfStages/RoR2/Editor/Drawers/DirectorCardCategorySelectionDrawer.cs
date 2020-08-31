@@ -1,4 +1,5 @@
-﻿using PassivePicasso.RainOfStages.Editor.DataPreProcessors;
+#if THUNDERKIT_CONFIGURED
+using PassivePicasso.RainOfStages.Editor.DataPreProcessors;
 using RoR2;
 using UnityEditor;
 
@@ -18,3 +19,4 @@ namespace PassivePicasso.RainOfStages.Editor
         }
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+#if THUNDERKIT_CONFIGURED
+using UnityEngine;
 namespace PassivePicasso.RainOfStages.Proxy
 {
     public class ModifiedPrefab : MonoBehaviour
@@ -35,3 +36,4 @@ namespace PassivePicasso.RainOfStages.Proxy
         }
     }
 }
+#endif

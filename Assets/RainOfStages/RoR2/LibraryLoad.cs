@@ -1,4 +1,5 @@
-﻿using System.Collections;
+#if THUNDERKIT_CONFIGURED
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BepInEx;
@@ -10,3 +11,4 @@ namespace PassivePicasso.RainOfStages.Shared
     {
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+#if THUNDERKIT_CONFIGURED
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,3 +12,4 @@ namespace RainOfStages.Behaviours
         protected override BindingFlags FieldBindings => BindingFlags.NonPublic | BindingFlags.Instance;
     }
 }
+#endif
