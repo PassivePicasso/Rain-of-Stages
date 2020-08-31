@@ -1,4 +1,5 @@
-﻿using PassivePicasso.ThunderKit.Proxy.RoR2.UI;
+﻿#if THUNDERKIT_CONFIGURED
+using PassivePicasso.ThunderKit.Proxy.RoR2.UI;
 using RoR2.UI;
 using RoR2.UI.SkinControllers;
 using System.Reflection;
@@ -14,3 +15,4 @@ namespace RainOfStages.Behaviours
         protected override BindingFlags FieldBindings => BindingFlags.Public | BindingFlags.Instance;
     }
 }
+#endif

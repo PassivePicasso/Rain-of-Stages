@@ -1,4 +1,5 @@
-﻿using PassivePicasso.RainOfStages.Editor.DataPreProcessors;
+﻿#if THUNDERKIT_CONFIGURED
+using PassivePicasso.RainOfStages.Editor.DataPreProcessors;
 using PassivePicasso.ThunderKit.Proxy;
 using RoR2;
 using UnityEditor;
@@ -12,3 +13,4 @@ namespace PassivePicasso.RainOfStages.Editor
         public override string CategoryName(SerializedProperty property, GUIContent label) => "Default";
     }
 }
+#endif

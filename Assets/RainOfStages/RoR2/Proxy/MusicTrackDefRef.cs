@@ -1,4 +1,5 @@
-﻿using PassivePicasso.RainOfStages.Proxy;
+﻿#if THUNDERKIT_CONFIGURED
+using PassivePicasso.RainOfStages.Proxy;
 using PassivePicasso.ThunderKit.Proxy.RoR2;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,3 +29,4 @@ namespace PassivePicasso.ThunderKit.Proxy
         }
     }
 }
+#endif

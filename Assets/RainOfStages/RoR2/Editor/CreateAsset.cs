@@ -1,4 +1,5 @@
-﻿using PassivePicasso.RainOfStages.Proxy;
+﻿#if THUNDERKIT_CONFIGURED
+using PassivePicasso.RainOfStages.Proxy;
 using PassivePicasso.RainOfStages.Utilities;
 using PassivePicasso.ThunderKit.Proxy;
 using PassivePicasso.ThunderKit.Proxy.RoR2;
@@ -105,3 +106,4 @@ namespace PassivePicasso.RainOfStages.Editor
         public static void CreateBakeSettings() => ScriptableHelper.CreateAsset<BakeSettings>();
     }
 }
+#endif

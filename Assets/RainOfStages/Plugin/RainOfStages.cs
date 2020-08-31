@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿#if THUNDERKIT_CONFIGURED
+using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using PassivePicasso.RainOfStages.Hooks;
@@ -80,7 +81,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-        #region Messages
+#region Messages
         public void Awake()
         {
             RoSLog.LogInfo("Initializing Rain of Stages");
@@ -134,9 +135,9 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         private void ApplyAttributes()
         {
@@ -252,9 +253,9 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-        #endregion
+#endregion
 
-        #region Catalog Injection
+#region Catalog Injection
         private void ProvideAdditionalGameModes(List<GameObject> obj)
         {
             RoSLog.LogMessage("Loading additional runs");
@@ -266,7 +267,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             RoSLog.LogMessage("Loading additional scenes");
             sceneDefinitions.AddRange(this.sceneDefinitions);
         }
-        #endregion
+#endregion
 
         private void PrintHieriarchy(Transform transform, int indent = 0)
         {
@@ -282,3 +283,4 @@ namespace PassivePicasso.RainOfStages.Plugin
         }
     }
 }
+#endif

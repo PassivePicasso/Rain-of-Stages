@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if THUNDERKIT_CONFIGURED
+using UnityEngine;
 
 namespace PassivePicasso.ThunderKit.Proxy.RoR2
 {
@@ -10,3 +11,4 @@ namespace PassivePicasso.ThunderKit.Proxy.RoR2
         public Texture2D previewTexture;
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using PassivePicasso.RainOfStages.Configurators;
+﻿#if THUNDERKIT_CONFIGURED
+using PassivePicasso.RainOfStages.Configurators;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -204,3 +205,4 @@ namespace PassivePicasso.RainOfStages
         }
     }
 }
+#endif

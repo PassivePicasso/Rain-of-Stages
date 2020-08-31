@@ -1,4 +1,5 @@
-﻿using PassivePicasso.ThunderKit.Proxy;
+﻿#if THUNDERKIT_CONFIGURED
+using PassivePicasso.ThunderKit.Proxy;
 
 namespace PassivePicasso.RainOfStages.Editor.DataPreProcessors
 {
@@ -6,3 +7,4 @@ namespace PassivePicasso.RainOfStages.Editor.DataPreProcessors
     {
     }
 }
+#endif
