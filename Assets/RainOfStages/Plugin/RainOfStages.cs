@@ -23,6 +23,7 @@ namespace PassivePicasso.RainOfStages.Plugin
 
     //The name is the name of the plugin that's displayed on load, and the version number just specifies what version the plugin is.
     [BepInPlugin("com.PassivePicasso.RainOfStages", "RainOfStages", "2020.1.0")]
+    [BepInDependency("com.PassivePicasso.RainOfStages.Shared", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("R2API", BepInDependency.DependencyFlags.SoftDependency)]
     public class RainOfStages : BaseUnityPlugin
     {
@@ -81,7 +82,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-#region Messages
+        #region Messages
         public void Awake()
         {
             RoSLog.LogInfo("Initializing Rain of Stages");
@@ -135,9 +136,9 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         private void ApplyAttributes()
         {
@@ -176,11 +177,18 @@ namespace PassivePicasso.RainOfStages.Plugin
         {
             var manifestMaps = dir.GetFiles("*.manifest", SearchOption.AllDirectories)
                                   .Select(manifestFile => new ManifestMap { File = manifestFile, Content = File.ReadAllLines(manifestFile.FullName) })
+                                  .Where(mfm => !"rosshared".Equals(mfm.File.Name))
                                   .Where(mfm => mfm.Content.Any(line => line.StartsWith("AssetBundleManifest:")))
                                   .Where(mfm => mfm.Content.Any(line => line.Contains("stagemanifest") || line.Contains("runmanifest")))
                                   .Select(mfm =>
                                   {
-                                      var manifestPath = Path.Combine(mfm.File.DirectoryName, "manifest.json");
+                                      var parentDir = Directory.GetParent(mfm.File.DirectoryName);
+                                      var manifestPath = string.Empty;
+                                      if ("plugins".Equals(Path.GetFileName(parentDir.Name), StringComparison.OrdinalIgnoreCase))
+                                          manifestPath = Path.Combine(mfm.File.DirectoryName, "manifest.json");
+                                      else
+                                          manifestPath = Path.Combine(parentDir.FullName, "manifest.json"); 
+
                                       var manifest = File.Exists(manifestPath) ? File.ReadAllText(manifestPath) : null;
                                       if (!string.IsNullOrEmpty(manifest))
                                           mfm.manifest = JsonUtility.FromJson<Manifest>(manifest);
@@ -205,6 +213,7 @@ namespace PassivePicasso.RainOfStages.Plugin
                     foreach (var definitionBundle in dependentBundles)
                         try
                         {
+                            if (definitionBundle.Contains("rosshared")) continue;
                             var bundlePath = Path.Combine(directory, definitionBundle);
                             var bundle = AssetBundle.LoadFromFile(bundlePath);
                             switch (bundle.name)
@@ -253,9 +262,9 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-#endregion
+        #endregion
 
-#region Catalog Injection
+        #region Catalog Injection
         private void ProvideAdditionalGameModes(List<GameObject> obj)
         {
             RoSLog.LogMessage("Loading additional runs");
@@ -267,7 +276,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             RoSLog.LogMessage("Loading additional scenes");
             sceneDefinitions.AddRange(this.sceneDefinitions);
         }
-#endregion
+        #endregion
 
         private void PrintHieriarchy(Transform transform, int indent = 0)
         {
