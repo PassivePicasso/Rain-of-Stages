@@ -176,6 +176,7 @@ namespace PassivePicasso.RainOfStages.Plugin
         {
             var manifestMaps = dir.GetFiles("*.manifest", SearchOption.AllDirectories)
                                   .Select(manifestFile => new ManifestMap { File = manifestFile, Content = File.ReadAllLines(manifestFile.FullName) })
+                                  .Where(mfm => !"rosshared".Equals(mfm.File.Name))
                                   .Where(mfm => mfm.Content.Any(line => line.StartsWith("AssetBundleManifest:")))
                                   .Where(mfm => mfm.Content.Any(line => line.Contains("stagemanifest") || line.Contains("runmanifest")))
                                   .Select(mfm =>
@@ -211,6 +212,7 @@ namespace PassivePicasso.RainOfStages.Plugin
                     foreach (var definitionBundle in dependentBundles)
                         try
                         {
+                            if (definitionBundle.Contains("rosshared")) continue;
                             var bundlePath = Path.Combine(directory, definitionBundle);
                             var bundle = AssetBundle.LoadFromFile(bundlePath);
                             switch (bundle.name)
