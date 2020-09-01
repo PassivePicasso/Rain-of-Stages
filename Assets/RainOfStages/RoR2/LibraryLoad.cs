@@ -9,8 +9,7 @@ namespace PassivePicasso.RainOfStages.Shared
     [BepInPlugin("com.PassivePicasso.RainOfStages.Shared", "RainOfStages.Shared", "2020.1.0")]
     public class LibraryLoad : BaseUnityPlugin
     {
-        public Object[] Assets;
-
+        public AssetBundle RoSShared { get; private set; }
         private void Awake()
         {
             LoadAssetBundles();
@@ -24,8 +23,7 @@ namespace PassivePicasso.RainOfStages.Shared
             var directory = file.DirectoryName;
             var filename = Path.GetFileNameWithoutExtension(file.FullName);
             var abmPath = Path.Combine(directory, filename);
-            var namedBundle = AssetBundle.LoadFromFile(abmPath);
-            Assets = namedBundle.LoadAllAssets();
+            RoSShared = AssetBundle.LoadFromFile(abmPath);
         }
     }
 }
