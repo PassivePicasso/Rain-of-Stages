@@ -81,7 +81,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-#region Messages
+        #region Messages
         public void Awake()
         {
             RoSLog.LogInfo("Initializing Rain of Stages");
@@ -135,9 +135,9 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         private void ApplyAttributes()
         {
@@ -180,7 +180,13 @@ namespace PassivePicasso.RainOfStages.Plugin
                                   .Where(mfm => mfm.Content.Any(line => line.Contains("stagemanifest") || line.Contains("runmanifest")))
                                   .Select(mfm =>
                                   {
-                                      var manifestPath = Path.Combine(mfm.File.DirectoryName, "manifest.json");
+                                      var parentDir = Directory.GetParent(mfm.File.DirectoryName);
+                                      var manifestPath = string.Empty;
+                                      if ("plugins".Equals(Path.GetFileName(parentDir.Name), StringComparison.OrdinalIgnoreCase))
+                                          manifestPath = Path.Combine(mfm.File.DirectoryName, "manifest.json");
+                                      else
+                                          manifestPath = Path.Combine(parentDir.FullName, "manifest.json"); 
+
                                       var manifest = File.Exists(manifestPath) ? File.ReadAllText(manifestPath) : null;
                                       if (!string.IsNullOrEmpty(manifest))
                                           mfm.manifest = JsonUtility.FromJson<Manifest>(manifest);
@@ -253,9 +259,9 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
         }
 
-#endregion
+        #endregion
 
-#region Catalog Injection
+        #region Catalog Injection
         private void ProvideAdditionalGameModes(List<GameObject> obj)
         {
             RoSLog.LogMessage("Loading additional runs");
@@ -267,7 +273,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             RoSLog.LogMessage("Loading additional scenes");
             sceneDefinitions.AddRange(this.sceneDefinitions);
         }
-#endregion
+        #endregion
 
         private void PrintHieriarchy(Transform transform, int indent = 0)
         {
