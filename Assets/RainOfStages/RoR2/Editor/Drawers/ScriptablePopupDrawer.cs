@@ -36,6 +36,8 @@ namespace PassivePicasso.RainOfStages.Editor
                 return;
             }
 
+            EditorGUI.BeginChangeCheck();
+
             EditorGUI.BeginProperty(position, label, property);
 
             EditorGUI.LabelField(position, ModifyLabel(label.text));
@@ -54,12 +56,17 @@ namespace PassivePicasso.RainOfStages.Editor
                                        names.Select(name => ObjectNames.NicifyVariableName(ModifyName(name)))
                                             .ToArray());
 
-            if (newIndex > -1)
-                property.objectReferenceValue = pickedCategory[newIndex];
-            else
-                property.objectReferenceValue = null;
-
             EditorGUI.EndProperty();
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (newIndex > -1)
+                    property.objectReferenceValue = pickedCategory[newIndex];
+                else
+                    property.objectReferenceValue = null;
+
+                property.serializedObject.ApplyModifiedProperties();
+            }
         }
     }
 }

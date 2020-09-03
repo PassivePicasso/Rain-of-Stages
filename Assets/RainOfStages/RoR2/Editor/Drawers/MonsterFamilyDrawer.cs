@@ -17,6 +17,7 @@ namespace RainOfStages.Assets.RainOfStages.RoR2.Editor.Drawers
             var minimumStageCompletion = property.FindPropertyRelative(nameof(MonsterFamily.minimumStageCompletion));
             var maximumStageCompletion = property.FindPropertyRelative(nameof(MonsterFamily.maximumStageCompletion));
 
+            EditorGUI.BeginChangeCheck();
 
             EditorGUI.BeginProperty(position, label, property);
 
@@ -46,6 +47,12 @@ namespace RainOfStages.Assets.RainOfStages.RoR2.Editor.Drawers
             maximumStageCompletion.intValue = EditorGUI.IntField(localPosition, maximumStageCompletion.intValue);
 
             EditorGUI.EndProperty();
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                property.serializedObject.SetIsDifferentCacheDirty();
+                property.serializedObject.ApplyModifiedProperties();
+            }
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
