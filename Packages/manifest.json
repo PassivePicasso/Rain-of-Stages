@@ -37,11 +37,5 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  },
-  "lock": {
-    "com.passivepicasso.thunderkit": {
-      "revision": "HEAD",
-      "hash": "a14515897b76d69d38706e4b89999c0b0323e445"
-    }
   }
 }
