@@ -50,9 +50,9 @@ namespace RainOfStages.Assets.RainOfStages.RoR2.Editor.Drawers
 
             if (EditorGUI.EndChangeCheck())
             {
-                property.serializedObject.SetIsDifferentCacheDirty();
                 property.serializedObject.ApplyModifiedProperties();
             }
+            
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

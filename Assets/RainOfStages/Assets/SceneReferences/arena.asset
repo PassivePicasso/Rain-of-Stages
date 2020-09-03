@@ -21,9 +21,10 @@ MonoBehaviour:
   portalSelectionMessageString: 
   dioramaPrefab: {fileID: 0}
   sceneType: 1
-  songName: Song08
-  bossSongName: 
+  mainTrack: {fileID: 11400000, guid: 582f5c7a0f7c0cd4c978096453d76906, type: 2}
+  bossTrack: {fileID: 0}
   isOfflineScene: 0
+  suppressPlayerEntry: 0
   suppressNpcEntry: 0
   destinations: []
   preferredPortalPrefab: {fileID: 0}

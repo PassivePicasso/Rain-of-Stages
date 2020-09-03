@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d74c2efd35d04d92c0c41b3d861ce, type: 3}
   m_Name: wispgraveyard
   m_EditorClassIdentifier: 
-  nameToken: 
-  subtitleToken: 
-  loreToken: 
+  nameToken: MAP_WISPGRAVEYARD_TITLE
+  subtitleToken: MAP_WISPGRAVEYARD_SUBTITLE
+  loreToken: MAP_WISPGRAVEYARD_LORE
   stageOrder: 0
   previewTexture: {fileID: 0}
   portalMaterial: {fileID: 0}
   portalSelectionMessageString: 
   dioramaPrefab: {fileID: 0}
   sceneType: 1
-  songName: FULLSong18
-  bossSongName: Song22
+  mainTrack: {fileID: 11400000, guid: 508fbd7bdbabe65419b31ee62f398d79, type: 2}
+  bossTrack: {fileID: 11400000, guid: 33332635ccbedaa4da6e459edee524be, type: 2}
   isOfflineScene: 0
+  suppressPlayerEntry: 0
   suppressNpcEntry: 0
   destinations: []
   preferredPortalPrefab: {fileID: 0}
