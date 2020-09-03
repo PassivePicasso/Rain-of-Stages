@@ -22,7 +22,7 @@ namespace PassivePicasso.RainOfStages.Plugin
     //The GUID should be a unique ID for this plugin, which is human readable (as it is used in places like the config). I like to use the java package notation, which is "com.[your name here].[your plugin name here]"
 
     //The name is the name of the plugin that's displayed on load, and the version number just specifies what version the plugin is.
-    [BepInPlugin("com.PassivePicasso.RainOfStages", "RainOfStages", "2020.1.0")]
+    [BepInPlugin("com.PassivePicasso.RainOfStages", "RainOfStages", "2.0.3")]
     [BepInDependency("com.PassivePicasso.RainOfStages.Shared", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("R2API", BepInDependency.DependencyFlags.SoftDependency)]
     public class RainOfStages : BaseUnityPlugin
@@ -118,6 +118,28 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
 
             Initialized?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void Start()
+        {
+            bool loadGameMode = false;
+            string gameMode = string.Empty;
+            var loadArg = Environment.GetCommandLineArgs().FirstOrDefault(arg => arg.StartsWith("LoadRun"));
+            foreach (var arg in Environment.GetCommandLineArgs())
+                switch (arg)
+                {
+                    case string loadGameModeArg when loadGameModeArg.StartsWith("--LoadGameMode=", StringComparison.OrdinalIgnoreCase):
+                        gameMode = loadGameModeArg.Split('=')[1];
+                        loadGameMode = true;
+                        break;
+                }
+
+            if (loadGameMode)
+            {
+                RoR2.Console.instance.SubmitCmd((NetworkUser)null, "intro_skip 1", false);
+                RoR2.Console.instance.SubmitCmd((NetworkUser)null, "splash_skip 1", false);
+                RoR2.Console.instance.SubmitCmd((NetworkUser)null, $"transition_command \"gamemode {gameMode}; host 0;\"", false);
+            }
         }
 
         private void Update()

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace PassivePicasso.RainOfStages.Shared
 {
-    [BepInPlugin("com.PassivePicasso.RainOfStages.Shared", "RainOfStages.Shared", "2020.1.0")]
+    [BepInPlugin("com.PassivePicasso.RainOfStages.Shared", "RainOfStages.Shared", "1.1.2")]
     public class LibraryLoad : BaseUnityPlugin
     {
         public AssetBundle RoSShared { get; private set; }
