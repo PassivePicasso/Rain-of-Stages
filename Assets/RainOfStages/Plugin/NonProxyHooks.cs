@@ -24,7 +24,7 @@ namespace PassivePicasso.RainOfStages.Hooks
         {
             try
             {
-                Logger.LogMessage("Adding GameModes to Alternate GameMOdes menu");
+                Logger.LogDebug("Adding GameModes to ExtraGameModeMenu menu");
 
                 var mainMenu = GameObject.Find("MainMenu")?.transform;
                 var weeklyButton = mainMenu.Find("MENU: Extra Game Mode/ExtraGameModeMenu/Main Panel/GenericMenuButtonPanel/JuicePanel/GenericMenuButton (Weekly)");
