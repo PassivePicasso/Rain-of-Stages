@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if THUNDERKIT_CONFIGURED
+using UnityEngine;
 
 namespace RainOfStages.Behaviours
 {
@@ -7,3 +8,4 @@ namespace RainOfStages.Behaviours
         protected override string MemberName => "materials";
     }
 }
+#endif
