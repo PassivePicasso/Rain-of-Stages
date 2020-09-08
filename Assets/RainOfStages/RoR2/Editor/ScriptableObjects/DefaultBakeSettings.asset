@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefaultBakeSettings
   m_EditorClassIdentifier: 
   DebugMode: 0
-  showMesh: 1
+  showMesh: 0
   DebugMaterial: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
   agentTypeID: 0
   agentRadius: 2
@@ -25,5 +25,5 @@ MonoBehaviour:
   voxelSize: 0.16
   overrideTileSize: 1
   tileSize: 5
-  globalNavigationOffset: {x: 0, y: 0, z: 0}
+  globalNavigationOffset: {x: 0, y: -0.35, z: 0}
   NodeMeshObject: {fileID: 0}

@@ -94,9 +94,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleporterSpawnCard: {fileID: 11400000, guid: f6f59d96e3c6e074884c86e1a62c6fff,
     type: 2}
-  expRewardCoefficient: 0.06666667
-  eliteBias: 2
-  spawnDistanceMultiplier: 6
+  expRewardCoefficient: 0
+  eliteBias: 0
+  spawnDistanceMultiplier: 0
   teleporterInstance: {fileID: 0}
 --- !u!114 &6474242042706043886
 MonoBehaviour:
@@ -115,12 +115,12 @@ MonoBehaviour:
   expRewardCoefficient: 0.2
   minSeriesSpawnInterval: 0.1
   maxSeriesSpawnInterval: 1
-  minRerollSpawnInterval: 4.5
-  maxRerollSpawnInterval: 9
+  minRerollSpawnInterval: 2.3333333
+  maxRerollSpawnInterval: 4.3333335
   moneyWaveIntervals:
   - min: 1
     max: 1
-  creditMultiplier: 0.75
+  creditMultiplier: 1
   spawnDistanceMultiplier: 1
   shouldSpawnOneWave: 0
   targetPlayers: 1
@@ -134,6 +134,8 @@ MonoBehaviour:
   combatSquad: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
   ignoreTeamSizeLimit: 0
+  _monsterCards: {fileID: 0}
+  fallBackToStageMonsterCards: 1
   currentSpawnTarget: {fileID: 0}
 --- !u!114 &6474242042706043885
 MonoBehaviour:
@@ -152,12 +154,12 @@ MonoBehaviour:
   expRewardCoefficient: 0.2
   minSeriesSpawnInterval: 0.1
   maxSeriesSpawnInterval: 1
-  minRerollSpawnInterval: 22.5
-  maxRerollSpawnInterval: 30
+  minRerollSpawnInterval: 2.3333333
+  maxRerollSpawnInterval: 4.3333335
   moneyWaveIntervals:
-  - min: 1
-    max: 1
-  creditMultiplier: 0.75
+  - min: 0
+    max: 0
+  creditMultiplier: 1
   spawnDistanceMultiplier: 1
   shouldSpawnOneWave: 0
   targetPlayers: 1
@@ -171,4 +173,6 @@ MonoBehaviour:
   combatSquad: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
   ignoreTeamSizeLimit: 0
+  _monsterCards: {fileID: 0}
+  fallBackToStageMonsterCards: 1
   currentSpawnTarget: {fileID: 0}
