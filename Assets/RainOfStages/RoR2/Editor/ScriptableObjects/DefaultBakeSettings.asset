@@ -17,13 +17,13 @@ MonoBehaviour:
   DebugMaterial: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
   agentTypeID: 0
   agentRadius: 2
-  agentHeight: 10
-  agentSlope: 50
+  agentHeight: 4
+  agentSlope: 30
   agentClimb: 3
   minRegionArea: 2
   overrideVoxelSize: 0
   voxelSize: 0.16
   overrideTileSize: 1
-  tileSize: 20
-  globalNavigationOffset: {x: 0, y: 0, z: 0}
+  tileSize: 5
+  globalNavigationOffset: {x: 0, y: -0.35, z: 0}
   NodeMeshObject: {fileID: 0}

@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 namespace RainOfStages.Behaviours
 {
-    public class ButtonSkinReference : RoSAssetMapper<ButtonSkinController, RoR2.UI.UISkinData>
+    public class ButtonSkinReference : SceneAssetMapper<ButtonSkinController, RoR2.UI.UISkinData>
     {
-        protected override string Field => "skinData";
+        protected override string MemberName => "skinData";
 
         protected override BindingFlags FieldBindings => BindingFlags.Public | BindingFlags.Instance;
     }
