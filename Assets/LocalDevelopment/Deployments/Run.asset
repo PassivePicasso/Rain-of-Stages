@@ -16,10 +16,9 @@ MonoBehaviour:
   AssetBundleBuildOptions: 0
   DeploymentOptions: 8256
   LogLevel: -1
-  Plugins:
-  - {fileID: 5897886265953266890, guid: 100456513cf031f4ba64390628e6feb9, type: 3}
-  - {fileID: 5897886265953266890, guid: eb4a719aa6531da40b55b70546f0af9b, type: 3}
+  Plugins: []
   Patchers: []
   Monomod: []
+  extraCommandLineArgs: []
   Readme: {fileID: 0}
   Icon: {fileID: 2800000, guid: 2ffae42bd1366b241ae23d0e01fc554c, type: 3}
