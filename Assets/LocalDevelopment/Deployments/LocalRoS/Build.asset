@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Build
   m_EditorClassIdentifier: 
   Manifest: {fileID: 11400000, guid: 51eb2a0e011ee904e91cf9ce0d69f1e1, type: 2}
-  AssetBundleBuildOptions: 33
-  DeploymentOptions: 179
+  AssetBundleBuildOptions: 1
+  DeploymentOptions: 177
   LogLevel: -1
   Plugins:
   - {fileID: 5897886265953266890, guid: 100456513cf031f4ba64390628e6feb9, type: 3}
   - {fileID: 5897886265953266890, guid: eb4a719aa6531da40b55b70546f0af9b, type: 3}
+  - {fileID: 5897886265953266890, guid: e9414c940e99b3b45912a2b8b7385327, type: 3}
   Patchers: []
   Monomod: []
   extraCommandLineArgs: []
   Readme: {fileID: 0}
   Icon: {fileID: 0}
+  ExecuteOnDoubleClick: 1

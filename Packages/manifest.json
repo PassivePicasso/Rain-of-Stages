@@ -4,9 +4,11 @@
     "com.unity.assetbundlebrowser": "1.7.0",
     "com.unity.package-manager-ui": "2.0.13",
     "com.unity.polybrush": "1.0.2",
+    "com.unity.postprocessing": "2.1.2",
     "com.unity.probuilder": "4.4.0",
     "com.unity.render-pipelines.core": "4.10.0-preview",
     "com.unity.textmeshpro": "1.4.1",
+    "com.yasirkula.assetusagedetector": "https://github.com/yasirkula/UnityAssetUsageDetector.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",
@@ -41,7 +43,11 @@
   "lock": {
     "com.passivepicasso.thunderkit": {
       "revision": "HEAD",
-      "hash": "218f5c999fd81a1a13731173604f5caf9035305b"
+      "hash": "9635814f401fe4fdf8eb85046cd6dbaa5b3fc698"
+    },
+    "com.yasirkula.assetusagedetector": {
+      "revision": "HEAD",
+      "hash": "077505a217f57d58164d3c98760554a22e837241"
     }
   }
 }
