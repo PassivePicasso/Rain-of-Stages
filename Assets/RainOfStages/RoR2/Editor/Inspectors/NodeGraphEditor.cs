@@ -16,7 +16,7 @@ public class NodeGraphEditor : Editor
 
         foreach (var node in nodes)
         {
-            Handles.DrawSphere(0, node.position, Quaternion.identity, 1);
+            Handles.SphereHandleCap(0, node.position, Quaternion.identity, 1, EventType.Repaint);
         }
     }
 }

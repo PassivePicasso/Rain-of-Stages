@@ -98,8 +98,8 @@ namespace PassivePicasso.RainOfStages.Editor
         public static void CreateNew(GameObject obj, string localPath)
         {
             //Create a new Prefab at the path given
-            Object prefab = PrefabUtility.CreatePrefab(localPath, obj);
-            PrefabUtility.ReplacePrefab(obj, prefab, ReplacePrefabOptions.ConnectToPrefab);
+            Object prefab = PrefabUtility.SaveAsPrefabAsset(obj, localPath, out _);
+            //PrefabUtility.ReplacePrefab(obj, prefab, ReplacePrefabOptions.ConnectToPrefab);
         }
 
         [MenuItem("Assets/Rain of Stages/Modding Assets/" + nameof(BakeSettings))]
