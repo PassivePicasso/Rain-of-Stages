@@ -23,7 +23,9 @@ namespace RainOfStages.Behaviours
 
         public string jumpSoundString;
 
+#pragma warning disable 649
         private Vector3 lastTargetPosition;
+#pragma warning restore 649
         private float lastJumpAngle = 45;
 
         public void OnTriggerStay(Collider other)

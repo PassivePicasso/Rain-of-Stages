@@ -22,7 +22,7 @@ namespace PassivePicasso.RainOfStages.Plugin
     //The GUID should be a unique ID for this plugin, which is human readable (as it is used in places like the config). I like to use the java package notation, which is "com.[your name here].[your plugin name here]"
 
     //The name is the name of the plugin that's displayed on load, and the version number just specifies what version the plugin is.
-    [BepInPlugin("com.PassivePicasso.RainOfStages", "RainOfStages", "2.0.3")]
+    [BepInPlugin("com.PassivePicasso.RainOfStages", "RainOfStages", "2.1.1")]
     [BepInDependency("com.PassivePicasso.RainOfStages.Shared", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("R2API", BepInDependency.DependencyFlags.SoftDependency)]
     public class RainOfStages : BaseUnityPlugin
@@ -278,8 +278,10 @@ namespace PassivePicasso.RainOfStages.Plugin
                 if (customRuns.Any())
                 {
                     gameModes.AddRange(customRuns);
+#pragma warning disable 618
                     foreach (var customRun in customRuns)
                         ClientScene.RegisterPrefab(customRun.gameObject);
+#pragma warning restore 618
                 }
             }
         }
