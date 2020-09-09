@@ -1,0 +1,16 @@
+{
+    "name": "TheProction",
+    "references": [
+        "Unity.ProBuilder",
+        "Unity.Postprocessing.Runtime",
+        "Unity.TextMeshPro"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
