@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace RainOfStages.Behaviours
 {
-    public class ImageSpriteReference : RoSAssetMapper<Image, Sprite>
+    public class ImageSpriteReference : SceneAssetMapper<Image, Sprite>
     {
-        protected override string Field => "m_Sprite";
+        protected override string MemberName => "m_Sprite";
 
         protected override BindingFlags FieldBindings => BindingFlags.NonPublic | BindingFlags.Instance;
     }

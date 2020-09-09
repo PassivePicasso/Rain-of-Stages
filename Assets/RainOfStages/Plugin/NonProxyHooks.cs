@@ -31,15 +31,16 @@ namespace PassivePicasso.RainOfStages.Hooks
                 Logger.LogDebug($"Found: {weeklyButton.name}");
 
                 var juicedPanel = weeklyButton.transform.parent;
-
-                foreach (var gameMode in GameModeNames.Except(new[] { "Classic", "ClassicRun", "Eclipse", "EclipseRun" }))
+                string[] skip = new[] { "Classic", "ClassicRun", "Eclipse", "EclipseRun" };
+                var gameModes = RainOfStages.Instance.GameModes.Where(gm => !skip.Contains(gm.name));
+                foreach (var gameMode in gameModes)
                 {
                     var copied = Transform.Instantiate(weeklyButton);
                     copied.name = $"GenericMenuButton ({gameMode})";
                     GameObject.DestroyImmediate(copied.GetComponent<DisableIfGameModded>());
 
                     var tmc = copied.GetComponent<LanguageTextMeshController>();
-                    tmc.token = gameMode;
+                    tmc.token = gameMode.nameToken;
 
                     var consoleFunctions = copied.GetComponent<ConsoleFunctions>();
 
@@ -55,7 +56,7 @@ namespace PassivePicasso.RainOfStages.Hooks
             }
             catch (Exception e)
             {
-                Logger.LogError("Error Adding GameModes to Alternate GameMOdes menu");
+                Logger.LogError("Error Adding GameModes to ExtraGameModeMenu menu");
                 Logger.LogError(e.Message);
                 Logger.LogError(e.StackTrace);
             }
