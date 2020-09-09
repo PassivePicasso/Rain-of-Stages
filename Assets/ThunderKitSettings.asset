@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9057f7f601990a4883b2cb295c4f43e, type: 3}
   m_Name: ThunderKitSettings
   m_EditorClassIdentifier: 
-  GameExecutable: 
-  GamePath: 
+  GameExecutable:
+  GamePath:
+  additional_plugins: []
+  additional_assemblies: []
+  excluded_assemblies:
+  - pb_Stl
+  - Poly2Tri
+  - ProBuilderCore
+  - ProBuilderMeshOps
   deployment_exclusions:
   - rosshared
   - rosshared.manifest

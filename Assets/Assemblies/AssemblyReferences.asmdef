@@ -1,0 +1,16 @@
+{
+    "name": "AssemblyReferences",
+    "references": [
+        "Unity.Postprocessing.Runtime",
+        "Unity.ProBuilder",
+        "Unity.TextMeshPro"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

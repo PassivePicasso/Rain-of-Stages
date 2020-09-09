@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb4d8e81ca0e88c47857761d414e56ea, type: 3}
-  m_Name: Deployment
+  m_Name: 4. Package
   m_EditorClassIdentifier: 
   Manifest: {fileID: 0}
   AssetBundleBuildOptions: 0
@@ -22,4 +22,4 @@ MonoBehaviour:
   extraCommandLineArgs: []
   Readme: {fileID: 0}
   Icon: {fileID: 0}
-  ExecuteOnDoubleClick: 0
+  ExecuteOnDoubleClick: 1

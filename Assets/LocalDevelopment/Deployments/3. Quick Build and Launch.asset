@@ -22,4 +22,4 @@ MonoBehaviour:
   extraCommandLineArgs: []
   Readme: {fileID: 0}
   Icon: {fileID: 0}
-  ExecuteOnDoubleClick: 0
+  ExecuteOnDoubleClick: 1
