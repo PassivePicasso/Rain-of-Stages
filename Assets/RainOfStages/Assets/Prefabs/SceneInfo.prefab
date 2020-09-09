@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 3311577881563766072}
   - component: {fileID: 3311577881563766022}
   - component: {fileID: 4148143589100074504}
-  - component: {fileID: 6985982117552946699}
-  - component: {fileID: 108497330504956207}
   m_Layer: 21
   m_Name: SceneInfo
   m_TagString: Untagged
@@ -90,53 +88,3 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 5
---- !u!114 &6985982117552946699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311577881563766075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -130519023, guid: 76bfecc9e53911342b1445a4c17268fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 1
-  isStaticObject: 0
-  m_positionOffsetData:
-    KeepMe: 0
-    positionOffset: {x: 0, y: 0, z: 0}
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
---- !u!114 &108497330504956207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311577881563766075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1478203354, guid: 76bfecc9e53911342b1445a4c17268fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  actionOnEventType: 0
-  curveInterpolation: 4
-  enableActionOnEvent: 0
-  data:
-    valueGuid: 
-    WwiseObjectReference: {fileID: 0}
-  m_callbackData: {fileID: 0}
-  playingId: 0
-  soundEmitterObject: {fileID: 0}
-  transitionDuration: 0
-  valueGuid: 
-  multiPositionArray: []
-  MultiPositionType: 1
-  multiPositionTypeLabel: 0
