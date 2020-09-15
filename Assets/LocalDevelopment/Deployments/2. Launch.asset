@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4d8e81ca0e88c47857761d414e56ea, type: 3}
   m_Name: 2. Launch
   m_EditorClassIdentifier: 
-  Manifest: {fileID: 0}
+  Manifest: {fileID: 11400000, guid: cf6c581546b3c6c4f95ad5cfa0b0aaac, type: 2}
   AssetBundleBuildOptions: 0
   DeploymentOptions: 8416
   LogLevel: -1
