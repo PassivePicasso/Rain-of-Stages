@@ -6,6 +6,9 @@ The project aims to provide many features to streamline the addition of many typ
 
 Change Notes:
 
+1.2.2:
+	Fix Version numbers.
+
 1.2.1:
    Improved JumpPad Editor
    Improved JumpPad Prefab

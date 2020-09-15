@@ -4,9 +4,7 @@
         "Unity.TextMeshPro"
     ],
     "optionalUnityReferences": [],
-    "includePlatforms": [
-        "WindowsStandalone64"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
