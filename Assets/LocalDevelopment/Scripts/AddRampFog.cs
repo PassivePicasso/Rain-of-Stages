@@ -8,8 +8,6 @@ namespace PassivePicasso.RainOfStages.Variants
     [RequireComponent(typeof(PostProcessVolume))]
     public class AddRampFog : MonoBehaviour
     {
-        public PostProcessProfile profile;
-
         public FloatParameter intensity;
         public FloatParameter power;
         public FloatParameter zero;
@@ -21,41 +19,44 @@ namespace PassivePicasso.RainOfStages.Variants
         public ColorParameter colorMid;
         public ColorParameter colorEnd;
         public FloatParameter skyboxStrength;
+        bool updated = false;
 
-        bool hasUpdated = false;
-        private void Start()
+        private void LateUpdate()
         {
-            profile?.AddSettings(new RampFog
+
+            if (updated)
             {
-                enabled = new BoolParameter { overrideState = true, value = true },
-                
-                fogIntensity = intensity,
-                fogPower = power,
-                fogZero = zero,
-                fogOne = one,
-                
-                fogHeightStart = heightStart,
-                fogHeightEnd = heightEnd,
-                fogHeightIntensity = heightIntensity,
-                
-                skyboxStrength = skyboxStrength,
+                enabled = false;
+                GetComponent<PostProcessVolume>().enabled = true;
+            }
+            else
+            {
+                PostProcessVolume postProcessVolume = GetComponent<PostProcessVolume>();
+                var profile = ScriptableObject.Instantiate(postProcessVolume.profile);
+                profile.name = $"{postProcessVolume.profile.name}(+RampFog)";
+                var rampFog = ScriptableObject.CreateInstance<RampFog>();
+                rampFog.enabled.Override(true);
+                if (intensity      .overrideState) rampFog.fogIntensity      .Override(intensity      .value);
+                if (power          .overrideState) rampFog.fogPower          .Override(power          .value);
+                if (zero           .overrideState) rampFog.fogZero           .Override(zero           .value);
+                if (one            .overrideState) rampFog.fogOne            .Override(one            .value);
+                if (heightStart    .overrideState) rampFog.fogHeightStart    .Override(heightStart    .value);
+                if (heightEnd      .overrideState) rampFog.fogHeightEnd      .Override(heightEnd      .value);
+                if (heightIntensity.overrideState) rampFog.fogHeightIntensity.Override(heightIntensity.value);
+                if (skyboxStrength .overrideState) rampFog.skyboxStrength    .Override(skyboxStrength .value);
+                if (colorStart     .overrideState) rampFog.fogColorStart     .Override(colorStart     .value);
+                if (colorMid       .overrideState) rampFog.fogColorMid       .Override(colorMid       .value);
+                if (colorEnd       .overrideState) rampFog.fogColorEnd       .Override(colorEnd       .value);
+                rampFog.active = true;
 
-                fogColorStart = colorStart,
-                fogColorMid = colorMid,
-                fogColorEnd = colorEnd,
-            });
-            GetComponent<PostProcessVolume>().enabled = false;
-            hasUpdated = false;
+                profile.AddSettings(rampFog);
+
+                postProcessVolume.profile = null;
+                postProcessVolume.sharedProfile = profile;
+                postProcessVolume.enabled = false;
+                updated = true;
+            }
         }
 
-        private void Update()
-        {
-            if (hasUpdated) return;
-
-            GetComponent<PostProcessVolume>().sharedProfile = profile;
-            GetComponent<PostProcessVolume>().enabled = true;
-
-            hasUpdated = true;
-        }
     }
 }
