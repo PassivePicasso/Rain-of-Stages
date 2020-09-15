@@ -90,19 +90,19 @@ namespace PassivePicasso.RainOfStages.Hooks
 
                 foreach (var mapGroup in mapGroups)
                 {
-                    var destinations = lookups[mapGroup.Key].destinations = mapGroup.Select(map => map.destination as SceneDef).ToArray();
+                    var destinations = lookups[mapGroup.Key].destinations = lookups[mapGroup.Key].destinations.Union(mapGroup.Select(map => map.destination as SceneDef)).Distinct().ToArray();
                     foreach (var destination in destinations)
                         Logger.LogMessage($"Added destination {destination.baseSceneName} to SceneDef {mapGroup.Key}");
                 }
             }
 
             {
-                var maps = sceneDefinitions.SelectMany(overridingScene => overridingScene.reverseSceneNameOverrides.Select(overridedScene => (overridingScene, overridedScene)));
+                var maps = sceneDefinitions.SelectMany(loadedSceneDef => loadedSceneDef.reverseSceneNameOverrides.Select(overridedScene => (loadedSceneDef, overridedScene)));
                 var mapGroups = maps.GroupBy(map => map.overridedScene.baseSceneName);
 
                 foreach (var mapGroup in mapGroups)
                 {
-                    var overridingScenes = lookups[mapGroup.Key].sceneNameOverrides = mapGroup.Select(map => map.overridingScene.baseSceneName).ToList();
+                    var overridingScenes = lookups[mapGroup.Key].sceneNameOverrides = lookups[mapGroup.Key].sceneNameOverrides.Union(mapGroup.Select(map => map.loadedSceneDef.baseSceneName)).Distinct().ToList();
 
                     foreach (var overridingScene in overridingScenes)
                         Logger.LogMessage($"Added override {overridingScene} to SceneDef {mapGroup.Key}");
