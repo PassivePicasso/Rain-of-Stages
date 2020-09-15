@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace PassivePicasso.RainOfStages.Variants
 {
-    [BepInPlugin("com.PassivePicasso.RainOfStages.Variants", "RainOfStages.Variants", "1.0.0")]
+    [BepInPlugin("com.PassivePicasso.RainOfStages.Variants", "RainOfStages.Variants", "1.0.1")]
     public class LibraryLoad : BaseUnityPlugin
     {
     }
