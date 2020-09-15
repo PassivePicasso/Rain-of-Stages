@@ -9,6 +9,7 @@ namespace PassivePicasso.RainOfStages.Proxy
     {
         public Texture2D normalMap;
         public TextAsset assetData;
+        public bool useAssetData;
         private Material material;
         Regex floatRegex = new Regex("    - (.*?):\\s(.*)");
         Regex colorRegex = new Regex("    - (.*?):\\s\\{r:(.*?), g:(.*?), b:(.*?), a:(.*?)\\}");
@@ -23,7 +24,8 @@ namespace PassivePicasso.RainOfStages.Proxy
             material = new Material(Shader.Find("Hopoo Games/Environment/Distant Water"));
             material.SetTexture("_Normal1Tex", normalMap);
             material.SetTexture("_Normal2Tex", normalMap);
-            SetData(material);
+            if(useAssetData)
+                SetData(material);
             var renderer = gameObject.GetComponent<MeshRenderer>();
             renderer.material = material;
         }

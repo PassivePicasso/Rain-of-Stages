@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if THUNDERKIT_CONFIGURED
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RainOfStages.Behaviours
@@ -22,3 +23,4 @@ namespace RainOfStages.Behaviours
        
     }
 }
+#endif

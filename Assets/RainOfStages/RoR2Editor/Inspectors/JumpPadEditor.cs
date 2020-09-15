@@ -1,4 +1,5 @@
 #if THUNDERKIT_CONFIGURED
+#if UNITY_EDITOR
 using RainOfStages.Behaviours;
 using System.Linq;
 using UnityEditor;
@@ -33,11 +34,11 @@ namespace PassivePicasso.RainOfStages.Editor
             {
                 lastPosition = jumpPad.transform.position;
                 lastTime = jumpPad.time;
-                trajectoryPoints = jumpPad.Trajectory().ToArray();
-                peak = trajectoryPoints.OrderBy(v => v.y).Last();
-                var velocityPick = trajectoryPoints.Skip(trajectoryPoints.Length - 3).Take(2).ToArray();
-                impactVelocity = (velocityPick[1] - velocityPick[0]).magnitude / Time.fixedDeltaTime;
-                verticalImpactVelocity = Mathf.Abs((velocityPick[1].y - velocityPick[0].y) / Time.fixedDeltaTime);
+                //trajectoryPoints = jumpPad.Trajectory().ToArray();
+                //peak = trajectoryPoints.OrderBy(v => v.y).Last();
+                //var velocityPick = trajectoryPoints.Skip(trajectoryPoints.Length - 3).Take(2).ToArray();
+                //impactVelocity = (velocityPick[1] - velocityPick[0]).magnitude / Time.fixedDeltaTime;
+                //verticalImpactVelocity = Mathf.Abs((velocityPick[1].y - velocityPick[0].y) / Time.fixedDeltaTime);
             }
 
             Handles.DotHandleCap(0, peak, Quaternion.identity, 0.75F, EventType.Repaint);
@@ -69,4 +70,5 @@ namespace PassivePicasso.RainOfStages.Editor
         }
     }
 }
+#endif
 #endif

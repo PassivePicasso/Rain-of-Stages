@@ -8,7 +8,7 @@ namespace PassivePicasso.RainOfStages.Proxy
     {
         static FieldInfo runtimeLoadoutField = typeof(global::RoR2.CharacterSpawnCard).GetField("runtimeLoadout", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
-        void Awake()
+        new void Awake()
         {
             if (Application.isEditor) return;
             var card = (global::RoR2.CharacterSpawnCard)ResolveProxy();
