@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Package
   m_EditorClassIdentifier: 
   Manifest: {fileID: 11400000, guid: cf6c581546b3c6c4f95ad5cfa0b0aaac, type: 2}
-  AssetBundleBuildOptions: 0
-  DeploymentOptions: 12
+  AssetBundleBuildOptions: 288
+  DeploymentOptions: 173
   LogLevel: 0
   Plugins: []
   Patchers: []
   Monomod: []
-  Readme: {fileID: 0}
+  extraCommandLineArgs: []
+  Readme: {fileID: 4900000, guid: 9d6451023c9dd8d41afaf6b9573c7434, type: 3}
   Icon: {fileID: 2800000, guid: 2ffae42bd1366b241ae23d0e01fc554c, type: 3}
+  ExecuteOnDoubleClick: 1
