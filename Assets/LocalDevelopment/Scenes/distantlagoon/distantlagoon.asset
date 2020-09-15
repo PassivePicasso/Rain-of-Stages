@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a884b5ba86a496419d85ab1c2e967c2, type: 3}
+  m_Name: distantlagoon
+  m_EditorClassIdentifier: 
+  nameToken: Distant Lagoon
+  subtitleToken: You feel a cool breeze
+  loreToken: 
+  stageOrder: 0
+  previewTexture: {fileID: 0}
+  portalMaterial: {fileID: 0}
+  portalSelectionMessageString: 
+  dioramaPrefab: {fileID: 0}
+  sceneType: 1
+  mainTrack: {fileID: 11400000, guid: d4b46a1cd2092544887b41ef768239e6, type: 2}
+  bossTrack: {fileID: 11400000, guid: 1cf3faba7ab84a946be5f202700b9005, type: 2}
+  isOfflineScene: 0
+  suppressPlayerEntry: 0
+  suppressNpcEntry: 0
+  destinations: []
+  preferredPortalPrefab: {fileID: 0}
+  sceneNameOverrides: []
+  reverseSceneNameOverrides:
+  - {fileID: 11400000, guid: d58087d0abbf68749a860b40f2247793, type: 2}
+  destionationInjections: []

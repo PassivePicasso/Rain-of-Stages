@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Build
   m_EditorClassIdentifier: 
   Manifest: {fileID: 11400000, guid: 51eb2a0e011ee904e91cf9ce0d69f1e1, type: 2}
-  AssetBundleBuildOptions: 33
+  AssetBundleBuildOptions: 1
   DeploymentOptions: 1
   LogLevel: -1
   Plugins:

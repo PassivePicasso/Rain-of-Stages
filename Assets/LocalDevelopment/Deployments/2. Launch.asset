@@ -16,10 +16,11 @@ MonoBehaviour:
   AssetBundleBuildOptions: 0
   DeploymentOptions: 8416
   LogLevel: -1
-  Plugins: []
+  Plugins:
+  - {fileID: 5897886265953266890, guid: e9414c940e99b3b45912a2b8b7385327, type: 3}
   Patchers: []
   Monomod: []
   extraCommandLineArgs: []
   Readme: {fileID: 0}
   Icon: {fileID: 0}
-  ExecuteOnDoubleClick: 0
+  ExecuteOnDoubleClick: 1
