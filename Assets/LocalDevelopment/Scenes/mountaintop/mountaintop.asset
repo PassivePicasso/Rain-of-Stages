@@ -26,9 +26,9 @@ MonoBehaviour:
   isOfflineScene: 0
   suppressPlayerEntry: 0
   suppressNpcEntry: 0
-  destinations:
-  - {fileID: 11400000}
+  destinations: []
   preferredPortalPrefab: {fileID: 0}
   sceneNameOverrides: []
-  reverseSceneNameOverrides: []
+  reverseSceneNameOverrides:
+  - {fileID: 11400000, guid: d58087d0abbf68749a860b40f2247793, type: 2}
   destionationInjections: []

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Manifest: {fileID: 11400000, guid: 51eb2a0e011ee904e91cf9ce0d69f1e1, type: 2}
   AssetBundleBuildOptions: 0
-  DeploymentOptions: 8416
+  DeploymentOptions: 8432
   LogLevel: -1
   Plugins:
   - {fileID: 5897886265953266890, guid: 100456513cf031f4ba64390628e6feb9, type: 3}
