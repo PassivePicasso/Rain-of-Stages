@@ -1,4 +1,8 @@
-## Sunset Isle
-Come visit the cool lagoon at Sunset Isle, gaze upon the glorious sunsets and ancient ruins that cover the land and enjoy your stay.
+## Distant Lagoon
+Rules:
 
-Warning: Please ensure you've submitted your release papers before deployment.
+Please ensure you've submitted your release papers before deployment.
+
+Don't stare directly into the sun.
+
+Do not become distracted.
