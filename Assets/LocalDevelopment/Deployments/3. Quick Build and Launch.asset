@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4d8e81ca0e88c47857761d414e56ea, type: 3}
   m_Name: 3. Quick Build and Launch
   m_EditorClassIdentifier: 
-  Manifest: {fileID: 0}
+  Manifest: {fileID: 11400000, guid: e1122ca6ea0a7d44a89c6d257a7b505b, type: 2}
   AssetBundleBuildOptions: 1
-  DeploymentOptions: 8433
-  LogLevel: 0
-  Plugins: []
+  DeploymentOptions: 8417
+  LogLevel: -1
+  Plugins:
+  - {fileID: 5897886265953266890, guid: 100456513cf031f4ba64390628e6feb9, type: 3}
+  - {fileID: 5897886265953266890, guid: eb4a719aa6531da40b55b70546f0af9b, type: 3}
   Patchers: []
   Monomod: []
   extraCommandLineArgs: []

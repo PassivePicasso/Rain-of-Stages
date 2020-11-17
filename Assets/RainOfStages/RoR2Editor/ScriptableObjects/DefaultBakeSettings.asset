@@ -24,6 +24,6 @@ MonoBehaviour:
   overrideVoxelSize: 0
   voxelSize: 0.16
   overrideTileSize: 1
-  tileSize: 5
-  globalNavigationOffset: {x: 0, y: -0.35, z: 0}
+  tileSize: 30
+  globalNavigationOffset: {x: 0, y: 0, z: 0}
   NodeMeshObject: {fileID: 0}

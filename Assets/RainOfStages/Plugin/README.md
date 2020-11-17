@@ -14,10 +14,15 @@ The project aims to provide many features to streamline the addition of many typ
 
 
 Change Notes:
+* 2.2.0:
+  * Fix versioning
 
-2.1.3:
-	Fix Version numbers
+* 2.1.4:
+  * Fix bug with destination injection and scene variants which replaced destinations and variants instead of adding to them
 
-2.1.2:
-   Improved JumpPad Editor
-   Improved JumpPad Prefab
+* 2.1.3:
+  * Fix Version numbers
+
+* 2.1.2:
+  * Improved JumpPad Editor
+  * Improved JumpPad Prefab
