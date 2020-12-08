@@ -1,5 +1,5 @@
 ﻿#if THUNDERKIT_CONFIGURED
-using PassivePicasso.ThunderKit.Proxy.RoR2.UI;
+using RoR2.UI;
 using TMPro;
 using UnityEngine;
 

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 4449e11eed34e7148a9704824504103f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - VoxelizerShader: {fileID: 7200000, guid: 5fdfd9c0be0cd42fca24f981cc152dd4, type: 3}
+  - World: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

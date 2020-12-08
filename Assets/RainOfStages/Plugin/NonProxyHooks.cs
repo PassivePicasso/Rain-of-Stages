@@ -16,15 +16,66 @@ namespace PassivePicasso.RainOfStages.Hooks
     using RainOfStages = Plugin.RainOfStages;
     internal class NonProxyHooks
     {
+        static Material mat = new Material(Shader.Find("Unlit/Color"));
         static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
         static IReadOnlyList<string> GameModeNames => RainOfStages.Instance.GameModeNames;
+
+        struct DrawOrder { public Vector3 start; public Vector3 end; public float duration; public Color color; }
+
+        static Dictionary<Guid, DrawOrder> DrawOrders = new Dictionary<Guid, DrawOrder>();
+
+        public static void InitializeDebugging()
+        {
+            Camera.onPostRender += OnDrawOrders;
+        }
+
+        [Hook(typeof(Debug), isStatic: true)]
+        public static void DrawLine(Action<Vector3, Vector3, Color, float, bool> orig, Vector3 start, Vector3 end, Color color, float duration = 0.0f, bool depthTest = true)
+        {
+            DrawOrders[Guid.NewGuid()] = new DrawOrder { start = start, end = end, duration = duration, color = color };
+        }
+
+        protected static void OnDrawOrders(Camera camera)
+        {
+            List<DrawOrder> orders = new List<DrawOrder>();
+            var guids = DrawOrders.Keys.ToArray();
+            foreach (var guid in guids)
+            {
+                var order = DrawOrders[guid];
+
+                order.duration -= Time.deltaTime * 0.25f;
+                if (order.duration <= 0)
+                    DrawOrders.Remove(guid);
+                else
+                {
+                    DrawOrders[guid] = order;
+                    orders.Add(order);
+                }
+            }
+            DrawLines(orders);
+        }
+
+        static void DrawLines(List<DrawOrder> drawOrders)
+        {
+            if (drawOrders.Count == 0) return;
+
+            for (int o = 0; o < drawOrders.Count; o++)
+            {
+                GL.Begin(GL.LINES);
+                GL.Color(drawOrders[o].color);
+
+                GL.Vertex(drawOrders[o].start);
+                GL.Vertex(drawOrders[o].end);
+                GL.End();
+            }
+        }
 
         [Hook(typeof(MainMenuController), "Start")]
         private static void MainMenuController_Start(Action<MainMenuController> orig, MainMenuController self)
         {
             try
             {
-                Logger.LogMessage("Adding GameModes to Alternate GameMOdes menu");
+                Logger.LogDebug("Adding GameModes to ExtraGameModeMenu menu");
 
                 var mainMenu = GameObject.Find("MainMenu")?.transform;
                 var weeklyButton = mainMenu.Find("MENU: Extra Game Mode/ExtraGameModeMenu/Main Panel/GenericMenuButtonPanel/JuicePanel/GenericMenuButton (Weekly)");
@@ -62,7 +113,7 @@ namespace PassivePicasso.RainOfStages.Hooks
             }
             finally
             {
-                Logger.LogMessage("Finished Main Menu Modifications");
+                Logger.LogInfo("Finished Main Menu Modifications");
                 orig(self);
             }
         }
@@ -90,9 +141,9 @@ namespace PassivePicasso.RainOfStages.Hooks
 
                 foreach (var mapGroup in mapGroups)
                 {
-                    var destinations = lookups[mapGroup.Key].destinations = lookups[mapGroup.Key].destinations .Union(mapGroup.Select(map => map.destination as SceneDef)).Distinct().ToArray();
+                    var destinations = lookups[mapGroup.Key].destinations = lookups[mapGroup.Key].destinations.Union(mapGroup.Select(map => map.destination as SceneDef)).Distinct().ToArray();
                     foreach (var destination in destinations)
-                        Logger.LogMessage($"Added destination {destination.baseSceneName} to SceneDef {mapGroup.Key}");
+                        Logger.LogInfo($"Added destination {destination.baseSceneName} to SceneDef {mapGroup.Key}");
                 }
             }
 
@@ -105,7 +156,7 @@ namespace PassivePicasso.RainOfStages.Hooks
                     var overridingScenes = lookups[mapGroup.Key].sceneNameOverrides = lookups[mapGroup.Key].sceneNameOverrides.Union(mapGroup.Select(map => map.loadedSceneDef.baseSceneName)).Distinct().ToList();
 
                     foreach (var overridingScene in overridingScenes)
-                        Logger.LogMessage($"Added override {overridingScene} to SceneDef {mapGroup.Key}");
+                        Logger.LogInfo($"Added override {overridingScene} to SceneDef {mapGroup.Key}");
                 }
             }
         }

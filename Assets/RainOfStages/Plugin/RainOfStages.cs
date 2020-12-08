@@ -6,6 +6,7 @@ using BepInEx.Logging;
 using PassivePicasso.RainOfStages.Hooks;
 using PassivePicasso.RainOfStages.Monomod;
 using RoR2;
+using RoR2.Navigation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,6 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 using Path = System.IO.Path;
-using Run = PassivePicasso.ThunderKit.Proxy.RoR2.Run;
 
 namespace PassivePicasso.RainOfStages.Plugin
 {
@@ -65,7 +65,10 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         public ManualLogSource RoSLog => base.Logger;
 
-
+        public bool debugDraw = false;
+        public HullClassification debugHull = HullClassification.Human;
+        private FieldInfo cheatBackValueField;
+        private bool debugging = false;
         public RainOfStages()
         {
             Instance = this;
@@ -88,6 +91,9 @@ namespace PassivePicasso.RainOfStages.Plugin
             //Thread.Sleep(10000);
             RoSLog.LogInfo("Initializing Rain of Stages");
             Initialize();
+
+            cheatBackValueField = typeof(RoR2.Console.CheatsConVar).GetField("_boolValue", BindingFlags.NonPublic | BindingFlags.Instance);
+            cheatBackValueField.SetValue(RoR2.Console.CheatsConVar.instance, true);
 
             var dir = GetPluginsDirectory();
 
@@ -134,13 +140,20 @@ namespace PassivePicasso.RainOfStages.Plugin
                         gameMode = loadGameModeArg.Split('=')[1];
                         loadGameMode = true;
                         break;
+                    case string cheatsEnabled when cheatsEnabled.StartsWith("--Debug", StringComparison.OrdinalIgnoreCase):
+                        cheatBackValueField.SetValue(RoR2.Console.CheatsConVar.instance, true);
+                        var sessionCheatsEnabledProp = typeof(RoR2.Console).GetProperty(nameof(RoR2.Console.sessionCheatsEnabled), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                        sessionCheatsEnabledProp.SetValue(null, true);
+                        debugging = true;
+                        NonProxyHooks.InitializeDebugging();
+                        break;
                 }
 
             if (loadGameMode)
             {
-                RoR2.Console.instance.SubmitCmd((NetworkUser)null, "intro_skip 1", false);
-                RoR2.Console.instance.SubmitCmd((NetworkUser)null, "splash_skip 1", false);
-                RoR2.Console.instance.SubmitCmd((NetworkUser)null, $"transition_command \"gamemode {gameMode}; host 0;\"", false);
+                Execute("intro_skip 1");
+                Execute("splash_skip 1");
+                Execute($"transition_command \"gamemode {gameMode}; host 0;\"");
             }
         }
 
@@ -150,7 +163,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             {
                 var value = gameModeCatalogIndexField.GetValue(null);
 
-                RoR2.Run[] runs = (global::RoR2.Run[])value;
+                Run[] runs = (Run[])value;
 
                 gameModeNames = runs.Select(r => r.name).Distinct().Where(run => !forbiddenRuns.Contains(run)).ToList();
 
@@ -158,12 +171,34 @@ namespace PassivePicasso.RainOfStages.Plugin
 
                 countInitialized = true;
             }
+
+            if ( Input.GetKeyDown(KeyCode.F8))
+            {
+                HullClassification next = HullClassification.Count;
+                if (debugHull == HullClassification.Count) next = HullClassification.Human;
+                else
+                {
+                    next = (HullClassification)(((int)debugHull) + 1);
+                    Execute($"debug_scene_draw_nodegraph 0 {(int)MapNodeGroup.GraphType.Ground} {(int)debugHull}");
+                }
+
+                if (next != HullClassification.Count)
+                    Execute($"debug_scene_draw_nodegraph 1 {(int)MapNodeGroup.GraphType.Ground} {(int)next}");
+
+                debugHull = next;
+            }
         }
 
         #endregion
 
         #region Methods
 
+
+        private void Execute(string cmd)
+        {
+            Logger.LogDebug(cmd);
+            RoR2.Console.instance.SubmitCmd((NetworkUser)null, cmd, false);
+        }
         private void ApplyAttributes()
         {
             HookAttribute.Logger = RoSLog;

@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2374578004109536812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c54297d0e46490148b3844a52bb07ea3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c1227eb8840a4a498b03535df0afb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 0}
@@ -51,3 +51,5 @@ MonoBehaviour:
   AACannonMuzzleEffect: {fileID: 0}
   chainLightingPrefab: {fileID: 0}
   plasmaCorePrefab: {fileID: 0}
+  bleedOnHitAndExplodeImpactEffect: {fileID: 0}
+  bleedOnHitAndExplodeBlastEffect: {fileID: 0}

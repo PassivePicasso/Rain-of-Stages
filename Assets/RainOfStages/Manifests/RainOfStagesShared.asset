@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9368641d3f728ba4583a23a8fc2e03d2, type: 3}
   m_Name: RainOfStagesShared
   m_EditorClassIdentifier: 
-  version_number: 1.2.2
+  author: Twiner
+  version_number: 2.0.0
   website_url: https://github.com/PassivePicasso/Rain-of-Stages
   description: Rain of Stages Shared Library
   dependencies:

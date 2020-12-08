@@ -91,11 +91,11 @@ namespace PassivePicasso.RainOfStages.Monomod
                         Logger?.LogDebug($"Target Method: {map.Hook.type}.{targetMethodName}({paramString})");
 
                         var targetMethod = map.Hook.type.GetMethod(targetMethodName, bindingFlags, null, parameterTypes, EmptyPMs);
-                        Logger?.LogDebug($"Found Method: ({targetMethod?.Name}) on {map.Hook.type.FullName}");
+                        Logger?.LogDebug($"Method: ({targetMethod?.Name ?? "Not Found"}) on {map.Hook.type.FullName}");
                         
                         
                         Logger?.LogDebug($"Target Method: {map.Hook.type}.{targetMethodName}({paramString})");
-                        Logger?.LogInfo($"Hooking: {map.Hook.type}.{targetMethodName} hooked by ({type.FullName}.{map.SourceMethod.Name})");
+                        Logger?.LogInfo($"Hooking: {map.Hook.type}.{targetMethod?.Name ?? "Not Found"} hooked by ({type.FullName}.{map.SourceMethod.Name})");
 
                         hooks.Add((type, new Hook(targetMethod, map.SourceMethod)));
                     }

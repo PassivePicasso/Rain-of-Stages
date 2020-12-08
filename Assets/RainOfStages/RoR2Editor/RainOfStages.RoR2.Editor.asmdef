@@ -1,7 +1,10 @@
 {
     "name": "RainOfStages.RoR2.Editor",
     "references": [
-        "RainOfStages.RoR2"
+        "RainOfStages.RoR2",
+        "Whinarn.UnityMeshSimplifier.Editor",
+        "Whinarn.UnityMeshSimplifier.Runtime",
+        "MattatzVoxelizer"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

@@ -1,7 +1,9 @@
 {
     "name": "RainOfStages.RoR2",
     "references": [
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "MattatzVoxelizer",
+        "Texture3dPreview"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

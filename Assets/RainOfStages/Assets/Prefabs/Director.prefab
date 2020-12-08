@@ -77,7 +77,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6474242042706043882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b0f5a8c0e3382f47963c59a78c5fe27, type: 3}
+  m_Script: {fileID: -1674629239, guid: dcd56c7734a7ce54c92ce46b856a6975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6474242042706043888
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6474242042706043882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e5685569638977408a8ada0b48c65b2, type: 3}
+  m_Script: {fileID: 818754807, guid: dcd56c7734a7ce54c92ce46b856a6975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   teleporterSpawnCard: {fileID: 11400000, guid: f6f59d96e3c6e074884c86e1a62c6fff,
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6474242042706043882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cdc91441534e4344b8fbbee5a050a90, type: 3}
+  m_Script: {fileID: 653292689, guid: dcd56c7734a7ce54c92ce46b856a6975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   customName: 
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6474242042706043882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cdc91441534e4344b8fbbee5a050a90, type: 3}
+  m_Script: {fileID: 653292689, guid: dcd56c7734a7ce54c92ce46b856a6975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   customName: 
@@ -157,8 +157,8 @@ MonoBehaviour:
   minRerollSpawnInterval: 2.3333333
   maxRerollSpawnInterval: 4.3333335
   moneyWaveIntervals:
-  - min: 0
-    max: 0
+  - min: 1
+    max: 1
   creditMultiplier: 1
   spawnDistanceMultiplier: 1
   shouldSpawnOneWave: 0

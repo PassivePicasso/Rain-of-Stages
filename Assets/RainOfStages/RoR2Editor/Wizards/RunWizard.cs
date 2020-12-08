@@ -1,11 +1,11 @@
 ﻿#if THUNDERKIT_CONFIGURED
-using UnityEngine;
-using UnityEditor;
+using RoR2;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using PassivePicasso.ThunderKit.Proxy.RoR2;
+using UnityEditor;
+using UnityEngine;
 
 namespace PassivePicasso.RainOfStages.Editor
 {

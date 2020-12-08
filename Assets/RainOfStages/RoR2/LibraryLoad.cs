@@ -1,5 +1,6 @@
 #if THUNDERKIT_CONFIGURED
 using BepInEx;
+using BepInEx.Logging;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace PassivePicasso.RainOfStages.Shared
     public class LibraryLoad : BaseUnityPlugin
     {
         public AssetBundle RoSShared { get; private set; }
+        public new ManualLogSource Logger => base.Logger;
         private void Awake()
         {
             LoadAssetBundles();

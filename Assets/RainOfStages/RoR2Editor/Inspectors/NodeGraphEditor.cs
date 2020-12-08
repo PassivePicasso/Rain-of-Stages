@@ -1,22 +1,21 @@
 #if THUNDERKIT_CONFIGURED
+using RoR2;
 using RoR2.Navigation;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(NodeGraph))]
-public class NodeGraphEditor : Editor
+namespace PassivePicasso.RainOfStages.Editor
 {
-    static FieldInfo nodesField = typeof(NodeGraph).GetField("nodes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-    private void OnSceneGUI()
+    [CustomEditor(typeof(NodeGraph), true)]
+    public class NodeGraphEditor : UnityEditor.Editor
     {
-        var nodeGraph = target as NodeGraph;
-
-        var nodes = nodesField.GetValue(nodeGraph) as RoR2.Navigation.NodeGraph.Node[];
-
-        foreach (var node in nodes)
+        public override void OnInspectorGUI()
         {
-            Handles.SphereHandleCap(0, node.position, Quaternion.identity, 1, EventType.Repaint);
+            var so = new SerializedObject(target);
+            GUILayout.Label($"Nodes: {so.FindProperty("nodes").arraySize}");
+            GUILayout.Label($"Links: {so.FindProperty("links").arraySize}");
+            GUILayout.Label($"Gates: {so.FindProperty("gateNames").arraySize}");
         }
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3311577881563766073}
-  - component: {fileID: 3311577881563766072}
+  - component: {fileID: 2021711039387514568}
   - component: {fileID: 3311577881563766022}
   - component: {fileID: 4148143589100074504}
   m_Layer: 21
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3311577881563766072
+--- !u!114 &2021711039387514568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3311577881563766075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d280eca673c07b14c86c6c390d12c9b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e8462d76bf1e5343b0c8840075b792e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundNodeGroup: {fileID: 0}
@@ -51,6 +51,10 @@ MonoBehaviour:
   approximateMapBoundMesh: {fileID: 0}
   groundNodesAsset: {fileID: 0}
   airNodesAsset: {fileID: 0}
+  DebugNoCeiling: 0
+  DebugTeleporterOk: 0
+  DebugLinks: 0
+  DebugNodes: 0
 --- !u!114 &3311577881563766022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3311577881563766075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97430871d12ebb44c85841964d2979a9, type: 3}
+  m_Script: {fileID: -235412878, guid: dcd56c7734a7ce54c92ce46b856a6975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactableCategories: {fileID: 0}

@@ -1,10 +1,6 @@
 ﻿#if THUNDERKIT_CONFIGURED
-using PassivePicasso.ThunderKit.Proxy.RoR2.UI;
-using RoR2.UI;
 using RoR2.UI.SkinControllers;
 using System.Reflection;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace RainOfStages.Behaviours
 {

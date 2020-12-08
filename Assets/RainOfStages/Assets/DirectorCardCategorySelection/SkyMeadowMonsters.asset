@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32aee3ff6fe4bde4f8da389127612b23, type: 3}
+  m_Script: {fileID: -104859921, guid: dcd56c7734a7ce54c92ce46b856a6975, type: 3}
   m_Name: SkyMeadowMonsters
   m_EditorClassIdentifier: 
   categories:

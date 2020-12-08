@@ -5,6 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - bakeSettings: {fileID: 11400000, guid: ca31fd8c3515fa14eb5845d893f0e888, type: 2}
+  - VoxelizerShader: {fileID: 7200000, guid: 5fdfd9c0be0cd42fca24f981cc152dd4, type: 3}
+  - TextureSlicer: {fileID: 7200000, guid: d252568a514aee94aaecc0fcbca5c977, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

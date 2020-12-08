@@ -2,8 +2,7 @@
 using PassivePicasso.RainOfStages.Proxy;
 using PassivePicasso.RainOfStages.Utilities;
 using PassivePicasso.ThunderKit.Proxy;
-using PassivePicasso.ThunderKit.Proxy.RoR2;
-using System.IO;
+using RoR2;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
