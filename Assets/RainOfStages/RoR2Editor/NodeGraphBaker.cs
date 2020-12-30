@@ -28,7 +28,6 @@ namespace PassivePicasso.RainOfStages
 
         public BakeSettings bakeSettings;
         public ComputeShader VoxelizerShader;
-        public ComputeShader TextureSlicer;
 
         NavMeshBuildSettings settings => bakeSettings.bakeSettings;
 
@@ -96,12 +95,9 @@ namespace PassivePicasso.RainOfStages
 
             Log("Bounds encapsulation");
 
-            //var airNodes = Enumerable.Range(1, 3).SelectMany(i => nodeRootPositions.Select(p => p + (i * 2.5f * Vector3.up))).ToArray();
-            //var airNodeGraph = BakeAirNodes(world.transform, sources);
             var airNodeGraph = BakeVoxelAirNodes(world.transform, sources);
             Log("Saved Air Graph");
 
-            //var airNodeGroup = BakeGraph(sceneInfo, meshes, airNodes, GraphType.Air, $"{GraphType.Air}");
             var groundNodeGraph = BakeGroundNodes(world.transform, b.size.y * 2, sources);
             Log("Saved Ground Graph");
 
@@ -215,7 +211,6 @@ namespace PassivePicasso.RainOfStages
 
             Log($"Indexing {nodeMap.Count} voxels");
             gpuVoxelData?.Dispose();
-
 
             return SaveGraph($"{SceneManager.GetActiveScene().name}_AirNodeGraph", nodes, links.ToArray());
         }
