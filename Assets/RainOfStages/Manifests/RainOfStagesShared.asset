@@ -18,8 +18,9 @@ MonoBehaviour:
   description: Rain of Stages Shared Library
   dependencies:
   - bbepis-BepInExPack-5.3.1
-  unityPackages:
-  - {fileID: 11400000, guid: 6a8809cb66e85194783c8651da5c539a, type: 2}
+  unityPackages: []
+  additionalFiles:
+  - {fileID: 102900000, guid: 157e60187097f6243abefc76c328b3ac, type: 3}
   plugins:
   - {fileID: 5897886265953266890, guid: eb4a719aa6531da40b55b70546f0af9b, type: 3}
   patchers: []

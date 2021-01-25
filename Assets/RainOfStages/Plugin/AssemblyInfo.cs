@@ -1,4 +1,5 @@
-﻿using PassivePicasso.RainOfStages;
+﻿#if THUNDERKIT_CONFIGUIRED
+using PassivePicasso.RainOfStages;
 using System.Reflection;
 
 [assembly: AssemblyTitle("RainOfStages")]
@@ -7,3 +8,4 @@ using System.Reflection;
 [assembly: AssemblyProduct("RainOfStages")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyFileVersion(Constants.Version + Constants.Build)]
+#endif

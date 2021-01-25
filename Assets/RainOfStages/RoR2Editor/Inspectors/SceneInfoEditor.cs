@@ -10,11 +10,11 @@ namespace PassivePicasso.RainOfStages.Editor
     [CustomEditor(typeof(SceneInfo), true)]
     public class SceneInfoEditor : UnityEditor.Editor
     {
-        static FieldInfo nodesField = typeof(NodeGraph).GetField("nodes", BindingFlags.NonPublic | BindingFlags.Instance);
-        static FieldInfo linksField = typeof(NodeGraph).GetField("links", BindingFlags.NonPublic | BindingFlags.Instance);
+        //static FieldInfo nodesField = typeof(NodeGraph).GetField("nodes", BindingFlags.NonPublic | BindingFlags.Instance);
+        //static FieldInfo linksField = typeof(NodeGraph).GetField("links", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        private bool pathOperationStarted = false, pathPrepared = false;
-        private Vector3 startNode = Vector3.zero, endNode = Vector3.zero;
+        //private bool pathOperationStarted = false, pathPrepared = false;
+        //private Vector3 startNode = Vector3.zero, endNode = Vector3.zero;
 
         //void OnSceneGUI()
         //{

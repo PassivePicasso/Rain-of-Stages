@@ -68,7 +68,6 @@ namespace PassivePicasso.RainOfStages.Plugin
         public bool debugDraw = false;
         public HullClassification debugHull = HullClassification.Human;
         private FieldInfo cheatBackValueField;
-        private bool debugging = false;
         public RainOfStages()
         {
             Instance = this;
@@ -144,7 +143,6 @@ namespace PassivePicasso.RainOfStages.Plugin
                         cheatBackValueField.SetValue(RoR2.Console.CheatsConVar.instance, true);
                         var sessionCheatsEnabledProp = typeof(RoR2.Console).GetProperty(nameof(RoR2.Console.sessionCheatsEnabled), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                         sessionCheatsEnabledProp.SetValue(null, true);
-                        debugging = true;
                         NonProxyHooks.InitializeDebugging();
                         break;
                 }
