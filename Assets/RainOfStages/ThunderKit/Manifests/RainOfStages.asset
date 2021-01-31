@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
   - {fileID: 114054479563486030}
+  - {fileID: 114336787334979722}
   - {fileID: 114374229590132598}
   - {fileID: 114563359324519478}
-  - {fileID: 114336787334979722}
 --- !u!114 &114054479563486030
 MonoBehaviour:
   m_ObjectHideFlags: 0
