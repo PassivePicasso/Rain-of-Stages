@@ -1,4 +1,3 @@
-#if THUNDERKIT_CONFIGURED
 using BepInEx;
 using BepInEx.Logging;
 using System.IO;
@@ -29,4 +28,3 @@ namespace PassivePicasso.RainOfStages.Shared
         }
     }
 }
-#endif

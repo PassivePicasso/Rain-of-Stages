@@ -1,5 +1,4 @@
-﻿#if THUNDERKIT_CONFIGURED
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using PassivePicasso.RainOfStages.Monomod;
 using PassivePicasso.RainOfStages.Proxy;
 using RoR2;
@@ -161,6 +160,4 @@ namespace PassivePicasso.RainOfStages.Hooks
             }
         }
     }
-
 }
-#endif

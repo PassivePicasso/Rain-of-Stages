@@ -1,5 +1,4 @@
 #pragma warning disable 618
-#if THUNDERKIT_CONFIGURED
 using PassivePicasso.RainOfStages.Monomod;
 using RoR2;
 using System;
@@ -32,4 +31,3 @@ namespace PassivePicasso.RainOfStages.Proxy
         }
     }
 }
-#endif

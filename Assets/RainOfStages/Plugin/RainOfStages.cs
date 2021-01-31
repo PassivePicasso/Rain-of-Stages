@@ -1,5 +1,4 @@
-﻿#if THUNDERKIT_CONFIGURED
-#pragma warning disable 618
+﻿#pragma warning disable 618
 using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
@@ -170,7 +169,7 @@ namespace PassivePicasso.RainOfStages.Plugin
                 countInitialized = true;
             }
 
-            if ( Input.GetKeyDown(KeyCode.F8))
+            if (Input.GetKeyDown(KeyCode.F8))
             {
                 HullClassification next = HullClassification.Count;
                 if (debugHull == HullClassification.Count) next = HullClassification.Human;
@@ -354,4 +353,3 @@ namespace PassivePicasso.RainOfStages.Plugin
         #endregion
     }
 }
-#endif

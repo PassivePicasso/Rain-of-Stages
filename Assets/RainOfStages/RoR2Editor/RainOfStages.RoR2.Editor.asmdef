@@ -6,15 +6,16 @@
         "Whinarn.UnityMeshSimplifier.Runtime"
     ],
     "optionalUnityReferences": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Assembly-CSharp.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": [
-        "THUNDERKIT_CONFIGURED"
+        "riskofrain2",
+        "bepinexpack"
     ]
 }

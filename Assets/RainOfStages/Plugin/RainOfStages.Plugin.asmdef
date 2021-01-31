@@ -16,5 +16,8 @@
         "MonoMod.Utils.dll"
     ],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [
+        "riskofrain2",
+        "bepinexpack"
+    ]
 }
