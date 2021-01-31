@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
   - {fileID: 114054479563486030}
+  - {fileID: 114374229590132598}
+  - {fileID: 114563359324519478}
   - {fileID: 114336787334979722}
 --- !u!114 &114054479563486030
 MonoBehaviour:
@@ -56,3 +58,39 @@ MonoBehaviour:
   - <ManifestPluginStaging>
   definitions:
   - {fileID: 5897886265953266890, guid: 100456513cf031f4ba64390628e6feb9, type: 3}
+  - {fileID: 5897886265953266890, guid: 77ccaf49895b0d64e87cd4b4faf83c49, type: 3}
+  - {fileID: 5897886265953266890, guid: a09b502a3463f794a83cf80a67a246d2, type: 3}
+--- !u!114 &114374229590132598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d1008b78cb6e846889b7778282fbef, type: 3}
+  m_Name: AssetBundleDefs
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  assetBundles:
+  - assetBundleName: RoSShared
+    assets:
+    - {fileID: 11400000, guid: fa6d7e34c49e43345868c278c846c70b, type: 2}
+--- !u!114 &114563359324519478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda4ac7962f04724eacfeb26af5e2b75, type: 3}
+  m_Name: UnityPackages
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  unityPackages:
+  - {fileID: 11400000, guid: 6a8809cb66e85194783c8651da5c539a, type: 2}

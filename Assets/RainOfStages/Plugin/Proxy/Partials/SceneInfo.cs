@@ -1,6 +1,5 @@
 ﻿#if THUNDERKIT_CONFIGURED && UNITY_EDITOR
 using global::RoR2;
-using PassivePicasso.RainOfStages.Shared;
 using RoR2.Navigation;
 using System.Collections.Generic;
 using System.Linq;

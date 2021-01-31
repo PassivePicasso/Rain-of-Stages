@@ -1,7 +1,7 @@
 {
     "name": "RainOfStages.RoR2.Editor",
     "references": [
-        "RainOfStages.RoR2",
+        "RainOfStages.Plugin",
         "Whinarn.UnityMeshSimplifier.Editor",
         "Whinarn.UnityMeshSimplifier.Runtime"
     ],
@@ -13,7 +13,10 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "Assembly-CSharp.dll"
+        "Assembly-CSharp.dll",
+        "RainOfStages.Plugin.dll",
+        "Whinarn.UnityMeshSimplifier.Editor.dll",
+        "Whinarn.UnityMeshSimplifier.Runtime.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [

@@ -22,7 +22,6 @@ namespace PassivePicasso.RainOfStages.Plugin
 
     //The name is the name of the plugin that's displayed on load, and the version number just specifies what version the plugin is.
     [BepInPlugin(Constants.GuidName, Constants.Name, Constants.Version)]
-    [BepInDependency(Shared.Constants.GuidName, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("R2API", BepInDependency.DependencyFlags.SoftDependency)]
     public class RainOfStages : BaseUnityPlugin
     {

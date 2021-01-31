@@ -13,7 +13,12 @@
         "Assembly-CSharp.dll",
         "BepInEx.dll",
         "MonoMod.RuntimeDetour.dll",
-        "MonoMod.Utils.dll"
+        "MonoMod.Utils.dll",
+        "Assembly-CSharp.dll",
+        "Rewired_CSharp.dll",
+        "Wwise.dll",
+        "Unity.TextMeshPro.dll",
+        "Unity.TextMeshPro.Editor.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [
