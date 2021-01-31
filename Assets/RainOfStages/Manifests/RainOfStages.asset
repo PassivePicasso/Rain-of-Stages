@@ -9,22 +9,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9368641d3f728ba4583a23a8fc2e03d2, type: 3}
+  m_Script: {fileID: 11500000, guid: e563561e08b6a3642a487177f5cfbb37, type: 3}
   m_Name: RainOfStages
   m_EditorClassIdentifier: 
+  Data:
+  - {fileID: 114054479563486030}
+  - {fileID: 114336787334979722}
+--- !u!114 &114054479563486030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d4b1be9b930e945be74735783a28f6, type: 3}
+  m_Name: ThunderstoreManifest
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  - <ManifestStagingRoot>
   author: Twiner
-  version_number: 3.0.0
-  website_url: https://passivepicasso.github.io/Rain-of-Stages/
+  versionNumber: 3.0.0
+  url: https://github.com/PassivePicasso/Rain-of-Stages
   description: Rain of Stages is a framework to assist in the creation, testing, packaging
     and deployment of custom Risk of Rain 2 stages and mods
-  dependencies:
-  - bbepis-BepInExPack-5.3.1
-  - Twiner-RainOfStagesShared-2.0.0
-  redistributables: []
-  plugins:
-  - {fileID: 5897886265953266890, guid: 100456513cf031f4ba64390628e6feb9, type: 3}
-  patchers: []
-  monomod: []
-  assetBundleManifest: {fileID: 0}
   readme: {fileID: 4900000, guid: 6253891c9532ac140af6adcaf3707393, type: 3}
   icon: {fileID: 2800000, guid: 63f9e30368a1c7d4391f2f9226244266, type: 3}
+  dependencies:
+  - Twiner-RainOfStageShared-2.0.0
+  - bbepis-BepInExPack-5.3.1
+--- !u!114 &114336787334979722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7e13dda513544419a89926bd12ad8a, type: 3}
+  m_Name: AssemblyDefinitions
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  definitions:
+  - {fileID: 5897886265953266890, guid: 100456513cf031f4ba64390628e6feb9, type: 3}

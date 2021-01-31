@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa12c443303b4d54e9a56ac3acc7bd25, type: 3}
+  m_Name: RoSShared
+  m_EditorClassIdentifier: 
+  IncludedSettings: -1
+  AssetFiles:
+  - {fileID: 102900000, guid: 7ca1389e807d7de4ca5a2eb3e70d716a, type: 3}
+  - {fileID: 102900000, guid: 1dcc1862d07cbf0459ddaf219c602ad8, type: 3}
+  - {fileID: 102900000, guid: be3e37fd8e767914ea7644986d2e878e, type: 3}
+  - {fileID: 102900000, guid: e525fda4e3646314f85a9b5c21c4d627, type: 3}
+  - {fileID: 102900000, guid: d5981d8de6f47d944b55accbf922a2ae, type: 3}
+  - {fileID: 102900000, guid: 8c23d6adf3a88ca43b245d34137cc54d, type: 3}

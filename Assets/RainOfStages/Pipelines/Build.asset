@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3695521163bdd74fa2845bbd3438240, type: 3}
+  m_Name: Build
+  m_EditorClassIdentifier: 
+  Data:
+  - {fileID: 114878896243052028}
+  - {fileID: 114842993693606054}
+  - {fileID: 114075753080665740}
+  - {fileID: 114372383153039564}
+  manifests: {fileID: 11400000, guid: eeff5e08416e98844a3bbe4b6ce5e928, type: 2}
+--- !u!114 &114075753080665740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52535e32ecc9a684aaaec1ebe492e333, type: 3}
+  m_Name: StageManifestAssetBundles
+  m_EditorClassIdentifier: 
+  AssetBundleBuildOptions: 1
+  buildTarget: 5
+  recurseDirectories: 0
+  simulate: 0
+  BundleArtifactPath: <AssetBundleStaging>
+--- !u!114 &114372383153039564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369b8ce5419c70241989a1c1b1eb63d0, type: 3}
+  m_Name: StageManifestFiles
+  m_EditorClassIdentifier: 
+  includeReadme: 1
+  includeIcon: 1
+  includeManifestJson: 1
+--- !u!114 &114842993693606054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b20fac9c71fd64183cb7a8f359d73a, type: 3}
+  m_Name: StageAssemblies
+  m_EditorClassIdentifier: 
+  stageDebugDatabases: 0
+--- !u!114 &114878896243052028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d087870ea8abaed4ca4c717444be0165, type: 3}
+  m_Name: StageUnityPackages
+  m_EditorClassIdentifier: 

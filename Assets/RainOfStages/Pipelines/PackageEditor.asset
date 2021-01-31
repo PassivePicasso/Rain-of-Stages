@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10e8b80948512ae42853fea31dc12f56, type: 3}
+  m_Script: {fileID: 11500000, guid: a3695521163bdd74fa2845bbd3438240, type: 3}
   m_Name: PackageEditor
   m_EditorClassIdentifier: 
-  runSteps:
-  - {fileID: 114016667958787072}
-  - {fileID: 114013932438316872}
-  - {fileID: 114116905591258038}
-  manifests:
-  - {fileID: 11400000, guid: 524a9982402ad0544a98f76a2419bfb7, type: 2}
---- !u!114 &114013932438316872
+  Data:
+  - {fileID: 114170969791920224}
+  manifests: {fileID: 11400000, guid: 97bd596fa28515d418c24ea8e02555b7, type: 2}
+--- !u!114 &114170969791920224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30,30 +27,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d087870ea8abaed4ca4c717444be0165, type: 3}
   m_Name: StageUnityPackages
   m_EditorClassIdentifier: 
-  outputPath: plugins/%Manifest/
---- !u!114 &114016667958787072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eba0aa78928dd74492e7c60b287d654, type: 3}
-  m_Name: StageAssemblies
-  m_EditorClassIdentifier: 
-  stageDebugDatabases: 0
---- !u!114 &114116905591258038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8808e815b3ce9c94e9552cb1dee9e305, type: 3}
-  m_Name: ZipStaging
-  m_EditorClassIdentifier: 
-  ShowOutput: 1

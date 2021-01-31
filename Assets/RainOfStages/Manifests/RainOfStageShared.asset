@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e563561e08b6a3642a487177f5cfbb37, type: 3}
+  m_Name: RainOfStageShared
+  m_EditorClassIdentifier: 
+  Data:
+  - {fileID: 114054479563486030}
+  - {fileID: 114336787334979722}
+  - {fileID: 114112754497116756}
+  - {fileID: 114177783554686162}
+--- !u!114 &114054479563486030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d4b1be9b930e945be74735783a28f6, type: 3}
+  m_Name: ThunderstoreManifest
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  - <ManifestStagingRoot>
+  author: Twiner
+  versionNumber: 2.0.0
+  url: https://github.com/PassivePicasso/Rain-of-Stages
+  description: Rain of Stages Shared Library
+  readme: {fileID: 4900000, guid: 37d37629b8ca6b34da4358588605822c, type: 3}
+  icon: {fileID: 2800000, guid: a7059da00059e8b488e7bc71967d716f, type: 3}
+  dependencies:
+  - bbepis-BepInExPack-5.3.1
+--- !u!114 &114112754497116756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d1008b78cb6e846889b7778282fbef, type: 3}
+  m_Name: AssetBundleDefs
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  assetBundles:
+  - assetBundleName: RoSShared
+    assets:
+    - {fileID: 11400000, guid: fa6d7e34c49e43345868c278c846c70b, type: 2}
+--- !u!114 &114177783554686162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda4ac7962f04724eacfeb26af5e2b75, type: 3}
+  m_Name: UnityPackages
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  unityPackages:
+  - {fileID: 11400000, guid: 6a8809cb66e85194783c8651da5c539a, type: 2}
+--- !u!114 &114336787334979722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7e13dda513544419a89926bd12ad8a, type: 3}
+  m_Name: AssemblyDefinitions
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - <ManifestPluginStaging>
+  definitions:
+  - {fileID: 5897886265953266890, guid: eb4a719aa6531da40b55b70546f0af9b, type: 3}
+  - {fileID: 5897886265953266890, guid: 47ea1817199a52944ba397d07300a8ed, type: 3}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa12c443303b4d54e9a56ac3acc7bd25, type: 3}
+  m_Name: RainOfStagesEditorPack
+  m_EditorClassIdentifier: 
+  IncludedSettings: 13344
+  recurseDirectories: 1
+  AssetFiles:
+  - {fileID: 11400000, guid: 552bfb29bfd579246b1ab8473545c0e1, type: 2}
+  - {fileID: 102900000, guid: 3df938db3d004614a9225bf60a982ea2, type: 3}
+  - {fileID: 7200000, guid: 5fdfd9c0be0cd42fca24f981cc152dd4, type: 3}
+  - {fileID: 10900000, guid: 3f8d041bcba1f4276a6dee58ca5540bb, type: 3}
+  - {fileID: 4900000, guid: 6c01fac94e51fd54c80177ce97cd3700, type: 3}
+  - {fileID: 4900000, guid: fabfb9db099698a43b7b492cb2016acf, type: 3}
