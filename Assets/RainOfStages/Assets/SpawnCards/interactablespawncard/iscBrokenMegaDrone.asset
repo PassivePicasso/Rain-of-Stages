@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4d69506476ea30429ce6c76b04c6964, type: 3}
+  m_Script: {fileID: 1063210218, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
   m_Name: iscBrokenMegaDrone
   m_EditorClassIdentifier:
   prefab: {fileID: 0}

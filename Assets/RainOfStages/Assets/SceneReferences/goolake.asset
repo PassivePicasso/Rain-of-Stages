@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f1d74c2efd35d04d92c0c41b3d861ce, type: 3}
+  m_Script: {fileID: -794597441, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
   m_Name: goolake
   m_EditorClassIdentifier: 
   nameToken: 

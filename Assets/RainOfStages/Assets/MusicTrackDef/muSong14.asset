@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdda43b12528e5844ab8c9d7c880a661, type: 3}
+  m_Script: {fileID: -255427816, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
   m_Name: muSong14
   m_EditorClassIdentifier:
   soundBank:
