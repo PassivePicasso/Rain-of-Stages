@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -794597441, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: moon
+  m_EditorClassIdentifier:
+  nameToken: MAP_MOON_TITLE
+  subtitleToken: MAP_MOON_SUBTITLE
+  loreToken: MAP_MOON_LORE
+  stageOrder: 6
+  previewTexture: {fileID: 2800000, guid: f3cdef83134195f40919a00002307e8a, type: 3}
+  portalMaterial: {fileID: 2100000, guid: c7308d93797906f49ad06cff7e5250c8, type: 2}
+  portalSelectionMessageString: BAZAAR_SEER_MOON
+  dioramaPrefab: {fileID: 1201913773312281, guid: 315007d48258ee14990776d05cf59f75, type: 2}
+  sceneType: 1
+  mainTrack: {fileID: 11400000, guid: 55c51b5de11a141449a9125a1538b9b4, type: 2}
+  bossTrack: {fileID: 11400000, guid: 395cbae9661d01e4db35217e1d3dd144, type: 2}
+  isOfflineScene: 0
+  suppressPlayerEntry: 0
+  suppressNpcEntry: 0
+  destinations: []
+  preferredPortalPrefab: {fileID: 0}
+  sceneNameOverrides: []

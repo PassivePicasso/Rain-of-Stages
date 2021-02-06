@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -794597441, guid: 06dd3d5416bf43ea368cc39ff96e6d5a, type: 3}
+  m_Name: dampcavesimple
+  m_EditorClassIdentifier:
+  nameToken: MAP_DAMPCAVE_TITLE
+  subtitleToken: MAP_DAMPCAVE_SUBTITLE
+  loreToken: MAP_DAMPCAVE_LORE
+  stageOrder: 4
+  previewTexture: {fileID: 2800000, guid: 69091115aa4d99e4ca4592b710035717, type: 3}
+  portalMaterial: {fileID: 2100000, guid: 07fb96ccda5cba14bb8b3127a88bb039, type: 2}
+  portalSelectionMessageString: BAZAAR_SEER_DAMPCAVESIMPLE
+  dioramaPrefab: {fileID: 1465708924800301, guid: 51e75a18bcfa7b041a0c609152f10d88, type: 2}
+  sceneType: 1
+  mainTrack: {fileID: 11400000, guid: 400618d0cb771454aaa112a1ff242616, type: 2}
+  bossTrack: {fileID: 11400000, guid: 99786c9763602984d98b557fe9783509, type: 2}
+  isOfflineScene: 0
+  suppressPlayerEntry: 0
+  suppressNpcEntry: 0
+  destinations:
+  - {fileID: 11400000, guid: 1f36e8df2d5f4544dbcbd7b42da6b2e6, type: 2}
+  preferredPortalPrefab: {fileID: 0}
+  sceneNameOverrides: []
