@@ -3,7 +3,15 @@
     "references": [
         "RainOfStages.Plugin",
         "Whinarn.UnityMeshSimplifier.Editor",
-        "Whinarn.UnityMeshSimplifier.Runtime"
+        "Whinarn.UnityMeshSimplifier.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Core.Editor",
+        "Unity.Postprocessing.Runtime",
+        "Unity.Postprocessing.Editor",
+        "ThunderKit.Common",
+        "ThunderKit.Core",
+        "Unity.ScriptableBuildPipeline",
+        "Unity.ScriptableBuildPipeline.Editor"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [
@@ -16,11 +24,15 @@
         "Assembly-CSharp.dll",
         "RainOfStages.Plugin.dll",
         "Whinarn.UnityMeshSimplifier.Editor.dll",
-        "Whinarn.UnityMeshSimplifier.Runtime.dll"
+        "Whinarn.UnityMeshSimplifier.Runtime.dll",
+        "Unity.RenderPipelines.Core.Runtime.dll",
+        "Unity.RenderPipelines.Core.Editor.dll",
+        "Unity.Postprocessing.Runtime.dll",
+        "Unity.Postprocessing.Editor.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [
         "riskofrain2",
-        "bepinexpack"
+        "bbepis-bepinexpack-5.3.1"
     ]
 }

@@ -1,9 +1,8 @@
-#if THUNDERKIT_CONFIGURED
 using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Behaviours
 {
     [RequireComponent(typeof(Collider))]
     public class JumpPad : MonoBehaviour
@@ -94,4 +93,3 @@ namespace RainOfStages.Behaviours
         }
     }
 }
-#endif

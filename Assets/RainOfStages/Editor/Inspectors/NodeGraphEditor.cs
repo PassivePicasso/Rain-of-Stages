@@ -1,13 +1,9 @@
-#if THUNDERKIT_CONFIGURED
-using RoR2;
-using RoR2.Navigation;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-
 namespace PassivePicasso.RainOfStages.Editor
 {
-    [CustomEditor(typeof(NodeGraph), true)]
+    using NG = global::RoR2.Navigation.NodeGraph;
+    [CustomEditor(typeof(NG), true)]
     public class NodeGraphEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
@@ -19,4 +15,3 @@ namespace PassivePicasso.RainOfStages.Editor
         }
     }
 }
-#endif

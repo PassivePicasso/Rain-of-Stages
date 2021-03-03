@@ -1,13 +1,8 @@
-﻿#if THUNDERKIT_CONFIGURED
-using PassivePicasso.RainOfStages.Proxy;
-using PassivePicasso.ThunderKit.Proxy.RoR2;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace PassivePicasso.ThunderKit.Proxy
+namespace PassivePicasso.RainOfStages.Proxy
 {
-    public class MusicTrackDefRef : global::RoR2.MusicTrackDef, IProxyReference<global::RoR2.MusicTrackDef>
+    public class MusicTrackDefRef : RoR2.MusicTrackDef, IProxyReference<global::RoR2.MusicTrackDef>
     {
         void Awake()
         {
@@ -29,4 +24,3 @@ namespace PassivePicasso.ThunderKit.Proxy
         }
     }
 }
-#endif

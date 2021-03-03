@@ -1,5 +1,4 @@
-﻿#if THUNDERKIT_CONFIGURED
-using RoR2;
+﻿using RoR2;
 using RoR2.Navigation;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +10,6 @@ using UnityEngine.SceneManagement;
 using VoxelSystem;
 using static RoR2.Navigation.NodeGraph;
 using Debug = UnityEngine.Debug;
-using SceneInfo = PassivePicasso.ThunderKit.Proxy.RoR2.SceneInfo;
 
 
 namespace PassivePicasso.RainOfStages
@@ -734,4 +732,3 @@ namespace PassivePicasso.RainOfStages
 
     }
 }
-#endif

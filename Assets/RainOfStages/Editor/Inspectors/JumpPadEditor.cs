@@ -1,6 +1,5 @@
-#if THUNDERKIT_CONFIGURED
 #if UNITY_EDITOR
-using RainOfStages.Behaviours;
+using PassivePicasso.RainOfStages.Behaviours;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -70,5 +69,4 @@ namespace PassivePicasso.RainOfStages.Editor
         }
     }
 }
-#endif
 #endif

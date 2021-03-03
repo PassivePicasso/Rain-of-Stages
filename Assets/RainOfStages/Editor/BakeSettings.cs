@@ -1,4 +1,3 @@
-#if THUNDERKIT_CONFIGURED
 using System;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,4 +21,3 @@ namespace PassivePicasso.RainOfStages
         };
     }
 }
-#endif

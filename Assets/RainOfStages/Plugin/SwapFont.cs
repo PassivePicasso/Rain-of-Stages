@@ -1,5 +1,4 @@
-﻿#if THUNDERKIT_CONFIGURED
-using RoR2.UI;
+﻿using RoR2.UI;
 using TMPro;
 using UnityEngine;
 
@@ -19,4 +18,3 @@ namespace PassivePicasso.RainOfStages.UI
         }
     }
 }
-#endif

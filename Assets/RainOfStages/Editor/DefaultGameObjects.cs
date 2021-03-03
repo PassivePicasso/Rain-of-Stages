@@ -1,4 +1,3 @@
-#if THUNDERKIT_CONFIGURED
 using UnityEngine;
 using UnityEditor;
 
@@ -11,4 +10,3 @@ namespace PassivePicasso.RainOfStages.Editor
         public GameObject SceneInfo;
     }
 }
-#endif

@@ -1,8 +1,7 @@
-#if THUNDERKIT_CONFIGURED
 using UnityEngine;
 using UnityEditor;
 
-namespace RainOfStages.Assets.RainOfStages.RoR2.Editor.Drawers
+namespace PassivePicasso.RainOfStages.Editor.Drawers
 {
     using MonsterFamily = global::RoR2.ClassicStageInfo.MonsterFamily;
 
@@ -64,4 +63,3 @@ namespace RainOfStages.Assets.RainOfStages.RoR2.Editor.Drawers
         void StepPosition(ref Rect position, float verticalIncrement, float horizontalIncrement) => position = new Rect(position.x + horizontalIncrement, position.y + verticalIncrement, position.width - horizontalIncrement, EditorGUIUtility.singleLineHeight);
     }
 }
-#endif

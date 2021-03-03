@@ -1,10 +1,11 @@
 ﻿using PassivePicasso.RainOfStages.Proxy;
 using PassivePicasso.RainOfStages.Utilities;
-using PassivePicasso.ThunderKit.Proxy;
 using RoR2;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 using BodySpawnCard = PassivePicasso.RainOfStages.Proxy.BodySpawnCard;
 using CharacterSpawnCard = PassivePicasso.RainOfStages.Proxy.CharacterSpawnCard;
@@ -42,13 +43,29 @@ namespace PassivePicasso.RainOfStages.Editor
         [MenuItem("Assets/Rain of Stages/New Stag&e", priority = 1)]
         public static void CreateStage()
         {
-            var defaultGameObjects = ScriptableObject.CreateInstance<DefaultGameObjects>();
-
-
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            PrefabUtility.InstantiatePrefab(defaultGameObjects.Director, scene);
-            PrefabUtility.InstantiatePrefab(defaultGameObjects.GlobalEventManager, scene);
-            PrefabUtility.InstantiatePrefab(defaultGameObjects.SceneInfo, scene);
+            var director = new GameObject("Director", typeof(DirectorCore), typeof(SceneDirector), typeof(CombatDirector), typeof(CombatDirector));
+            var globalEventManager = new GameObject("GlobalEventManager", typeof(Proxy.GlobalEventManager));
+            
+            var sceneInfo = new GameObject("SceneInfo", typeof(SceneInfo), typeof(ClassicStageInfo), typeof(PostProcessVolume));
+            sceneInfo.layer = LayerIndex.postProcess.intVal;
+
+            var sceneDirector = director.GetComponent<SceneDirector>();
+            var teleporterPaths = AssetDatabase.FindAssets("iscTeleporter").Select(AssetDatabase.GUIDToAssetPath);
+            var teleporterAssets = teleporterPaths.Select(AssetDatabase.LoadAssetAtPath<SpawnCard>).ToArray();
+            var teleporterSpawnCard = teleporterAssets.First(tp => tp.name.Equals("iscTeleporter"));
+            sceneDirector.teleporterSpawnCard = teleporterSpawnCard;
+
+            var stageInfo = sceneInfo.GetComponent<ClassicStageInfo>();
+            var dccsMonsters = AssetDatabase.FindAssets("BlackBeachMonsters").Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<DirectorCardCategorySelection>).FirstOrDefault();
+            var dccsInteractables = AssetDatabase.FindAssets("BlackBeachInteractables").Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<DirectorCardCategorySelection>).FirstOrDefault();
+            if (dccsInteractables) stageInfo.interactableCategories = dccsInteractables;
+            if (dccsMonsters)
+            {
+                var field = typeof(ClassicStageInfo).GetField("monsterCategories", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                field.SetValue(stageInfo, dccsMonsters);
+            }
+
             var worldObject = new GameObject("World");
             worldObject.layer = LayerMask.NameToLayer("World");
 
@@ -60,7 +77,7 @@ namespace PassivePicasso.RainOfStages.Editor
             light.intensity = 1.2f;
             (float h, float s, float v) color = (0, 0, 0);
             Color.RGBToHSV(Color.white, out color.h, out color.s, out color.v);
-            color.s = 0.5f;
+            color.s = 0.15f;
             color.v = 0.8f;
             light.lightmapBakeType = LightmapBakeType.Realtime;
             light.color = Color.HSVToRGB(color.h, color.s, color.v);
@@ -100,7 +117,7 @@ namespace PassivePicasso.RainOfStages.Editor
             //PrefabUtility.ReplacePrefab(obj, prefab, ReplacePrefabOptions.ConnectToPrefab);
         }
 
-        [MenuItem("Assets/Rain of Stages/Modding Assets/" + nameof(BakeSettings))]
+        [MenuItem("Assets/Rain of Stages/" + nameof(BakeSettings))]
         public static void CreateBakeSettings() => ScriptableHelper.CreateAsset<BakeSettings>();
     }
 }

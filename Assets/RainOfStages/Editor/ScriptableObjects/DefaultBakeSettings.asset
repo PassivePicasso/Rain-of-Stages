@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugMode: 0
   minRegionArea: 100
-  tileSize: 64
-  globalNavigationOffset: {x: 0, y: 0, z: 0}
-  AirNodeSize: 6
-  MaximumSurfaceDistance: 18
-  MinimumSurfaceDistance: 3
+  tileSize: 32
+  globalNavigationOffset: {x: 0, y: 0.1, z: 0}
+  AirNodeSize: 8
+  MaximumSurfaceDistance: 22
+  MinimumSurfaceDistance: 4

@@ -1,5 +1,4 @@
-﻿#if THUNDERKIT_CONFIGURED && UNITY_EDITOR
-using global::RoR2;
+﻿using global::RoR2;
 using RoR2.Navigation;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace PassivePicasso.ThunderKit.Proxy.RoR2
+namespace PassivePicasso.ThunderKit.Proxy
 {
 
     public partial class SceneInfo : global::RoR2.SceneInfo
@@ -191,4 +190,3 @@ namespace PassivePicasso.ThunderKit.Proxy.RoR2
 
     }
 }
-#endif

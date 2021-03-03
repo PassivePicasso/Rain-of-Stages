@@ -1,7 +1,6 @@
-﻿#if THUNDERKIT_CONFIGURED
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace PassivePicasso.ThunderKit.Proxy.RoR2
+namespace PassivePicasso.RainOfStages.Proxy
 {
     public partial class GlobalEventManager : global::RoR2.GlobalEventManager
     {
@@ -18,4 +17,3 @@ namespace PassivePicasso.ThunderKit.Proxy.RoR2
         }
     }
 }
-#endif

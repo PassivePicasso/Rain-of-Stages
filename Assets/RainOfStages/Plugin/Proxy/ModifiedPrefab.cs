@@ -1,4 +1,3 @@
-#if THUNDERKIT_CONFIGURED
 using UnityEngine;
 namespace PassivePicasso.RainOfStages.Proxy
 {
@@ -36,4 +35,3 @@ namespace PassivePicasso.RainOfStages.Proxy
         }
     }
 }
-#endif

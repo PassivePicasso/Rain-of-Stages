@@ -2,9 +2,8 @@
 using Unity.Jobs;
 using UnityEngine;
 
-namespace RainOfStages.Assets.RainOfStages.RoR2Editor.NodeGraph
+namespace PassivePicasso.RainOfStages.Editor.NodeGraph
 {
-
     public struct VoxelCheckJob : IJobParallelFor
     {
         public static readonly Vector3 Vec3MaxValue = Vector3.one * float.MaxValue;

@@ -1,5 +1,4 @@
-﻿#if THUNDERKIT_CONFIGURED
-namespace PassivePicasso.RainOfStages
+﻿namespace PassivePicasso.RainOfStages
 {
     public static class Constants
     {
@@ -10,4 +9,3 @@ namespace PassivePicasso.RainOfStages
         public const string DependencyName = "Twiner-" + Name + "-" + Version;
     }
 }
-#endif

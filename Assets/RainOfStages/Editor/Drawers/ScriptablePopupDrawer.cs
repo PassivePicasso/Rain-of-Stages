@@ -1,4 +1,3 @@
-#if THUNDERKIT_CONFIGURED
 using PassivePicasso.RainOfStages.Editor.DataPreProcessors;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,4 +69,3 @@ namespace PassivePicasso.RainOfStages.Editor
         }
     }
 }
-#endif

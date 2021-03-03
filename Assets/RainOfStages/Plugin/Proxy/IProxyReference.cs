@@ -1,4 +1,3 @@
-#if THUNDERKIT_CONFIGURED
 namespace PassivePicasso.RainOfStages.Proxy
 {
     internal interface IProxyReference<T> where T : UnityEngine.Object
@@ -6,4 +5,3 @@ namespace PassivePicasso.RainOfStages.Proxy
         T ResolveProxy();
     }
 }
-#endif
