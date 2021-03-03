@@ -2,7 +2,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PassivePicasso.RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
 {
     public class ImageSpriteReference : SceneAssetMapper<Image, Sprite>
     {

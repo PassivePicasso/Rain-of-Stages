@@ -26,14 +26,6 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: EditorAsset.Array.size
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: EditorAsset.Array.data[0]
-    value: 
-    objectReference: {fileID: 2100000, guid: 354b5fb055d606b48bf911fb86575d74, type: 2}
-  - target: {fileID: 0}
     propertyPath: SourceAssetPath
     value: prefabs/stagedisplay/GolemplainsDioramaDisplay
     objectReference: {fileID: 0}
@@ -44,4 +36,8 @@ Preset:
   - target: {fileID: 0}
     propertyPath: PrefabPath
     value: Terrain/Terrain (2)
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EditorAssets.Array.size
+    value: 0
     objectReference: {fileID: 0}

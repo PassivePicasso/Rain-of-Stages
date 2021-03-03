@@ -135,5 +135,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91939622c11be04a8b4a63ec6d990e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootPrefabPath: prefabs/stagedisplay/BlackbeachDioramaDisplay
-  PrefabPath: Terrain/mdlBBBoulderMediumRound1 (28)
+  RootPrefabPath: 
+  PrefabPath: 

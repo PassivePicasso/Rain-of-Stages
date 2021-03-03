@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace PassivePicasso.RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
 {
     public class SceneMaterialMapper : SceneAssetArrayMapper<MeshRenderer, Material>
     {

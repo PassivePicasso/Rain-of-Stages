@@ -1,12 +1,11 @@
-﻿using PassivePicasso.RainOfStages.Plugin.AssetMapping;
-#if !UNITY_EDITOR
+﻿#if !UNITY_EDITOR
 using System;
 #endif
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace PassivePicasso.RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
 {
     public class ResourceMaterialMapper : ResourceAssetArrayMapper<MeshRenderer, Material>
     {
@@ -29,7 +28,5 @@ namespace PassivePicasso.RainOfStages.Behaviours
                     Array.Empty<Material>();
 #endif
 
-        [WeakAssetReference(typeof(Material))]
-        public string[] EditorAssets;
     }
 }

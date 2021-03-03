@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PassivePicasso.RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
 {
     public abstract class ResourceAssetArrayMapper<ComponentType, AssetType>
                         : AssetArrayMapper<ComponentType, AssetType>

@@ -1,7 +1,7 @@
 ﻿using RoR2.UI.SkinControllers;
 using System.Reflection;
 
-namespace PassivePicasso.RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
 {
     public class ButtonSkinReference : SceneAssetMapper<ButtonSkinController, RoR2.UI.UISkinData>
     {

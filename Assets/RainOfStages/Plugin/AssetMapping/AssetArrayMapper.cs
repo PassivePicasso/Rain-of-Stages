@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PassivePicasso.RainOfStages.Plugin.AssetMapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +8,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
-namespace PassivePicasso.RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
 {
     [ExecuteAlways]
     public abstract class AssetArrayMapper<ComponentType, AssetType> : MonoBehaviour where AssetType : UnityEngine.Object where ComponentType : Component
@@ -15,6 +16,9 @@ namespace PassivePicasso.RainOfStages.Behaviours
         public virtual AssetType[] ClonedAssets => Array.Empty<AssetType>();
 
         public IEnumerable<AssetType> Asset { get; private set; }
+
+        [WeakAssetReference(typeof(Material))]
+        public string[] EditorAssets;
 
         /// <summary>
         /// Full scene path of target asset 

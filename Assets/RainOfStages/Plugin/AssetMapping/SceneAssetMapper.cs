@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace PassivePicasso.RainOfStages.Behaviours
+namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
 {
     [ExecuteAlways]
     public abstract class SceneAssetMapper<ComponentType, AssetType> : AssetMapper<ComponentType, AssetType> where AssetType : UnityEngine.Object where ComponentType : Component

@@ -26,10 +26,6 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: EditorAsset.Array.size
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
     propertyPath: SourceAssetPath
     value: prefabs/stagedisplay/BlackbeachDioramaDisplay
     objectReference: {fileID: 0}
@@ -44,4 +40,8 @@ Preset:
   - target: {fileID: 0}
     propertyPath: PrefabPath
     value: Terrain/Terrain (1)
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EditorAssets.Array.size
+    value: 0
     objectReference: {fileID: 0}
