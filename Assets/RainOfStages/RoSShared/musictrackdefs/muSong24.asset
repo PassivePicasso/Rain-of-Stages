@@ -2,6 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -10,15 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdda43b12528e5844ab8c9d7c880a661, type: 3}
   m_Name: muSong24
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   soundBank:
-    valueGuid:
-    WwiseObjectReference: {fileID: 11400000, guid: 93dd2358665c736429cefc84784d1471, type: 2}
+    valueGuid: 
+    WwiseObjectReference: {fileID: 0}
   states:
-  - valueGuid:
-    groupGuid:
-    WwiseObjectReference: {fileID: 11400000, guid: a03e2cba92e18064f8ab31e8d7f8bbff, type: 2}
-  - valueGuid:
-    groupGuid:
-    WwiseObjectReference: {fileID: 11400000, guid: a6e8c39b7eab06c4ea3c3a9420b2ff6f, type: 2}
+  - valueGuid: 
+    groupGuid: 
+    WwiseObjectReference: {fileID: 0}
+  - valueGuid: 
+    groupGuid: 
+    WwiseObjectReference: {fileID: 0}
   comment: Final Stage

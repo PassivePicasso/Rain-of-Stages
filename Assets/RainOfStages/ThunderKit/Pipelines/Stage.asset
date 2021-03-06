@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StagingPath: <StagingRoot>
   ExcludedManifests:
-  - {fileID: 11400000, guid: 2ec81cb6df1f0e44aacde84c2d26c4cc, type: 2}
+  - {fileID: 0}
 --- !u!114 &114476226910218596
 MonoBehaviour:
   m_ObjectHideFlags: 1

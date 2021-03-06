@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d74c2efd35d04d92c0c41b3d861ce, type: 3}
   m_Name: shipgraveyard
   m_EditorClassIdentifier: 
-  nameToken: MAP_SHIPGRAVEYARD_TITLE
-  subtitleToken: MAP_SHIPGRAVEYARD_SUBTITLE
-  loreToken: MAP_SHIPGRAVEYARD_LORE
-  stageOrder: 4
+  nameToken: 
+  subtitleToken: 
+  loreToken: 
+  stageOrder: 0
   previewTexture: {fileID: 0}
   portalMaterial: {fileID: 0}
-  portalSelectionMessageString: BAZAAR_SEER_SHIPGRAVEYARD
+  portalSelectionMessageString: 
   dioramaPrefab: {fileID: 0}
   sceneType: 1
   mainTrack: {fileID: 11400000, guid: 80d530688eac1e24db8edbbf30406d64, type: 2}

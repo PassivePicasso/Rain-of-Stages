@@ -3,6 +3,7 @@ using RoR2.Navigation;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ThunderKit.Core.Editor.Windows;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,42 +11,90 @@ using UnityEngine.SceneManagement;
 using VoxelSystem;
 using static RoR2.Navigation.NodeGraph;
 using Debug = UnityEngine.Debug;
+#if UNITY_2019_1_OR_NEWER
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
+#elif UNITY_2018_1_OR_NEWER
+using UnityEditor.Experimental.UIElements;
+using UnityEngine.Experimental.UIElements;
+#endif
+
 
 
 namespace PassivePicasso.RainOfStages
 {
     using static Extensions;
 
-    public class NodeGraphBaker : ScriptableObject
+    public class NodeGraphBaker : TemplatedWindow
     {
         public static System.Reflection.FieldInfo NodesField = typeof(NodeGraph).GetField("nodes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         public static System.Reflection.FieldInfo LinksField = typeof(NodeGraph).GetField("links", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
-
         private static Stopwatch watcher = new Stopwatch();
 
-        public BakeSettings bakeSettings;
         public ComputeShader VoxelizerShader;
+        public bool DebugMode = false;
+        public float minRegionArea = 100;
+        public int tileSize = 32;
+        public Vector3 globalNavigationOffset = new Vector3(0, 0.1f, 0);
+        public float AirNodeSize = 5;
+        public float MaximumSurfaceDistance = 22;
+        public float MinimumSurfaceDistance = 2;
+        public NavMeshBuildSettings settings => new NavMeshBuildSettings
+        {
+            minRegionArea = minRegionArea,
+            overrideTileSize = true,
+            tileSize = tileSize
+        };
 
-        NavMeshBuildSettings settings => bakeSettings.bakeSettings;
 
-        [MenuItem("Tools/Rain of Stages/Bake NodeGraph")]
+
+        [MenuItem("Tools/Rain of Stages/Navigation Baking")]
         public static void Bake()
         {
-            var baker = CreateInstance<NodeGraphBaker>();
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
+            var baker = GetWindow<NodeGraphBaker>();
+            baker.titleContent = new GUIContent("RoS Navigation");
+            baker.DebugMode = false;
+            baker.minRegionArea = 100;
+            baker.tileSize = 32;
+            baker.globalNavigationOffset = new Vector3(0, 0.1f, 0);
+            baker.AirNodeSize = 5;
+            baker.MaximumSurfaceDistance = 22;
+            baker.MinimumSurfaceDistance = 2;
 
-            baker.Build();
-            watch.Stop();
-            Debug.Log($"Bake took: {watch.Elapsed.TotalMilliseconds}ms");
+            var potentialShaders = AssetDatabase.FindAssets("t:ComputeShader Voxelizer");
+            var shaderPaths = potentialShaders.Select(AssetDatabase.GUIDToAssetPath).ToArray();
+            var theShadersIwant = shaderPaths.Where(path => path.Contains("NodeGraph/Voxelizer/Shaders")).ToArray();
+            var shader = theShadersIwant.Select(AssetDatabase.LoadAssetAtPath<ComputeShader>)
+                                        .First();
+            baker.VoxelizerShader = shader;
+            baker.Show();
+        }
 
-            DestroyImmediate(baker);
+        private void OnEnable()
+        {
+            rootVisualContainer.Clear();
+
+            GetTemplateInstance(nameof(NodeGraphBaker), rootVisualContainer);
+            var bakeButton = rootVisualContainer.Q<Button>();
+            var timeValue = rootVisualContainer.Q<Label>("bake-time");
+            bakeButton.clickable.clicked += Clickable_clicked;
+            void Clickable_clicked()
+            {
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
+                Build();
+                watch.Stop();
+                timeValue.text = $"{watch.Elapsed:mm\\:ss\\:fff}";
+                Debug.Log($"Bake took: {watch.Elapsed.TotalMilliseconds}ms");
+            }
+
+            rootVisualContainer.Bind(new SerializedObject(this));
         }
 
         public void Build()
         {
-            if (bakeSettings.DebugMode)
+            if (DebugMode)
             {
                 watcher = new Stopwatch();
                 watcher.Start();
@@ -106,7 +155,7 @@ namespace PassivePicasso.RainOfStages
 
             Log("Reference Graph");
 
-            if (bakeSettings.DebugMode)
+            if (DebugMode)
             {
                 watcher.Reset();
                 watcher.Stop();
@@ -134,7 +183,7 @@ namespace PassivePicasso.RainOfStages
             Log("Mesh combination");
 
             var size = Mathf.Max(mesh.bounds.size.x, mesh.bounds.size.z);
-            var gpuVoxelData = GPUVoxelizer.Voxelize(VoxelizerShader, mesh, (int)(size / bakeSettings.AirNodeSize), true);
+            var gpuVoxelData = GPUVoxelizer.Voxelize(VoxelizerShader, mesh, (int)(size / AirNodeSize), true);
             GPUVoxelizer.BuildBetterVoxels(VoxelizerShader, gpuVoxelData);
             var voxels = gpuVoxelData.GetData();
             Log("Voxelization");
@@ -224,10 +273,10 @@ namespace PassivePicasso.RainOfStages
                     bool skip = false;
                     bool hit = false;
                     for (int i = 0; i < directions.Length; i++)
-                        if (Physics.Raycast(voxel.position, directions[i], out RaycastHit hitInfo, bakeSettings.MaximumSurfaceDistance, LayerIndex.world.mask))
+                        if (Physics.Raycast(voxel.position, directions[i], out RaycastHit hitInfo, MaximumSurfaceDistance, LayerIndex.world.mask))
                         {
                             hit = true;
-                            if (Physics.Raycast(hitInfo.point, directions[i] * -1, out RaycastHit nextHitInfo, bakeSettings.MaximumSurfaceDistance, LayerIndex.world.mask)
+                            if (Physics.Raycast(hitInfo.point, directions[i] * -1, out RaycastHit nextHitInfo, MaximumSurfaceDistance, LayerIndex.world.mask)
                              && nextHitInfo.distance < hitInfo.distance)
                             {
                                 skip = true;
@@ -237,12 +286,12 @@ namespace PassivePicasso.RainOfStages
 
                     if (!hit || skip) continue;
 
-                    var upHit = Physics.Raycast(new Ray(voxel.position, Vector3.up), out RaycastHit upHitInfo, bakeSettings.MaximumSurfaceDistance, LayerIndex.world.mask);
+                    var upHit = Physics.Raycast(new Ray(voxel.position, Vector3.up), out RaycastHit upHitInfo, MaximumSurfaceDistance, LayerIndex.world.mask);
 
-                    var overlaps = Physics.OverlapBoxNonAlloc(voxel.position, Vector3.one * bakeSettings.MinimumSurfaceDistance, colliders, Quaternion.identity, LayerIndex.world.mask);
+                    var overlaps = Physics.OverlapBoxNonAlloc(voxel.position, Vector3.one * MinimumSurfaceDistance, colliders, Quaternion.identity, LayerIndex.world.mask);
                     if (overlaps > 0) continue;
 
-                    var withinDistance = Physics.OverlapBoxNonAlloc(voxel.position, Vector3.one * bakeSettings.MaximumSurfaceDistance, colliders, Quaternion.identity, LayerIndex.world.mask);
+                    var withinDistance = Physics.OverlapBoxNonAlloc(voxel.position, Vector3.one * MaximumSurfaceDistance, colliders, Quaternion.identity, LayerIndex.world.mask);
                     if (withinDistance <= 0) continue;
 
                     bool queenFit = Physics.OverlapBoxNonAlloc(voxel.position, Vector3.one * 10f, colliders, Quaternion.identity, LayerIndex.world.mask) <= 0;
@@ -252,7 +301,7 @@ namespace PassivePicasso.RainOfStages
                     {
                         position = voxel.position,
                         forbiddenHulls = (queenFit ? HullMask.None : HullMask.BeetleQueen) | (golemFit ? HullMask.None : HullMask.Golem),
-                        flags = NodeFlags.NoShrineSpawn | NodeFlags.NoChestSpawn 
+                        flags = NodeFlags.NoShrineSpawn | NodeFlags.NoChestSpawn
                     };
 
                     node.flags |= !upHit ? NodeFlags.NoCeiling : NodeFlags.None;
@@ -275,9 +324,9 @@ namespace PassivePicasso.RainOfStages
 
             Log("Triangulation");
 
-            humanTri.vertices = humanTri.vertices.Select(v => v + bakeSettings.globalNavigationOffset).ToArray();
-            golemTri.vertices = golemTri.vertices.Select(v => v + bakeSettings.globalNavigationOffset).ToArray();
-            queenTri.vertices = queenTri.vertices.Select(v => v + bakeSettings.globalNavigationOffset).ToArray();
+            humanTri.vertices = humanTri.vertices.Select(v => v + globalNavigationOffset).ToArray();
+            golemTri.vertices = golemTri.vertices.Select(v => v + globalNavigationOffset).ToArray();
+            queenTri.vertices = queenTri.vertices.Select(v => v + globalNavigationOffset).ToArray();
 
             Log("Triangulation offset");
 
@@ -553,7 +602,7 @@ namespace PassivePicasso.RainOfStages
 
         void Log(string stepName)
         {
-            if (bakeSettings.DebugMode)
+            if (DebugMode)
             {
                 watcher.Stop();
                 Debug.Log($"{stepName} took: {watcher.Elapsed.TotalMilliseconds}ms");

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d74c2efd35d04d92c0c41b3d861ce, type: 3}
   m_Name: skymeadow
   m_EditorClassIdentifier: 
-  nameToken: MAP_SKYMEADOW_TITLE
-  subtitleToken: MAP_SKYMEADOW_SUBTITLE
-  loreToken: MAP_SKYMEADOW_LORE
-  stageOrder: 5
+  nameToken: 
+  subtitleToken: 
+  loreToken: 
+  stageOrder: 0
   previewTexture: {fileID: 0}
   portalMaterial: {fileID: 0}
-  portalSelectionMessageString: BAZAAR_SEER_SKYMEADOW
+  portalSelectionMessageString: 
   dioramaPrefab: {fileID: 0}
   sceneType: 1
   mainTrack: {fileID: 11400000, guid: 7dfce6639f045bd4dace11e80889f5ee, type: 2}

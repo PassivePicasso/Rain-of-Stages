@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d74c2efd35d04d92c0c41b3d861ce, type: 3}
   m_Name: goolake
   m_EditorClassIdentifier: 
-  nameToken: MAP_GOOLAKE_TITLE
-  subtitleToken: MAP_GOOLAKE_SUBTITLE
-  loreToken: MAP_GOOLAKE_LORE
-  stageOrder: 2
+  nameToken: 
+  subtitleToken: 
+  loreToken: 
+  stageOrder: 0
   previewTexture: {fileID: 0}
   portalMaterial: {fileID: 0}
-  portalSelectionMessageString: BAZAAR_SEER_GOOLAKE
+  portalSelectionMessageString: 
   dioramaPrefab: {fileID: 0}
   sceneType: 1
   mainTrack: {fileID: 11400000, guid: 400618d0cb771454aaa112a1ff242616, type: 2}

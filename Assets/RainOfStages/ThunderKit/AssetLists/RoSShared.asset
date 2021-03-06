@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a68f8bbcffd7a544bd4e51f9c46f447, type: 3}
-  m_Name: DefaultBakeSettings
+  m_Script: {fileID: 11500000, guid: aa12c443303b4d54e9a56ac3acc7bd25, type: 3}
+  m_Name: RoSShared
   m_EditorClassIdentifier: 
-  DebugMode: 0
-  minRegionArea: 100
-  tileSize: 32
-  globalNavigationOffset: {x: 0, y: 0.1, z: 0}
-  AirNodeSize: 8
-  MaximumSurfaceDistance: 22
-  MinimumSurfaceDistance: 4
+  IncludedSettings: 0
+  exportPackageOptions: 2
+  AssetFiles:
+  - {fileID: 102900000, guid: 3df938db3d004614a9225bf60a982ea2, type: 3}

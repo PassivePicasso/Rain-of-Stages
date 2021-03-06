@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d74c2efd35d04d92c0c41b3d861ce, type: 3}
   m_Name: frozenwall
   m_EditorClassIdentifier: 
-  nameToken: MAP_FROZENWALL_TITLE
-  subtitleToken: MAP_FROZENWALL_SUBTITLE
-  loreToken: MAP_FROZENWALL_LORE
-  stageOrder: 3
+  nameToken: 
+  subtitleToken: 
+  loreToken: 
+  stageOrder: 0
   previewTexture: {fileID: 0}
   portalMaterial: {fileID: 0}
-  portalSelectionMessageString: BAZAAR_SEER_FROZENWALL
+  portalSelectionMessageString: 
   dioramaPrefab: {fileID: 0}
   sceneType: 1
   mainTrack: {fileID: 11400000, guid: 129e5fa8f13cce34cb6ddffb9e6fea1b, type: 2}

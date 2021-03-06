@@ -47,7 +47,7 @@ namespace PassivePicasso.RainOfStages.Editor
             var director = new GameObject("Director", typeof(DirectorCore), typeof(SceneDirector), typeof(CombatDirector), typeof(CombatDirector));
             var globalEventManager = new GameObject("GlobalEventManager", typeof(Proxy.GlobalEventManager));
             
-            var sceneInfo = new GameObject("SceneInfo", typeof(SceneInfo), typeof(ClassicStageInfo), typeof(PostProcessVolume));
+            var sceneInfo = new GameObject("SceneInfo", typeof(ThunderKit.Proxy.SceneInfo), typeof(ClassicStageInfo), typeof(PostProcessVolume));
             sceneInfo.layer = LayerIndex.postProcess.intVal;
 
             var sceneDirector = director.GetComponent<SceneDirector>();
@@ -117,7 +117,5 @@ namespace PassivePicasso.RainOfStages.Editor
             //PrefabUtility.ReplacePrefab(obj, prefab, ReplacePrefabOptions.ConnectToPrefab);
         }
 
-        [MenuItem("Assets/Rain of Stages/" + nameof(BakeSettings))]
-        public static void CreateBakeSettings() => ScriptableHelper.CreateAsset<BakeSettings>();
     }
 }

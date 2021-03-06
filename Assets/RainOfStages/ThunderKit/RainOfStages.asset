@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: ThunderstoreData
   m_EditorClassIdentifier: 
   StagingPaths:
-  - <ManifestPluginStaging>
+  - <ManifestStagingRoot>
   url: https://github.com/PassivePicasso/Rain-of-Stages
   readme: {fileID: 4900000, guid: 6253891c9532ac140af6adcaf3707393, type: 3}
   icon: {fileID: 2800000, guid: 2285fe866fc76574bb3a11f71a9ff747, type: 3}

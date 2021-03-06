@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d74c2efd35d04d92c0c41b3d861ce, type: 3}
   m_Name: arena
   m_EditorClassIdentifier: 
-  nameToken: MAP_ARENA_TITLE
-  subtitleToken: MAP_ARENA_SUBTITLE
-  loreToken: MAP_ARENA_LORE
-  stageOrder: 97
+  nameToken: 
+  subtitleToken: 
+  loreToken: 
+  stageOrder: 0
   previewTexture: {fileID: 0}
   portalMaterial: {fileID: 0}
   portalSelectionMessageString: 
