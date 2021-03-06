@@ -64,18 +64,17 @@ namespace PassivePicasso.RainOfStages
 
             var potentialShaders = AssetDatabase.FindAssets("t:ComputeShader Voxelizer");
             var shaderPaths = potentialShaders.Select(AssetDatabase.GUIDToAssetPath).ToArray();
-            var theShadersIwant = shaderPaths.Where(path => path.Contains("NodeGraph/Voxelizer/Shaders")).ToArray();
-            var shader = theShadersIwant.Select(AssetDatabase.LoadAssetAtPath<ComputeShader>)
+            var theShadersIwant = shaderPaths.Where(path => path.Contains("RainOfStages/Editor/Shaders")).ToArray();
+            var shader = shaderPaths.Select(AssetDatabase.LoadAssetAtPath<ComputeShader>)
                                         .First();
             baker.VoxelizerShader = shader;
             baker.Show();
         }
 
-        private void OnEnable()
+        public override void OnEnable()
         {
-            rootVisualContainer.Clear();
+            base.OnEnable();
 
-            GetTemplateInstance(nameof(NodeGraphBaker), rootVisualContainer);
             var bakeButton = rootVisualContainer.Q<Button>();
             var timeValue = rootVisualContainer.Q<Label>("bake-time");
             bakeButton.clickable.clicked += Clickable_clicked;
@@ -88,8 +87,6 @@ namespace PassivePicasso.RainOfStages
                 timeValue.text = $"{watch.Elapsed:mm\\:ss\\:fff}";
                 Debug.Log($"Bake took: {watch.Elapsed.TotalMilliseconds}ms");
             }
-
-            rootVisualContainer.Bind(new SerializedObject(this));
         }
 
         public void Build()

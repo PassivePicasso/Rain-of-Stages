@@ -5,8 +5,9 @@ using UnityEditor.Experimental.UIElements;
 using System.IO;
 using System.Text;
 using System;
+using ThunderKit.Core.Editor.Windows;
 
-public class AssetBundleInspector : EditorWindow
+public class AssetBundleInspector : TemplatedWindow
 {
     [MenuItem("Tools/Rain of Stages/AssetBundleInspector")]
     public static void ShowExample()
@@ -18,23 +19,15 @@ public class AssetBundleInspector : EditorWindow
     [SerializeField] string bundlePath;
 
     VisualElement AssetList;
-    private AssetBundle loadedBundle;
 
-    public void OnEnable()
+    public override void OnEnable()
     {
-        // Each editor window contains a root VisualElement object
-        VisualElement root = this.GetRootVisualContainer();
+        base.OnEnable();
 
-        // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath("Assets/RainOfStages/Editor/AssetBundleInspector/AssetBundleInspector.uxml", typeof(VisualTreeAsset)) as VisualTreeAsset;
-        VisualElement editorTemplate = visualTree.CloneTree(null);
-        root.AddStyleSheetPath("Assets/RainOfStages/Editor/AssetBundleInspector/AssetBundleInspector_style.uss");
-        root.Add(editorTemplate);
-
-        var openButton = editorTemplate.Q<Button>("OpenButton");
+        var openButton = rootVisualContainer.Q<Button>("OpenButton");
         AssignClickHandler(openButton, openButton_clicked);
 
-        var unloadButton = editorTemplate.Q<Button>("UnloadButton");
+        var unloadButton = rootVisualContainer.Q<Button>("UnloadButton");
         AssignClickHandler(unloadButton, unloadButton_clicked);
 
         var scrollElement = new ScrollView();
@@ -42,7 +35,7 @@ public class AssetBundleInspector : EditorWindow
         AssetList = new VisualElement();
         AssetList.AddToClassList("assetList");
         scrollElement.Add(AssetList);
-        root.Add(scrollElement);
+        rootVisualContainer.Add(scrollElement);
     }
 
     private void unloadButton_clicked()

@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa12c443303b4d54e9a56ac3acc7bd25, type: 3}
   m_Name: RainOfStagesEditorPack
   m_EditorClassIdentifier: 
-  IncludedSettings: 14496
+  IncludedSettings: 12452
   exportPackageOptions: 2
   AssetFiles:
   - {fileID: 102900000, guid: 3df938db3d004614a9225bf60a982ea2, type: 3}
   - {fileID: 102900000, guid: fed4b3d1eee58a24f8cbb8dcb399ff93, type: 3}
+  - {fileID: 102900000, guid: d056e1b4b475db7479be0c4e62b150f3, type: 3}
+  - {fileID: 102900000, guid: 947b3235a3e03a043893f3337fb7fae0, type: 3}

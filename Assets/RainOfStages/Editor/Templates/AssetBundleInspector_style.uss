@@ -1,4 +1,4 @@
-﻿.horizontal {
+.horizontal {
 	flex-direction: row;
 }
 
