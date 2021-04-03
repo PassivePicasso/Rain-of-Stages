@@ -1,6 +1,7 @@
 ﻿using PassivePicasso.RainOfStages.Proxy;
 using PassivePicasso.RainOfStages.Utilities;
 using RoR2;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -13,8 +14,39 @@ using InteractableSpawnCard = PassivePicasso.RainOfStages.Proxy.InteractableSpaw
 
 namespace PassivePicasso.RainOfStages.Editor
 {
+    using Path = System.IO.Path;
     public class CreateAsset : ScriptableObject
     {
+        static int updateWait = 10;
+
+        [InitializeOnLoadMethod]
+        public static void InitializeProject()
+        {
+            updateWait = 10;
+            EditorApplication.update += InstallEditorPack;
+        }
+
+        private static void InstallEditorPack()
+        {
+            if (--updateWait > 0) return;
+            Debug.Log("Configuring project for Rain of Stages");
+            EditorApplication.update -= InstallEditorPack;
+
+            var rosConfigured = AssetDatabase.IsValidFolder("Assets/RainOfStages");
+            if (rosConfigured) return;
+
+            var editorPack = AssetDatabase.FindAssets("RainOfStagesEditorPack", new[] { "Packages" }).Select(x => AssetDatabase.GUIDToAssetPath(x)).ToArray();
+            if (editorPack.Length > 0)
+            {
+                var assetPath = editorPack[0];
+                var pwd = Directory.GetCurrentDirectory();
+                var finalPath = Path.Combine(pwd, assetPath);
+                var fullPath = Path.GetFullPath(finalPath);
+                Debug.Log(fullPath);
+                System.Diagnostics.Process.Start(fullPath);
+            }
+        }
+
         [MenuItem("Assets/Rain of Stages/" + nameof(SurfaceDef))]
         public static void CreateSurfaceDef() => ScriptableHelper.CreateAsset<SurfaceDef>();
 
@@ -46,25 +78,30 @@ namespace PassivePicasso.RainOfStages.Editor
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var director = new GameObject("Director", typeof(DirectorCore), typeof(SceneDirector), typeof(CombatDirector), typeof(CombatDirector));
             var globalEventManager = new GameObject("GlobalEventManager", typeof(Proxy.GlobalEventManager));
-            
-            var sceneInfo = new GameObject("SceneInfo", typeof(ThunderKit.Proxy.SceneInfo), typeof(ClassicStageInfo), typeof(PostProcessVolume));
+
+            var sceneInfo = new GameObject("SceneInfo", typeof(Proxy.SceneInfo), typeof(ClassicStageInfo), typeof(PostProcessVolume));
             sceneInfo.layer = LayerIndex.postProcess.intVal;
+            sceneInfo.SetActive(false);
+
+            var combatDirectors = director.GetComponents<CombatDirector>();
 
             var sceneDirector = director.GetComponent<SceneDirector>();
-            var teleporterPaths = AssetDatabase.FindAssets("iscTeleporter").Select(AssetDatabase.GUIDToAssetPath);
-            var teleporterAssets = teleporterPaths.Select(AssetDatabase.LoadAssetAtPath<SpawnCard>).ToArray();
+            var teleporterPaths = AssetDatabase.FindAssets("iscTeleporter").Select(x => AssetDatabase.GUIDToAssetPath(x));
+            var teleporterAssets = teleporterPaths.Select(x => AssetDatabase.LoadAssetAtPath<SpawnCard>(x)).ToArray();
             var teleporterSpawnCard = teleporterAssets.First(tp => tp.name.Equals("iscTeleporter"));
             sceneDirector.teleporterSpawnCard = teleporterSpawnCard;
 
             var stageInfo = sceneInfo.GetComponent<ClassicStageInfo>();
-            var dccsMonsters = AssetDatabase.FindAssets("BlackBeachMonsters").Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<DirectorCardCategorySelection>).FirstOrDefault();
-            var dccsInteractables = AssetDatabase.FindAssets("BlackBeachInteractables").Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<DirectorCardCategorySelection>).FirstOrDefault();
+            var dccsMonsters = AssetDatabase.FindAssets("BlackBeachMonsters").Select(x => AssetDatabase.GUIDToAssetPath(x)).Select(x => AssetDatabase.LoadAssetAtPath<DirectorCardCategorySelection>(x)).FirstOrDefault();
+            var dccsInteractables = AssetDatabase.FindAssets("BlackBeachInteractables").Select(x => AssetDatabase.GUIDToAssetPath(x)).Select(x => AssetDatabase.LoadAssetAtPath<DirectorCardCategorySelection>(x)).FirstOrDefault();
             if (dccsInteractables) stageInfo.interactableCategories = dccsInteractables;
             if (dccsMonsters)
             {
                 var field = typeof(ClassicStageInfo).GetField("monsterCategories", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 field.SetValue(stageInfo, dccsMonsters);
             }
+            combatDirectors[0].moneyWaveIntervals = new RangeFloat[] { new RangeFloat { min = 1, max = 1 } };
+            combatDirectors[1].moneyWaveIntervals = new RangeFloat[] { new RangeFloat { min = 1, max = 1 } };
 
             var worldObject = new GameObject("World");
             worldObject.layer = LayerMask.NameToLayer("World");
@@ -77,7 +114,6 @@ namespace PassivePicasso.RainOfStages.Editor
             light.intensity = 1.2f;
             (float h, float s, float v) color = (0, 0, 0);
             Color.RGBToHSV(Color.white, out color.h, out color.s, out color.v);
-            color.s = 0.15f;
             color.v = 0.8f;
             light.lightmapBakeType = LightmapBakeType.Realtime;
             light.color = Color.HSVToRGB(color.h, color.s, color.v);
