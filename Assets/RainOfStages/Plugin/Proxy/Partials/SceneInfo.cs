@@ -6,7 +6,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace PassivePicasso.ThunderKit.Proxy
+namespace PassivePicasso.RainOfStages.Proxy
 {
 
     public partial class SceneInfo : global::RoR2.SceneInfo
@@ -28,7 +28,7 @@ namespace PassivePicasso.ThunderKit.Proxy
         public bool DebugAirNodes;
         public float AirNodeSize;
         private float nodeMeshSize;
-
+        public float AirLinkRenderDistance;
         public Color HumanColor = Color.white;
         public Color GolemColor = Color.white;
         public Color QueenColor = Color.white;
@@ -62,7 +62,7 @@ namespace PassivePicasso.ThunderKit.Proxy
             return _cubeMesh;
         }
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
             if (colormap == null)
                 colormap = new Dictionary<HullMask, Color> {
@@ -114,16 +114,33 @@ namespace PassivePicasso.ThunderKit.Proxy
 
                 if (DebugAirLinks)
                 {
-                    foreach (var link in airLinks)
-                    {
-                        Gizmos.color = HumanColor;
-                        if (((HullMask)link.hullMask).HasFlag(HullMask.Golem)) Gizmos.color = GolemColor;
-                        if (((HullMask)link.hullMask).HasFlag(HullMask.BeetleQueen)) Gizmos.color = QueenColor;
+                    var mouseRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+                    if (Physics.Raycast(mouseRay, out var hit))
+                        foreach (var link in airLinks)
+                        {
+                            Vector3 nodeAPos = airNodes[link.nodeIndexA.nodeIndex].position;
+                            Vector3 nodeBPos = airNodes[link.nodeIndexB.nodeIndex].position;
+                            if (Vector3.Distance(nodeAPos, hit.point) > AirLinkRenderDistance) continue;
+                            if (Vector3.Distance(nodeAPos, hit.point) > AirLinkRenderDistance) continue;
+                            Gizmos.color = HumanColor;
+                            if (((HullMask)link.hullMask).HasFlag(HullMask.Golem))
+                            {
+                                Gizmos.color = GolemColor;
 
-                        Vector3 nodeAPos = airNodes[link.nodeIndexA.nodeIndex].position;
-                        Vector3 nodeBPos = airNodes[link.nodeIndexB.nodeIndex].position;
-                        Gizmos.DrawLine(nodeAPos, nodeBPos);
-                    }
+                            }
+                            if (((HullMask)link.hullMask).HasFlag(HullMask.BeetleQueen))
+                            {
+                                Gizmos.color = QueenColor;
+                            }
+                            if (((HullMask)link.hullMask).HasFlag(HullMask.BeetleQueen) && QueenColor.a < 0.05f)
+                                continue;
+                            if (!((HullMask)link.hullMask).HasFlag(HullMask.BeetleQueen) && ((HullMask)link.hullMask).HasFlag(HullMask.Golem) && GolemColor.a < 0.05f)
+                                continue;
+                            if (!((HullMask)link.hullMask).HasFlag(HullMask.Golem) && ((HullMask)link.hullMask).HasFlag(HullMask.Human) && HumanColor.a < 0.05f)
+                                continue;
+
+                            Gizmos.DrawLine(nodeAPos, nodeBPos);
+                        }
                 }
             }
 
