@@ -7,12 +7,16 @@ using RoR2.UI.MainMenu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PassivePicasso.RainOfStages.Hooks
 {
     using RainOfStages = Plugin.RainOfStages;
+    using Links = IEnumerable<Link>;
+    using SceneDefs = IEnumerable<SceneDefinition>;
+    using SceneDefRefs = IEnumerable<SceneDefReference>;
     internal class NonProxyHooks
     {
         static Material mat = new Material(Shader.Find("Unlit/Color"));
@@ -22,6 +26,31 @@ namespace PassivePicasso.RainOfStages.Hooks
         struct DrawOrder { public Vector3 start; public Vector3 end; public float duration; public Color color; }
 
         static Dictionary<Guid, DrawOrder> DrawOrders = new Dictionary<Guid, DrawOrder>();
+
+        [Hook(typeof(ContentManager), isStatic: true)]
+        public static void SetContentPacks(Action<List<ContentPack>> orig, List<ContentPack> contentPacks)
+        {
+            RainOfStages.Instance.RoSLog.LogMessage("Intercepting Content Pack Load");
+            RainOfStages.Instance.RoSLog.LogMessage("Evaluating existing Content Packs");
+            contentPacks.Add(new ContentPack
+            {
+                sceneDefs = RainOfStages.Instance.SceneDefinitions.ToArray(),
+                gameModePrefabs = RainOfStages.Instance.GameModes.ToArray()
+            });
+            orig(contentPacks);
+
+            var contentPackFields = typeof(ContentPack).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var pack in contentPacks)
+            {
+                RainOfStages.Instance.RoSLog.LogDebug($"ContentPack: {pack.GetType().Name}");
+                foreach (var field in contentPackFields)
+                {
+                    var fieldData = field.GetValue(pack);
+                    Array dataArray = (Array)fieldData;
+                    RainOfStages.Instance.RoSLog.LogDebug($"({field.FieldType.Name}) {field.Name}: {dataArray.Length}");
+                }
+            }
+        }
 
         public static void InitializeDebugging()
         {
@@ -118,14 +147,28 @@ namespace PassivePicasso.RainOfStages.Hooks
         }
     }
 
+    struct Link
+    {
+        public Link(SceneDefinition destination, SceneDefReference origin)
+        {
+            this.Destination = destination;
+            this.Origin = origin;
+        }
+
+        public readonly SceneDefinition Destination;
+        public readonly SceneDefReference Origin;
+    }
+
     internal class SceneCatalogHooks
     {
+
         static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
 
         [Hook(typeof(SceneCatalog), isStatic: true)]
         private static void Init(Action orig)
         {
             orig();
+
             HookAttribute.DisableHooks(typeof(SceneCatalogHooks));
 
             var lookups = SceneCatalog.allSceneDefs.ToDictionary(sd => sd.baseSceneName);
@@ -134,30 +177,36 @@ namespace PassivePicasso.RainOfStages.Hooks
 
             var sceneDefinitions = RainOfStages.Instance.SceneDefinitions.OfType<SceneDefinition>();
 
+            var overrideMapping = MakeLinks(sceneDefinitions, def => def.reverseSceneNameOverrides);
+            var destinationsMapping = MakeLinks(sceneDefinitions, def => def.destionationInjections);
+
+            Weave(lookups, overrideMapping, 
+                       sd => sd.Destination.baseSceneName,
+                       sd => sd.sceneNameOverrides,
+                       (sd, data) => sd.sceneNameOverrides = data.ToList());
+
+            Weave(lookups, destinationsMapping, 
+                       sd => sd.Destination,
+                       sd => sd.destinations, 
+                       (sd, data) => sd.destinations = data.ToArray());
+        }
+
+        static Links MakeLinks(SceneDefs definitions, Func<SceneDefinition, SceneDefRefs> selectSource) 
+               => definitions.SelectMany(def => selectSource(def).Select(sdr => new Link(def, sdr)));
+
+        static void Weave<T>(Dictionary<string, SceneDef> lookups, Links links, Func<Link, T> GetNewData, Func<SceneDef, IEnumerable<T>> GetAssignedData, Action<SceneDef, IEnumerable<T>> assignData)
+        {
+            foreach (var mapGroup in links.GroupBy(map => map.Origin.baseSceneName))
             {
-                var maps = sceneDefinitions.SelectMany(destination => destination.destionationInjections.Select(origin => (destination, origin)));
-                var mapGroups = maps.GroupBy(map => map.origin.baseSceneName);
+                var newData = mapGroup.Select(GetNewData);
+                var oldData = GetAssignedData(lookups[mapGroup.Key]);
+                var updatedData = oldData.Union(newData);
+                assignData(lookups[mapGroup.Key], updatedData);
 
-                foreach (var mapGroup in mapGroups)
-                {
-                    var destinations = lookups[mapGroup.Key].destinations = lookups[mapGroup.Key].destinations.Union(mapGroup.Select(map => map.destination as SceneDef)).Distinct().ToArray();
-                    foreach (var destination in destinations)
-                        Logger.LogInfo($"Added destination {destination.baseSceneName} to SceneDef {mapGroup.Key}");
-                }
-            }
-
-            {
-                var maps = sceneDefinitions.SelectMany(loadedSceneDef => loadedSceneDef.reverseSceneNameOverrides.Select(overridedScene => (loadedSceneDef, overridedScene)));
-                var mapGroups = maps.GroupBy(map => map.overridedScene.baseSceneName);
-
-                foreach (var mapGroup in mapGroups)
-                {
-                    var overridingScenes = lookups[mapGroup.Key].sceneNameOverrides = lookups[mapGroup.Key].sceneNameOverrides.Union(mapGroup.Select(map => map.loadedSceneDef.baseSceneName)).Distinct().ToList();
-
-                    foreach (var overridingScene in overridingScenes)
-                        Logger.LogInfo($"Added override {overridingScene} to SceneDef {mapGroup.Key}");
-                }
+                foreach (var dataElement in updatedData)
+                    Logger.LogInfo($"Added {dataElement} to SceneDef {mapGroup.Key}");
             }
         }
+
     }
 }
