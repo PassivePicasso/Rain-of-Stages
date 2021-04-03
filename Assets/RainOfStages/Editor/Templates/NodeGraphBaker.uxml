@@ -16,9 +16,12 @@ xsi:schemaLocation="
   <editor:PropertyField binding-path="minRegionArea"/>
   <editor:PropertyField binding-path="tileSize"/>
   <editor:PropertyField binding-path="globalNavigationOffset"/>
-  <editor:PropertyField binding-path="AirNodeSize"/>
   <editor:PropertyField binding-path="MaximumSurfaceDistance"/>
   <editor:PropertyField binding-path="MinimumSurfaceDistance"/>
+  <editor:PropertyField binding-path="Resolution"/>
+  <editor:PropertyField binding-path="NeighborRemapThreshold"/>
+  <editor:PropertyField binding-path="SimplifySteps"/>
+  <editor:PropertyField binding-path="RemappingDistance"/>
   <engine:Button text="Bake" tooltip="Bake NodeGraph for currently open scene and assign results to the scene's SceneInfo"/>
   <engine:VisualElement name="bake-time-field">
     <engine:Label text="Bake Time:"/>
