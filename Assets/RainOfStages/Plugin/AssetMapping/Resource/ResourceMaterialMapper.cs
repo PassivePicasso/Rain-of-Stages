@@ -1,8 +1,5 @@
-﻿#if !UNITY_EDITOR
-using System;
-#endif
+﻿using System;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
@@ -11,11 +8,11 @@ namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
     {
         protected override string MemberName => "materials";
 
-        public override Material[] ClonedAssets => 
 #if UNITY_EDITOR
+        public override Material[] ClonedAssets =>
                     EditorAssets
-                    .Select(AssetDatabase.GUIDToAssetPath)
-                    .Select(AssetDatabase.LoadAssetAtPath<Material>)
+                    .Select(x => UnityEditor.AssetDatabase.GUIDToAssetPath(x))
+                    .Select(x => UnityEditor.AssetDatabase.LoadAssetAtPath<Material>(x))
                     .Select(Instantiate)
                     .Select(clone =>
                     {
@@ -24,9 +21,6 @@ namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
                         return clone;
                     })
                     .ToArray();
-#else
-                    Array.Empty<Material>();
 #endif
-
     }
 }

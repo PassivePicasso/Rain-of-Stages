@@ -1,11 +1,7 @@
-﻿using PassivePicasso.RainOfStages.Plugin.AssetMapping;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 
 namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
@@ -31,32 +27,32 @@ namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
         protected virtual BindingFlags FieldBindings { get; } = BindingFlags.Public | BindingFlags.Instance;
         protected abstract string MemberName { get; }
 
-#if !UNITY_EDITOR
         private void Start()
         {
+            if (Application.isEditor) return;
             Initialize();
             Assign(Asset);
             Destroy(this);
         }
-#else
         void OnEnable()
         {
+            if (!Application.isEditor) return;
             Initialize();
             Assign(ClonedAssets);
         }
 
         void OnDisable()
         {
+            if (!Application.isEditor) return;
             Initialize();
             Assign(Enumerable.Empty<AssetType>());
         }
-#endif
 
         protected abstract ComponentType GetTargetComponent();
         void Initialize()
         {
             if (setValue != null) return;
-            
+
             var componentField = typeof(ComponentType).GetField(MemberName, FieldBindings);
             Type assetType = typeof(AssetType);
 
@@ -90,6 +86,8 @@ namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
         void Assign(IEnumerable<AssetType> assets)
         {
             if (setValue == null || TargetComponents == null || TargetComponents.Length == 0) return;
+            if (assets == null)
+                assets = Enumerable.Empty<AssetType>();
 
             foreach (var component in TargetComponents.Where(tc => tc))
             {
