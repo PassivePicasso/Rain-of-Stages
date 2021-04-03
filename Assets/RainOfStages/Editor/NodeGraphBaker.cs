@@ -24,6 +24,7 @@ using UnityEngine.Experimental.UIElements;
 namespace PassivePicasso.RainOfStages
 {
     using static Extensions;
+    using static ThunderKit.Core.UIElements.TemplateHelpers;
 
     public class NodeGraphBaker : TemplatedWindow
     {
@@ -37,9 +38,11 @@ namespace PassivePicasso.RainOfStages
         public float minRegionArea = 100;
         public int tileSize = 32;
         public Vector3 globalNavigationOffset = new Vector3(0, 0.1f, 0);
-        public float AirNodeSize = 5;
-        public float MaximumSurfaceDistance = 22;
-        public float MinimumSurfaceDistance = 2;
+        public int SimplifySteps = 1;
+        public int NeighborRemapThreshold = 20;
+        public float Resolution = 50;
+        public float MaximumSurfaceDistance = 30;
+        public float MinimumSurfaceDistance = 0.5f;
         public NavMeshBuildSettings settings => new NavMeshBuildSettings
         {
             minRegionArea = minRegionArea,
@@ -50,17 +53,17 @@ namespace PassivePicasso.RainOfStages
 
 
         [MenuItem("Tools/Rain of Stages/Navigation Baking")]
-        public static void Bake()
+        public static void OpenBaker()
         {
             var baker = GetWindow<NodeGraphBaker>();
             baker.titleContent = new GUIContent("RoS Navigation");
             baker.DebugMode = false;
             baker.minRegionArea = 100;
-            baker.tileSize = 32;
+            baker.tileSize = 16;
             baker.globalNavigationOffset = new Vector3(0, 0.1f, 0);
-            baker.AirNodeSize = 5;
-            baker.MaximumSurfaceDistance = 22;
-            baker.MinimumSurfaceDistance = 2;
+            baker.Resolution = 50;
+            baker.MaximumSurfaceDistance = 30;
+            baker.MinimumSurfaceDistance = 0.5f;
 
             var potentialShaders = AssetDatabase.FindAssets("t:ComputeShader Voxelizer");
             var shaderPaths = potentialShaders.Select(AssetDatabase.GUIDToAssetPath).ToArray();
@@ -73,10 +76,13 @@ namespace PassivePicasso.RainOfStages
 
         public override void OnEnable()
         {
-            base.OnEnable();
+            rootVisualElement.Clear();
+            GetTemplateInstance(GetType().Name, rootVisualElement, path => path.StartsWith("Packages/twiner-rainofstages") || path.StartsWith("Assets/RainOfStages"));
+            titleContent = new GUIContent(ObjectNames.NicifyVariableName(GetType().Name), ThunderKitIcon);
+            rootVisualElement.Bind(new SerializedObject(this));
 
-            var bakeButton = rootVisualContainer.Q<Button>();
-            var timeValue = rootVisualContainer.Q<Label>("bake-time");
+            var bakeButton = rootVisualElement.Q<Button>();
+            var timeValue = rootVisualElement.Q<Label>("bake-time");
             bakeButton.clickable.clicked += Clickable_clicked;
             void Clickable_clicked()
             {
@@ -88,7 +94,6 @@ namespace PassivePicasso.RainOfStages
                 Debug.Log($"Bake took: {watch.Elapsed.TotalMilliseconds}ms");
             }
         }
-
         public void Build()
         {
             if (DebugMode)
@@ -179,16 +184,16 @@ namespace PassivePicasso.RainOfStages
             mesh.RecalculateBounds();
             Log("Mesh combination");
 
-            var size = Mathf.Max(mesh.bounds.size.x, mesh.bounds.size.z);
-            var gpuVoxelData = GPUVoxelizer.Voxelize(VoxelizerShader, mesh, (int)(size / AirNodeSize), true);
+            var gpuVoxelData = GPUVoxelizer.Voxelize(VoxelizerShader, mesh, (int)Resolution, true);
             GPUVoxelizer.BuildBetterVoxels(VoxelizerShader, gpuVoxelData);
             var voxels = gpuVoxelData.GetData();
             Log("Voxelization");
-
+            DestroyImmediate(mesh);
             CollectNodes(colliders, nodeMap, voxels);
 
             var nodeNeighbors = new Dictionary<uint3, List<uint3>>();
             var removedIds = new List<uint3>();
+            var remapIds = new Dictionary<uint3, uint3>();
             (Voxel_t voxel, Node node)[] pairs = nodeMap.Values.ToArray();
             foreach (var pair in pairs)
             {
@@ -218,9 +223,30 @@ namespace PassivePicasso.RainOfStages
                     removedIds.Add(id);
                 }
             }
+
+            //for (int reduce = 0; reduce < SimplifySteps; reduce++)
+            foreach (var (voxel, node) in pairs)
+            {
+                if (!nodeNeighbors.ContainsKey(voxel.id)) continue;
+                if (remapIds.ContainsKey(voxel.id)) continue;
+                if (nodeNeighbors[voxel.id].Count > NeighborRemapThreshold)
+                {
+                    foreach (var neighborId in nodeNeighbors[voxel.id])
+                    {
+                        remapIds[neighborId] = voxel.id;
+                        nodeMap.Remove(neighborId);
+                        nodeNeighbors.Remove(neighborId);
+                    }
+                }
+            }
             Log("Node neighborization");
 
-            foreach (var map in nodeNeighbors) map.Value.RemoveAll(removedIds.Contains);
+            foreach (var map in nodeNeighbors)
+            {
+                map.Value.RemoveAll(x=> removedIds.Contains(x));
+                for (int i = 0; i < map.Value.Count; i++)
+                    map.Value[i] = remapIds.ContainsKey(map.Value[i]) ? remapIds[map.Value[i]] : map.Value[i];
+            }
 
             var links = new List<Link>();
             pairs = nodeMap.Values.ToArray();
@@ -259,16 +285,37 @@ namespace PassivePicasso.RainOfStages
             return SaveGraph($"{SceneManager.GetActiveScene().name}_AirNodeGraph", nodes, links.ToArray());
         }
 
+        void OnSceneGUI()
+        {
+            if (Event.current.type == EventType.MouseMove)
+                SceneView.currentDrawingSceneView.Repaint();
+        }
+
         private void CollectNodes(Collider[] colliders, Dictionary<uint3, (Voxel_t, Node)> nodeMap, Voxel_t[] voxels)
         {
+            var navMeshObjects = GameObject.FindObjectsOfType<NavMeshObstacle>();
+            var validNMOs = navMeshObjects.Where(nmo => nmo.isActiveAndEnabled && nmo.carving && nmo.shape == NavMeshObstacleShape.Box).ToArray();
+            var outOfBounds = validNMOs.Select(nmo =>
+            {
+                var transform = nmo.transform;
+                var size = new Vector3(nmo.transform.lossyScale.x * nmo.size.x,
+                                       nmo.transform.lossyScale.y * nmo.size.y,
+                                       nmo.transform.lossyScale.z * nmo.size.z);
+                var bounds = new Bounds(nmo.transform.position + nmo.center, size);
+                return (nmo.transform, bounds);
+            }).ToList();
 
             var directions = new[] { Vector3.forward, Vector3.back, Vector3.right, Vector3.left, Vector3.down, Vector3.up };
 
             foreach (var voxel in voxels)
                 if (voxel.IsEmpty())
                 {
+                    //navmesh carving check
+                    if (outOfBounds.Any(set => set.bounds.Contains(set.transform.InverseTransformDirection(voxel.position)))) continue;
+
                     bool skip = false;
                     bool hit = false;
+                    //Backface check
                     for (int i = 0; i < directions.Length; i++)
                         if (Physics.Raycast(voxel.position, directions[i], out RaycastHit hitInfo, MaximumSurfaceDistance, LayerIndex.world.mask))
                         {
@@ -283,6 +330,7 @@ namespace PassivePicasso.RainOfStages
 
                     if (!hit || skip) continue;
 
+                    //no ceiling check
                     var upHit = Physics.Raycast(new Ray(voxel.position, Vector3.up), out RaycastHit upHitInfo, MaximumSurfaceDistance, LayerIndex.world.mask);
 
                     var overlaps = Physics.OverlapBoxNonAlloc(voxel.position, Vector3.one * MinimumSurfaceDistance, colliders, Quaternion.identity, LayerIndex.world.mask);
