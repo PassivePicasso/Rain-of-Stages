@@ -14,6 +14,13 @@ The project aims to provide many features to streamline the addition of many typ
 
 
 Change Notes:
+* 3.0.0
+  * Built new node graph baking system, now capable of baking average RoR2 size maps in less than a second, and larger maps well under a minute.
+  * Updated to ThunderKit 3.0.0
+  * Greatly reduced the amount of code by removing proxy layer, now the majority of scripts can be used directly from the RoR2 assemblies
+  * Added presets for ResourceMaterialMapper to allow easy use of hopoo terrain shaders/textures
+  * Improved bundle loading mechanism to allow loading multiple stages
+
 * 2.2.0:
   * Fix versioning
 

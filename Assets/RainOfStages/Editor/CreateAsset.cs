@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 using BodySpawnCard = PassivePicasso.RainOfStages.Proxy.BodySpawnCard;
@@ -76,7 +77,7 @@ namespace PassivePicasso.RainOfStages.Editor
         public static void CreateStage()
         {
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            var director = new GameObject("Director", typeof(DirectorCore), typeof(SceneDirector), typeof(CombatDirector), typeof(CombatDirector));
+            var director = new GameObject("Director", typeof(NetworkIdentity), typeof(DirectorCore), typeof(SceneDirector), typeof(CombatDirector), typeof(CombatDirector));
             var globalEventManager = new GameObject("GlobalEventManager", typeof(Proxy.GlobalEventManager));
 
             var sceneInfo = new GameObject("SceneInfo", typeof(Proxy.SceneInfo), typeof(ClassicStageInfo), typeof(PostProcessVolume));
@@ -111,10 +112,10 @@ namespace PassivePicasso.RainOfStages.Editor
 
             var light = lightObject.GetComponent<Light>();
             light.type = LightType.Directional;
-            light.intensity = 1.2f;
+            light.intensity = 0.5f;
             (float h, float s, float v) color = (0, 0, 0);
             Color.RGBToHSV(Color.white, out color.h, out color.s, out color.v);
-            color.v = 0.8f;
+            color.v = 0.5f;
             light.lightmapBakeType = LightmapBakeType.Realtime;
             light.color = Color.HSVToRGB(color.h, color.s, color.v);
             RenderSettings.sun = light;

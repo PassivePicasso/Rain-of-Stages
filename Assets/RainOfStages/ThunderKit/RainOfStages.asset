@@ -15,6 +15,7 @@ MonoBehaviour:
   Data:
   - {fileID: 114211750285825468}
   - {fileID: 114082092247317074}
+  - {fileID: 114978965694430374}
   - {fileID: 114665084937475452}
   - {fileID: 114011629327989698}
   - {fileID: 114339530207379210}
@@ -29,8 +30,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17d1008b78cb6e846889b7778282fbef, type: 3}
-  m_Name: AssetBundleDefs
+  m_Name: AssetBundleDefinitions
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   StagingPaths:
   - <ManifestPluginStaging>
   assetBundles:
@@ -49,11 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a82fec78ebc734d9ad1346cd40b5f9, type: 3}
   m_Name: ThunderstoreData
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   StagingPaths:
   - <ManifestStagingRoot>
   url: https://github.com/PassivePicasso/Rain-of-Stages
-  readme: {fileID: 4900000, guid: 6253891c9532ac140af6adcaf3707393, type: 3}
-  icon: {fileID: 2800000, guid: 2285fe866fc76574bb3a11f71a9ff747, type: 3}
 --- !u!114 &114211750285825468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -66,7 +69,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f22bb7fd1d3b56a48bc52f8e407901d6, type: 3}
   m_Name: ManifestIdentity
   m_EditorClassIdentifier: 
-  StagingPaths: []
+  Errored: 0
+  ErrorMessage: 
+  StagingPaths:
+  - <ManifestStagingRoot>
   Author: Twiner
   Name: RainOfStages
   Icon: {fileID: 0}
@@ -87,6 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda4ac7962f04724eacfeb26af5e2b75, type: 3}
   m_Name: UnityPackages
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   StagingPaths:
   - <ManifestPluginStaging>
   unityPackages:
@@ -103,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7e13dda513544419a89926bd12ad8a, type: 3}
   m_Name: AssemblyDefinitions
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   StagingPaths:
   - <ManifestPluginStaging>
   definitions:
@@ -110,3 +120,22 @@ MonoBehaviour:
   - {fileID: 5897886265953266890, guid: 47ea1817199a52944ba397d07300a8ed, type: 3}
   - {fileID: 5897886265953266890, guid: 77ccaf49895b0d64e87cd4b4faf83c49, type: 3}
   - {fileID: 5897886265953266890, guid: a09b502a3463f794a83cf80a67a246d2, type: 3}
+--- !u!114 &114978965694430374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b243ff405b33b94dbf5b6775dd9aa33, type: 3}
+  m_Name: Files
+  m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
+  StagingPaths:
+  - <ManifestStagingRoot>
+  files:
+  - {fileID: 4900000, guid: 6253891c9532ac140af6adcaf3707393, type: 3}
+  - {fileID: 2800000, guid: 2285fe866fc76574bb3a11f71a9ff747, type: 3}

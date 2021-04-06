@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 using Path = System.IO.Path;
@@ -117,21 +116,6 @@ namespace PassivePicasso.RainOfStages.Plugin
             }
 
             Initialized?.Invoke(this, EventArgs.Empty);
-            Stage.onServerStageBegin += Stage_onServerStageBegin;
-        }
-
-        private void Stage_onServerStageBegin(Stage obj)
-        {
-            if (SceneDefinitions.Contains(Stage.instance.sceneDef))
-            {
-                var globalEventManager = GameObject.Find("GlobalEventManager");
-                if (globalEventManager) globalEventManager.SetActive(true);
-                var sceneInfo = GameObject.Find("SceneInfo");
-                if (sceneInfo) sceneInfo.SetActive(true);
-                var director = GameObject.Find("Director");
-                if (director) director.SetActive(true);
-                RoSLog.LogInfo("Initialized Stage Objects");
-            }
         }
 
         public void Start()

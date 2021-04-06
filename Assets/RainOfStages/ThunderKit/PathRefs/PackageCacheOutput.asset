@@ -18,7 +18,6 @@ MonoBehaviour:
   - {fileID: 114632703240285164}
   - {fileID: 114094698967964952}
   - {fileID: 114941755732663838}
-  lastName: PackageCacheOutput
 --- !u!114 &114094698967964952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -29,8 +28,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cebc722807299b54bb8733330087d5e3, type: 3}
-  m_Name: Constant(Clone)
+  m_Name: Constant
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   Value: PackageCache
 --- !u!114 &114129837313277828
 MonoBehaviour:
@@ -42,8 +43,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cebc722807299b54bb8733330087d5e3, type: 3}
-  m_Name: Constant(Clone)(Clone)
+  m_Name: Constant
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   Value: Projects
 --- !u!114 &114203375025976186
 MonoBehaviour:
@@ -57,6 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc722807299b54bb8733330087d5e3, type: 3}
   m_Name: Constant
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   Value: F:\
 --- !u!114 &114632703240285164
 MonoBehaviour:
@@ -68,8 +73,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cebc722807299b54bb8733330087d5e3, type: 3}
-  m_Name: Constant(Clone)
+  m_Name: Constant
   m_EditorClassIdentifier: 
+  Errored: 0
+  ErrorMessage: 
   Value: RoR2_Modding
 --- !u!114 &114941755732663838
 MonoBehaviour:
@@ -83,4 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfead62a54d1b04d9ce0a82f51655a1, type: 3}
   m_Name: Resolver
   m_EditorClassIdentifier: 
-  value: Twiner-<MN>-<MV>.zip
+  Errored: 0
+  ErrorMessage: 
+  value: Twiner-<ManifestName>-<ManifestVersion>.zip

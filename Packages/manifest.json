@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.febucci.custom-hierarchy": "https://github.com/febucci/unitypackage-custom-hierarchy.git",
-    "com.passivepicasso.thunderkit": "https://github.com/PassivePicasso/ThunderKit.git#package-manager",
+    "com.passivepicasso.thunderkit": "https://github.com/PassivePicasso/ThunderKit.git",
     "com.unity.package-manager-ui": "2.0.13",
     "com.unity.polybrush": "1.0.2",
     "com.unity.postprocessing": "2.1.2",
@@ -47,8 +47,8 @@
       "hash": "b7da93eeda88ebeb82064b6d3fd9d22a0ed459eb"
     },
     "com.passivepicasso.thunderkit": {
-      "revision": "package-manager",
-      "hash": "6396417b22f3f7a987b04528e1a12a69f21d82e7"
+      "revision": "HEAD",
+      "hash": "52e3ea2c4e1068dac50488e430dc455ad1fbe1f2"
     },
     "com.whinarn.unitymeshsimplifier": {
       "revision": "HEAD",
