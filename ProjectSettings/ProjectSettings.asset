@@ -77,7 +77,7 @@ PlayerSettings:
   hideHomeButton: 0
   submitAnalytics: 1
   usePlayerLog: 1
-  bakeCollisionMeshes: 0
+  bakeCollisionMeshes: 1
   forceSingleInstance: 0
   resizableWindow: 0
   useMacAppStoreValidation: 0
@@ -176,7 +176,7 @@ PlayerSettings:
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 1
-  StripUnusedMeshComponents: 0
+  StripUnusedMeshComponents: 1
   VertexChannelCompressionMask: 214
   iPhoneSdkVersion: 988
   iOSTargetOSVersionString: 9.0
@@ -521,15 +521,15 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   scriptingDefineSymbols:
-    1: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    7: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    13: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    19: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    21: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    25: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    26: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    27: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
-    28: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2
+    1: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;thunderkit;bbepis-bepinexpack-5.3.1;riskofrain2
+    7: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
+    13: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
+    19: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
+    21: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
+    25: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
+    26: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
+    27: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
+    28: PROBUILDER_EXPERIMENTAL_FEATURES;UNITY_POST_PROCESSING_STACK_V2;THUNDERKIT_CONFIGURED;CompressionInstalled;ThunderKitInstalled;bepinexpack;system.io.compression;thunderkit;system_io_compression;bbepis-bepinexpack-5.3.1;twiner-gotseq-1.1.3;twiner-rainofstagesshared-0.9.2;twiner-runtimeinspector-1.0.0
   platformArchitecture: {}
   scriptingBackend:
     Android: 0
@@ -542,7 +542,7 @@ PlayerSettings:
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   apiCompatibilityLevelPerPlatform:
-    Standalone: 6
+    Standalone: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: ModTool Release

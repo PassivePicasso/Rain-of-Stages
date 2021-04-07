@@ -1,11 +1,12 @@
-﻿#if THUNDERKIT_CONFIGURED
-#pragma warning disable 618
+﻿#pragma warning disable 618
 using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using PassivePicasso.RainOfStages.Hooks;
 using PassivePicasso.RainOfStages.Monomod;
+using PassivePicasso.RainOfStages.Proxy;
 using RoR2;
+using RoR2.Navigation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,6 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 using Path = System.IO.Path;
-using Run = PassivePicasso.ThunderKit.Proxy.RoR2.Run;
 
 namespace PassivePicasso.RainOfStages.Plugin
 {
@@ -23,18 +23,10 @@ namespace PassivePicasso.RainOfStages.Plugin
 
     //The name is the name of the plugin that's displayed on load, and the version number just specifies what version the plugin is.
     [BepInPlugin(Constants.GuidName, Constants.Name, Constants.Version)]
-    [BepInDependency(Shared.Constants.GuidName, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("R2API", BepInDependency.DependencyFlags.SoftDependency)]
     public class RainOfStages : BaseUnityPlugin
     {
         private const int GameBuild = 4892828;
-
-        class ManifestMap
-        {
-            public FileInfo File;
-            public string[] Content;
-            public Manifest manifest;
-        }
 
         public static RainOfStages Instance { get; private set; }
 
@@ -53,19 +45,18 @@ namespace PassivePicasso.RainOfStages.Plugin
         public IReadOnlyList<string> GameModeNames => Instance.gameModeNames.AsReadOnly();
         public IReadOnlyList<Run> GameModes => Instance.gameModes.AsReadOnly();
         public IReadOnlyList<SceneDef> SceneDefinitions => Instance.sceneDefinitions.AsReadOnly();
+        public AssetBundle RoSShared { get; private set; }
 
         private List<Run> gameModes = new List<Run>();
         private List<string> gameModeNames = new List<string> { "ClassicRun" };
         private List<SceneDef> sceneDefinitions = new List<SceneDef>();
-        private FieldInfo gameModeCatalogIndexField = typeof(GameModeCatalog).GetField("indexToPrefabComponents", BindingFlags.NonPublic | BindingFlags.Static);
         private List<Manifest> manifests = new List<Manifest>();
-        private string[] forbiddenRuns = new[] { "BaseDefenseRun", "WeeklyRun" };
-        private bool addedModeEntries;
-        private bool countInitialized;
 
         public ManualLogSource RoSLog => base.Logger;
 
-
+        public bool debugDraw = false;
+        public HullClassification debugHull = HullClassification.Human;
+        private FieldInfo cheatBackValueField;
         public RainOfStages()
         {
             Instance = this;
@@ -85,9 +76,13 @@ namespace PassivePicasso.RainOfStages.Plugin
         #region Messages
         public void Awake()
         {
-            //Thread.Sleep(10000);
+            LoadRoSShared();
+
             RoSLog.LogInfo("Initializing Rain of Stages");
             Initialize();
+
+            cheatBackValueField = typeof(RoR2.Console.CheatsConVar).GetField("_boolValue", BindingFlags.NonPublic | BindingFlags.Instance);
+            cheatBackValueField.SetValue(RoR2.Console.CheatsConVar.instance, true);
 
             var dir = GetPluginsDirectory();
 
@@ -105,7 +100,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             else
                 RoSLog.LogInfo($"No extra runs loaded");
 
-            Logger.LogInfo($"found {manifests.Count} map manifests");
+            RoSLog.LogInfo($"found {manifests.Count} map manifests");
             if (manifests.Count != 0)
             {
                 var hashSet = new HashSet<string>();
@@ -116,7 +111,7 @@ namespace PassivePicasso.RainOfStages.Plugin
                 foreach (var mod in newOrderedGuids)
                 {
                     NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append(mod);
-                    Logger.LogInfo($"[NetworkCompatibility] Adding: {mod}");
+                    RoSLog.LogInfo($"[NetworkCompatibility] Adding: {mod}");
                 }
             }
 
@@ -125,6 +120,7 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         public void Start()
         {
+
             bool loadGameMode = false;
             string gameMode = string.Empty;
             foreach (var arg in Environment.GetCommandLineArgs())
@@ -134,29 +130,38 @@ namespace PassivePicasso.RainOfStages.Plugin
                         gameMode = loadGameModeArg.Split('=')[1];
                         loadGameMode = true;
                         break;
+                    case string cheatsEnabled when cheatsEnabled.StartsWith("--Debug", StringComparison.OrdinalIgnoreCase):
+                        cheatBackValueField.SetValue(RoR2.Console.CheatsConVar.instance, true);
+                        var sessionCheatsEnabledProp = typeof(RoR2.Console).GetProperty(nameof(RoR2.Console.sessionCheatsEnabled), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                        sessionCheatsEnabledProp.SetValue(null, true);
+                        NonProxyHooks.InitializeDebugging();
+                        break;
                 }
 
             if (loadGameMode)
             {
-                RoR2.Console.instance.SubmitCmd((NetworkUser)null, "intro_skip 1", false);
-                RoR2.Console.instance.SubmitCmd((NetworkUser)null, "splash_skip 1", false);
-                RoR2.Console.instance.SubmitCmd((NetworkUser)null, $"transition_command \"gamemode {gameMode}; host 0;\"", false);
+                Execute("intro_skip 1");
+                Execute("splash_skip 1");
+                Execute($"transition_command \"gamemode {gameMode}; host 0;\"");
             }
         }
 
         private void Update()
         {
-            if (!countInitialized && addedModeEntries)
+            if (Input.GetKeyDown(KeyCode.F8))
             {
-                var value = gameModeCatalogIndexField.GetValue(null);
+                HullClassification next = HullClassification.Count;
+                if (debugHull == HullClassification.Count) next = HullClassification.Human;
+                else
+                {
+                    next = (HullClassification)(((int)debugHull) + 1);
+                    Execute($"debug_scene_draw_nodegraph 0 {(int)MapNodeGroup.GraphType.Ground} {(int)debugHull}");
+                }
 
-                RoR2.Run[] runs = (global::RoR2.Run[])value;
+                if (next != HullClassification.Count)
+                    Execute($"debug_scene_draw_nodegraph 1 {(int)MapNodeGroup.GraphType.Ground} {(int)next}");
 
-                gameModeNames = runs.Select(r => r.name).Distinct().Where(run => !forbiddenRuns.Contains(run)).ToList();
-
-                RoSLog.LogInfo($"Loaded Custom Runs: {gameModeNames.Aggregate((a, b) => $"{a}, {b}")}");
-
-                countInitialized = true;
+                debugHull = next;
             }
         }
 
@@ -164,15 +169,18 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         #region Methods
 
+
+        private void Execute(string cmd)
+        {
+            RoSLog.LogDebug(cmd);
+            RoR2.Console.instance.SubmitCmd((NetworkUser)null, cmd, false);
+        }
         private void ApplyAttributes()
         {
             HookAttribute.Logger = RoSLog;
-            try { HookAttribute.ApplyHooks<SceneCatalogHooks>(); } catch (Exception e) { Logger.LogError(e); }
-            try { HookAttribute.ApplyHooks<NonProxyHooks>(); } catch (Exception e) { Logger.LogError(e); }
-            try { HookAttribute.ApplyHooks<ThunderKit.Proxy.RoR2.GlobalEventManager>(); } catch (Exception e) { Logger.LogError(e); }
-
-            GameModeCatalog.getAdditionalEntries += ProvideAdditionalGameModes;
-            SceneCatalog.getAdditionalEntries += ProvideAdditionalSceneDefs;
+            try { HookAttribute.ApplyHooks<SceneCatalogHooks>(); } catch (Exception e) { RoSLog.LogError(e); }
+            try { HookAttribute.ApplyHooks<NonProxyHooks>(); } catch (Exception e) { RoSLog.LogError(e); }
+            try { HookAttribute.ApplyHooks<Proxy.GlobalEventManager>(); } catch (Exception e) { RoSLog.LogError(e); }
         }
 
         private void Initialize()
@@ -197,128 +205,87 @@ namespace PassivePicasso.RainOfStages.Plugin
             return dir;
         }
 
-        private void LoadAssetBundles(DirectoryInfo dir)
+        private void LoadRoSShared()
         {
-            var manifestFiles = dir.GetFiles("*.manifest", SearchOption.AllDirectories);
-            var manifestMaps = manifestFiles.Select(manifestFile => new ManifestMap { File = manifestFile, Content = File.ReadAllLines(manifestFile.FullName) })
-                                            .Where(mfm => mfm.Content.Any(line => line.StartsWith("AssetBundleManifest:")))
-                                            .ToArray();
+            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var workingDirectory = Path.GetDirectoryName(assemblyLocation);
+            var file = new FileInfo(Path.Combine(workingDirectory, "rosshared.manifest"));
+            var directory = file.DirectoryName;
+            var filename = Path.GetFileNameWithoutExtension(file.FullName);
+            var abmPath = Path.Combine(directory, filename);
+            RoSShared = AssetBundle.LoadFromFile(abmPath);
+        }
 
-            var loadedManifestMaps = manifestMaps.Select(mfm =>
-            {
-                var parentDir = Directory.GetParent(mfm.File.DirectoryName);
-                var manifestPath = string.Empty;
-                if ("plugins".Equals(Path.GetFileName(parentDir.Name), StringComparison.OrdinalIgnoreCase))
-                    manifestPath = Path.Combine(mfm.File.DirectoryName, "manifest.json");
-                else
-                    manifestPath = Path.Combine(parentDir.FullName, "manifest.json");
-
-                var manifest = File.Exists(manifestPath) ? File.ReadAllText(manifestPath) : null;
-                if (!string.IsNullOrEmpty(manifest))
-                    mfm.manifest = JsonUtility.FromJson<Manifest>(manifest);
-                else
-                    mfm.manifest.name = mfm.File.Name;
-
-                return mfm;
-            }).ToArray();
-
-            foreach (var loadedManifestMap in loadedManifestMaps)
-            {
-                RoSLog.LogDebug($"Manifest: {loadedManifestMap.manifest.name}");
-                if (loadedManifestMap.manifest.dependencies == null) continue;
-
-                RoSLog.LogDebug($"\t Dependencies: {loadedManifestMap.manifest.dependencies.Length}");
-                foreach (var dependency in loadedManifestMap.manifest.dependencies)
-                    RoSLog.LogDebug($"\t   - {dependency}");
-            }
-
-            var supportedManifests = loadedManifestMaps.Where(mfm => (mfm.manifest.dependencies?.Contains(Constants.DependencyName) ?? false)).ToArray();
-
-            RoSLog.LogInfo($"Loading Rain of Stages compatible AssetBundles");
-            foreach (var mfm in supportedManifests)
+        void LoadAssetBundles(DirectoryInfo dir)
+        {
+            RoSLog.LogDebug($"SimpleLoading: {dir.FullName}");
+            foreach (var file in Directory.EnumerateFiles(dir.FullName, "*.ros", SearchOption.AllDirectories))
             {
                 try
                 {
-                    var directory = mfm.File.DirectoryName;
-                    var filename = Path.GetFileNameWithoutExtension(mfm.File.FullName);
-                    var abmPath = Path.Combine(directory, filename);
-                    var namedBundle = AssetBundle.LoadFromFile(abmPath);
-                    var manifest = namedBundle.LoadAsset<AssetBundleManifest>("assetbundlemanifest");
-                    var dependentBundles = manifest.GetAllAssetBundles();
-                    manifests.Add(mfm.manifest);
-
-                    foreach (var definitionBundle in dependentBundles)
-                        try
-                        {
-                            if (definitionBundle.Contains("rosshared") || definitionBundle.Contains("forbidden")) continue;
-                            var bundlePath = Path.Combine(directory, definitionBundle);
-                            if (!File.Exists(bundlePath)) continue;
-
-                            var bundle = AssetBundle.LoadFromFile(bundlePath);
-
-                            if (bundle.isStreamedSceneAssetBundle)
-                            {
-                                sceneBundles.Add(bundle);
-                                RoSLog.LogInfo($"Loaded Scene {definitionBundle}");
-                            }
-                            else
-                                AssetBundles.Add(bundle);
-                        }
-                        catch (Exception e) { RoSLog.LogError(e); }
-
-                    foreach (var assetBundle in AssetBundles)
+                    RoSLog.LogDebug($"Trying to load bundle: {Path.GetFileName(file)}");
+                    var directory = Path.GetDirectoryName(file);
+                    var bundle = AssetBundle.LoadFromFile(file);
+                    if (bundle.isStreamedSceneAssetBundle)
                     {
-                        try
-                        {
-                            var sceneDefinitions = assetBundle.LoadAllAssets<SceneDef>();
-                            var gameModes = assetBundle.LoadAllAssets<GameObject>().Select(go => go.GetComponent<Run>()).Where(run => run != null);
-
-                            if (sceneDefinitions.Any())
-                                this.sceneDefinitions.AddRange(sceneDefinitions);
-
-                            if (gameModes.Any())
-                            {
-                                this.gameModes.AddRange(gameModes);
-                                foreach (var gameMode in gameModes)
-                                    ClientScene.RegisterPrefab(gameMode.gameObject);
-                            }
-
-                        }
-                        catch (Exception e)
-                        {
-                            RoSLog.LogError(e);
-                        }
-
+                        sceneBundles.Add(bundle);
+                        RoSLog.LogInfo($"Loaded Scene {bundle}");
                     }
+                    else
+                    {
+                        RoSLog.LogMessage("Loaded Normie bundle");
+                        var manifest = bundle.LoadAsset<AssetBundleManifest>("assetbundlemanifest");
+                        RoSLog.LogMessage("Loaded AssetBundleManifest");
 
-                    //foreach (var bundle in stageManifestBundles.Union(runManifestBundles)) bundle.Unload(false);
+                        AssetBundles.Add(bundle);
+
+                        var parentDir = Directory.GetParent(directory);
+                        var manifestPath = string.Empty;
+                        if ("plugins".Equals(Path.GetFileName(parentDir.Name), StringComparison.OrdinalIgnoreCase))
+                            manifestPath = Path.Combine(directory, "manifest.json");
+                        else
+                            manifestPath = Path.Combine(parentDir.FullName, "manifest.json");
+
+                        var tsmanifest = File.Exists(manifestPath) ? File.ReadAllText(manifestPath) : null;
+                        if (!string.IsNullOrEmpty(tsmanifest))
+                        {
+                            manifests.Add(JsonUtility.FromJson<Manifest>(tsmanifest));
+                            RoSLog.LogDebug("Loaded Dependant Manifest");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    RoSLog.LogDebug($"Didn't load {file}\r\n\r\n{e.Message}\r\n\r\n{e.StackTrace}");
+                }
+            }
+
+            foreach (var assetBundle in AssetBundles)
+            {
+                try
+                {
+                    var sceneDefinitions = assetBundle.LoadAllAssets<SceneDef>().Where(sd => !(sd is SceneDefReference));
+                    var gameModes = assetBundle.LoadAllAssets<GameObject>().Select(go => go.GetComponent<Run>()).Where(run => run != null);
+
+                    if (sceneDefinitions.Any())
+                        this.sceneDefinitions.AddRange(sceneDefinitions);
+
+                    if (gameModes.Any())
+                    {
+                        this.gameModes.AddRange(gameModes);
+                        foreach (var gameMode in gameModes)
+                            ClientScene.RegisterPrefab(gameMode.gameObject);
+                    }
                 }
                 catch (Exception e)
                 {
                     RoSLog.LogError(e);
                 }
+
             }
         }
 
         #endregion
 
-        #region Catalog Injection
-        private void ProvideAdditionalGameModes(List<GameObject> obj)
-        {
-            RoSLog.LogInfo("Loading additional runs");
-            obj.AddRange(gameModes.Select(r => r.gameObject));
-            addedModeEntries = true;
-        }
-        private void ProvideAdditionalSceneDefs(List<SceneDef> sceneDefinitions)
-        {
-            RoSLog.LogInfo("Loading additional scenes");
-            foreach (var definition in this.sceneDefinitions)
-            {
-                RoSLog.LogInfo($"Loading: {definition.name}");
-                sceneDefinitions.Add(definition);
-            }
-        }
-        #endregion
     }
 }
-#endif

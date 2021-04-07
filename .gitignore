@@ -81,3 +81,9 @@ crashlytics-build.properties
 /Assets/ProBuilder Data
 /Assets/.gitignore
 /ProjectSettings/Packages/com.unity.polybrush
+/ThunderKit
+/Packages/*/*
+/UIElementsSchema
+/Assets/Forbidden
+/AssetBundles/StandaloneWindows
+Assets/ThunderKitSettings/ThunderstoreSource.asset

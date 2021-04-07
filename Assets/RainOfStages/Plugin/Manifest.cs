@@ -1,4 +1,3 @@
-#if THUNDERKIT_CONFIGURED
 using System;
 
 namespace PassivePicasso.RainOfStages.Plugin
@@ -13,4 +12,3 @@ namespace PassivePicasso.RainOfStages.Plugin
         public string[] dependencies;
     }
 }
-#endif

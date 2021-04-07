@@ -3,40 +3,45 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Colored
+  - BulletCollide
+  - InitialBurst
+  - Chest
+  - CamAttachPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  -
   - Water
   - UI
-  - 
-  - 
+  -
+  -
   - FakeActor
   - NoCollision
   - Pickups
   - World
-  - raycasttest
   - EntityPrecise
   - Debris
   - Projectile
+  - CollideWithCharacterHullOnly
   - ManualRender
-  - Background
   - Ragdoll
   - NoDraw
   - PrefabBrush
   - PostProcess
   - UI, WorldSpace
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerBody
+  - EnemyBody
+  - TriggerZone
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Default
     uniqueID: 0
