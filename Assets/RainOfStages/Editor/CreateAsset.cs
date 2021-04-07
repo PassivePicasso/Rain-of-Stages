@@ -73,7 +73,7 @@ namespace PassivePicasso.RainOfStages.Editor
         [MenuItem("Assets/Rain of Stages/Stages/" + nameof(SceneDefinition), priority = 2)]
         public static void CreateCustomSceneProxy() => ScriptableHelper.CreateAsset<SceneDefinition>();
 
-        [MenuItem("Assets/Rain of Stages/New Stag&e", priority = 1)]
+        [MenuItem("Tools/Rain of Stages/New Stag&e", priority = 1)]
         public static void CreateStage()
         {
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
