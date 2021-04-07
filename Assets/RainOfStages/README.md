@@ -14,6 +14,9 @@ The project aims to provide many features to streamline the addition of many typ
 
 
 Change Notes:
+* 3.0.1
+  * Move New Stage to Main Menu under Tools/Rain of Stages/New Stage
+
 * 3.0.0
   * Built new node graph baking system, now capable of baking average RoR2 size maps in less than a second, and larger maps well under a minute.
   * Updated to ThunderKit 3.0.0
