@@ -78,7 +78,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Description: Rain of Stages is a framework to assist in the creation, testing, packaging
     and deployment of custom Risk of Rain 2 stages and mods
-  Version: 3.0.0
+  Version: 3.0.2
   Dependencies:
   - {fileID: 11400000, guid: 6893422731aa6d67012f5f4d8209c304, type: 2}
 --- !u!114 &114339530207379210
