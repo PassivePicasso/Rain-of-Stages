@@ -87,3 +87,5 @@ crashlytics-build.properties
 /Assets/Forbidden
 /AssetBundles/StandaloneWindows
 Assets/ThunderKitSettings/ThunderstoreSource.asset
+Assets/ThunderKitSettings/ThunderstoreSource.asset
+Assets/ThunderKitSettings/ThunderstoreSettings.asset
