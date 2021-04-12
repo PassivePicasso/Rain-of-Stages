@@ -82,7 +82,6 @@ namespace PassivePicasso.RainOfStages.Editor
 
             var sceneInfo = new GameObject("SceneInfo", typeof(Proxy.SceneInfo), typeof(ClassicStageInfo), typeof(PostProcessVolume));
             sceneInfo.layer = LayerIndex.postProcess.intVal;
-            sceneInfo.SetActive(false);
 
             var combatDirectors = director.GetComponents<CombatDirector>();
 
