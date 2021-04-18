@@ -26,7 +26,7 @@ namespace PassivePicasso.RainOfStages.Proxy
             forbiddenAsBoss = card.forbiddenAsBoss;
             sendOverNetwork = card.sendOverNetwork;
             directorCreditCost = card.directorCreditCost;
-
+            base.Awake();
         }
         public global::RoR2.SpawnCard ResolveProxy() => LoadCard<global::RoR2.CharacterSpawnCard>();
 
