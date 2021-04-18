@@ -6,6 +6,6 @@ namespace PassivePicasso.RainOfStages.Proxy
     public class SceneDefinition : SceneDef
     {
         public List<SceneDefReference> reverseSceneNameOverrides;
-        public List<SceneDefReference> destionationInjections;
+        public List<SceneDefReference> destinationInjections;
     }
 }
