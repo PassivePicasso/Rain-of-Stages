@@ -124,7 +124,7 @@ namespace PassivePicasso.RainOfStages
             Log("Initialization");
 
             var meshFilters = world.GetComponentsInChildren<MeshFilter>().Where(mf => mf.gameObject.layer == LayerMask.NameToLayer("World")).ToArray();
-            var meshes = meshFilters.Select(mf => mf.sharedMesh).ToArray();
+            var meshes = meshFilters.Select(mf => mf.sharedMesh);
 
             var sources = meshFilters.Select(mf => new NavMeshBuildSource
             {
