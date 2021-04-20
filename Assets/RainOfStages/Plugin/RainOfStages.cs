@@ -2,6 +2,7 @@
 using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
+using HG;
 using PassivePicasso.RainOfStages.Hooks;
 using PassivePicasso.RainOfStages.Monomod;
 using PassivePicasso.RainOfStages.Proxy;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -322,14 +324,20 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         public System.Collections.IEnumerator FinalizeAsync(FinalizeAsyncArgs args)
         {
-            var infos = args.peerLoadInfos;
-            
-            RainOfStages.Instance.RoSLog.LogMessage($"{infos.Length} ContentPacks found");
+            ContentManager.onContentPacksAssigned += WeaveDefinitions;
+            args.ReportProgress(1f);
+            yield break;
+        }
 
-            var uniqueSceneDefs = infos.SelectMany(cpli => cpli.previousContentPack.sceneDefs).ToArray();
+        private void WeaveDefinitions(ReadOnlyArray<ReadOnlyContentPack> obj)
+        {
+            ContentManager.onContentPacksAssigned -= WeaveDefinitions;
+
+            var uniqueSceneDefs = ContentManager.allLoadedContentPacks.SelectMany(rocp => rocp.sceneDefs).Distinct().ToArray();
+            RainOfStages.Instance.RoSLog.LogMessage($"{ContentManager.allLoadedContentPacks.Length} ContentPacks found");
             RainOfStages.Instance.RoSLog.LogMessage($"{uniqueSceneDefs.Length} SceneDefs found in all loaded ContentPacks");
 
-            var lookups = uniqueSceneDefs.ToDictionary(sd => sd.baseSceneName);
+            var lookups = uniqueSceneDefs.ToDictionary(sd => sd.cachedName);
 
             var sceneDefinitions = RainOfStages.Instance.SceneDefinitions.OfType<SceneDefinition>();
 
@@ -337,6 +345,7 @@ namespace PassivePicasso.RainOfStages.Plugin
             var destinationsMapping = MakeLinks(sceneDefinitions, def => def.destinationInjections);
 
             RainOfStages.Instance.RoSLog.LogMessage($"{lookups.Count} lookups found");
+            Thread.Sleep(10000);
             Weave(lookups, overrideMapping,
                        sd => sd.Destination.baseSceneName,
                        sd => sd.sceneNameOverrides,
@@ -347,31 +356,11 @@ namespace PassivePicasso.RainOfStages.Plugin
                        sd => sd.destinations,
                        (sd, data) => sd.destinations = data.ToArray());
 
-            void Swap(SceneDef[] defs)
-            {
-                for (int i = 0; i < defs.Length; i++)
-                    if (defs[i] is SceneDefReference)
-                        defs[i] = uniqueSceneDefs.FirstOrDefault(sd => sd.cachedName == defs[i].cachedName);
+            foreach (var def in uniqueSceneDefs)
+                for (int i = 0; i < def.destinations.Length; i++)
+                    if (def.destinations[i] is SceneDefReference && lookups.ContainsKey(def.cachedName))
+                        def.destinations[i] = lookups[def.cachedName];
 
-            }
-
-            foreach (var contentPack in ContentManager.allLoadedContentPacks)
-            {
-                foreach (var def in contentPack.sceneDefs)
-                {
-                    switch (def)
-                    {
-                        case SceneDefinition sceneDefinition:
-                            Swap(sceneDefinition.destinations);
-                            Swap(sceneDefinition.destinationInjections.ToArray());
-                            Swap(sceneDefinition.reverseSceneNameOverrides.ToArray());
-                            break;
-                        case SceneDef sceneDef:
-                            Swap(sceneDef.destinations);
-                            break;
-                    }
-                }
-            }
             RoSLog.LogInfo($"found {manifests.Count} map manifests");
             if (manifests.Count != 0)
             {
@@ -386,8 +375,6 @@ namespace PassivePicasso.RainOfStages.Plugin
                     RoSLog.LogInfo($"[NetworkCompatibility] Adding: {mod}");
                 }
             }
-            args.ReportProgress(1f);
-            yield break;
         }
 
         static Links MakeLinks(SceneDefs definitions, Func<SceneDefinition, SceneDefRefs> selectSource)
