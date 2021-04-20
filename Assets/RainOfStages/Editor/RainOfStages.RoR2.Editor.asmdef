@@ -33,6 +33,6 @@
     "autoReferenced": true,
     "defineConstraints": [
         "riskofrain2",
-        "bbepis-bepinexpack-5.3.1"
+        "bbepis-bepinexpack"
     ]
 }

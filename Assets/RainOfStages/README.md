@@ -15,6 +15,17 @@ The project aims to provide many features to streamline the addition of many typ
 
 Change Notes:
 
+#### 3.0.5
+  * Fix issue with plugin not finding all loaded scenes for referencing
+
+#### 3.0.4
+  * Fix issue with SceneDefReferences not loading correctly
+
+#### 3.0.3
+  * Update Rain of Stages to use latest ContentPack API
+  * Bundles are now loaded in LoadStaticContentAsync
+  * LoadGameMode now executes when the Scene changes to title
+
 #### 3.0.2
   * Fix SceneInfo being inactive in a new stage
 

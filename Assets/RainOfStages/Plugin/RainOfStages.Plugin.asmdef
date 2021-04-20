@@ -18,11 +18,12 @@
         "Rewired_CSharp.dll",
         "Wwise.dll",
         "Unity.TextMeshPro.dll",
-        "Unity.Postprocessing.Runtime.dll"
+        "Unity.Postprocessing.Runtime.dll",
+        "HGCSharpUtils.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [
         "riskofrain2",
-        "bbepis-bepinexpack-5.3.1"
+        "bbepis-bepinexpack"
     ]
 }

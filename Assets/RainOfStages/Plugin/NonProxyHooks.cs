@@ -5,18 +5,18 @@ using RoR2;
 using RoR2.UI;
 using RoR2.UI.MainMenu;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PassivePicasso.RainOfStages.Hooks
 {
-    using RainOfStages = Plugin.RainOfStages;
     using Links = IEnumerable<Link>;
-    using SceneDefs = IEnumerable<SceneDefinition>;
+    using RainOfStages = Plugin.RainOfStages;
     using SceneDefRefs = IEnumerable<SceneDefReference>;
+    using SceneDefs = IEnumerable<SceneDefinition>;
     internal class NonProxyHooks
     {
         static Material mat = new Material(Shader.Find("Unlit/Color"));
@@ -26,31 +26,6 @@ namespace PassivePicasso.RainOfStages.Hooks
         struct DrawOrder { public Vector3 start; public Vector3 end; public float duration; public Color color; }
 
         static Dictionary<Guid, DrawOrder> DrawOrders = new Dictionary<Guid, DrawOrder>();
-
-        [Hook(typeof(ContentManager), isStatic: true)]
-        public static void SetContentPacks(Action<List<ContentPack>> orig, List<ContentPack> contentPacks)
-        {
-            RainOfStages.Instance.RoSLog.LogMessage("Intercepting Content Pack Load");
-            RainOfStages.Instance.RoSLog.LogMessage("Evaluating existing Content Packs");
-            contentPacks.Add(new ContentPack
-            {
-                sceneDefs = RainOfStages.Instance.SceneDefinitions.ToArray(),
-                gameModePrefabs = RainOfStages.Instance.GameModes.ToArray()
-            });
-            orig(contentPacks);
-
-            var contentPackFields = typeof(ContentPack).GetFields(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var pack in contentPacks)
-            {
-                RainOfStages.Instance.RoSLog.LogDebug($"ContentPack: {pack.GetType().Name}");
-                foreach (var field in contentPackFields)
-                {
-                    var fieldData = field.GetValue(pack);
-                    Array dataArray = (Array)fieldData;
-                    RainOfStages.Instance.RoSLog.LogDebug($"({field.FieldType.Name}) {field.Name}: {dataArray.Length}");
-                }
-            }
-        }
 
         public static void InitializeDebugging()
         {
@@ -110,7 +85,7 @@ namespace PassivePicasso.RainOfStages.Hooks
                 Logger.LogDebug($"Found: {weeklyButton.name}");
 
                 var juicedPanel = weeklyButton.transform.parent;
-                string[] skip = new[] { "Classic", "ClassicRun", "Eclipse", "EclipseRun" };
+                string[] skip = new[] { "Classic", "ClassicRun" };
                 var gameModes = RainOfStages.Instance.GameModes.Where(gm => !skip.Contains(gm.name));
                 foreach (var gameMode in gameModes)
                 {
@@ -119,7 +94,7 @@ namespace PassivePicasso.RainOfStages.Hooks
                     GameObject.DestroyImmediate(copied.GetComponent<DisableIfGameModded>());
 
                     var tmc = copied.GetComponent<LanguageTextMeshController>();
-                    tmc.token = gameMode.nameToken;
+                    tmc.token = gameMode.GetComponent<Run>().nameToken;
 
                     var consoleFunctions = copied.GetComponent<ConsoleFunctions>();
 
@@ -159,54 +134,5 @@ namespace PassivePicasso.RainOfStages.Hooks
         public readonly SceneDefReference Origin;
     }
 
-    internal class SceneCatalogHooks
-    {
 
-        static ManualLogSource Logger => RainOfStages.Instance.RoSLog;
-
-        [Hook(typeof(SceneCatalog), isStatic: true)]
-        private static void Init(Action orig)
-        {
-            orig();
-
-            HookAttribute.DisableHooks(typeof(SceneCatalogHooks));
-
-            var lookups = SceneCatalog.allSceneDefs.ToDictionary(sd => sd.baseSceneName);
-
-            Logger.LogInfo("Lodded dictionary for sceneNameOverride doping");
-
-            var sceneDefinitions = RainOfStages.Instance.SceneDefinitions.OfType<SceneDefinition>();
-
-            var overrideMapping = MakeLinks(sceneDefinitions, def => def.reverseSceneNameOverrides);
-            var destinationsMapping = MakeLinks(sceneDefinitions, def => def.destionationInjections);
-
-            Weave(lookups, overrideMapping, 
-                       sd => sd.Destination.baseSceneName,
-                       sd => sd.sceneNameOverrides,
-                       (sd, data) => sd.sceneNameOverrides = data.ToList());
-
-            Weave(lookups, destinationsMapping, 
-                       sd => sd.Destination,
-                       sd => sd.destinations, 
-                       (sd, data) => sd.destinations = data.ToArray());
-        }
-
-        static Links MakeLinks(SceneDefs definitions, Func<SceneDefinition, SceneDefRefs> selectSource) 
-               => definitions.SelectMany(def => selectSource(def).Select(sdr => new Link(def, sdr)));
-
-        static void Weave<T>(Dictionary<string, SceneDef> lookups, Links links, Func<Link, T> GetNewData, Func<SceneDef, IEnumerable<T>> GetAssignedData, Action<SceneDef, IEnumerable<T>> assignData)
-        {
-            foreach (var mapGroup in links.GroupBy(map => map.Origin.baseSceneName))
-            {
-                var newData = mapGroup.Select(GetNewData);
-                var oldData = GetAssignedData(lookups[mapGroup.Key]);
-                var updatedData = oldData.Union(newData);
-                assignData(lookups[mapGroup.Key], updatedData);
-
-                foreach (var dataElement in updatedData)
-                    Logger.LogInfo($"Added {dataElement} to SceneDef {mapGroup.Key}");
-            }
-        }
-
-    }
 }
