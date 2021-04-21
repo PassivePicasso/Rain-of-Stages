@@ -15,6 +15,9 @@ The project aims to provide many features to streamline the addition of many typ
 
 Change Notes:
 
+#### 3.0.6
+  * Fix ModifiedPrefab not copying transform information
+
 #### 3.0.5
   * Fix issue with plugin not finding all loaded scenes for referencing
 

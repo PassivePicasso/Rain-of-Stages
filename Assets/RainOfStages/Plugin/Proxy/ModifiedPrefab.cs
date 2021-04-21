@@ -12,6 +12,8 @@ namespace PassivePicasso.RainOfStages.Proxy
             var prefab = Resources.Load<GameObject>(ResourceLocation);
             var instance = (GameObject)Instantiate(prefab);
             instance.transform.position = transform.position;
+            instance.transform.rotation = transform.rotation;
+            instance.transform.localScale = transform.localScale;
 
             UpdateComponents(instance.transform);
 

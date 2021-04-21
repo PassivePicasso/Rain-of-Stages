@@ -16,6 +16,8 @@ namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
         [WeakAssetReference(typeof(Material))]
         public string[] EditorAssets;
 
+        private string[] lastEditorAssets;
+
         /// <summary>
         /// Full scene path of target asset 
         /// </summary>
@@ -46,6 +48,14 @@ namespace PassivePicasso.RainOfStages.Plugin.AssetMapping
             if (!Application.isEditor) return;
             Initialize();
             Assign(Enumerable.Empty<AssetType>());
+        }
+
+        private void Update()
+        {
+            if (!Application.isEditor) return;
+            if (!isActiveAndEnabled) return;
+            Initialize();
+            Assign(ClonedAssets);
         }
 
         protected abstract ComponentType GetTargetComponent();
