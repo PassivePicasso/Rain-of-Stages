@@ -15,8 +15,15 @@ The project aims to provide many features to streamline the addition of many typ
 
 Change Notes:
 
+#### 3.0.9
+  * Add a number of ResourceMaterialMapper presets
+
+#### 3.0.8
+  * Improve 3.0.7 release notes
+  * Update version in all necessary locations
+
 #### 3.0.7
-  * Decrease Load speed by exactly 10 seconds
+  * Decrease load time by exactly 10 seconds
 
 #### 3.0.6
   * Fix ModifiedPrefab not copying transform information
