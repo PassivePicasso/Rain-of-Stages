@@ -345,7 +345,6 @@ namespace PassivePicasso.RainOfStages.Plugin
             var destinationsMapping = MakeLinks(sceneDefinitions, def => def.destinationInjections);
 
             RainOfStages.Instance.RoSLog.LogMessage($"{lookups.Count} lookups found");
-            Thread.Sleep(10000);
             Weave(lookups, overrideMapping,
                        sd => sd.Destination.baseSceneName,
                        sd => sd.sceneNameOverrides,
@@ -386,17 +385,13 @@ namespace PassivePicasso.RainOfStages.Plugin
             {
                 var newData = mapGroup.Select(GetNewData);
                 var key = mapGroup.Key;
-                Instance.RoSLog.LogMessage($"Key: {key}");
                 var sceneDef = lookups[key];
-                Instance.RoSLog.LogMessage($"SceneDef: {sceneDef.baseSceneName}");
                 var oldData = GetAssignedData(sceneDef);
-                Instance.RoSLog.LogMessage($"oldData: {oldData.Count()}");
                 var updatedData = oldData.Union(newData);
-                Instance.RoSLog.LogMessage($"updatedData: {updatedData.Count()}");
                 assignData(sceneDef, updatedData);
 
                 foreach (var dataElement in updatedData)
-                    Instance.RoSLog.LogMessage($"Added {dataElement} to SceneDef {mapGroup.Key}");
+                    Instance.RoSLog.LogDebug($"Added {dataElement} to SceneDef {mapGroup.Key}");
             }
         }
 
