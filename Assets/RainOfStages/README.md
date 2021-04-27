@@ -15,6 +15,10 @@ The project aims to provide many features to streamline the addition of many typ
 
 Change Notes:
 
+#### 3.0.10
+  * Fix progression so that custom stages don't loop on themselves
+  * Fix network compatibiltiy management
+
 #### 3.0.9
   * Add a number of ResourceMaterialMapper presets
 

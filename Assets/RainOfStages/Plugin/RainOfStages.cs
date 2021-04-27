@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -22,21 +24,6 @@ using Path = System.IO.Path;
 
 namespace PassivePicasso.RainOfStages.Plugin
 {
-    using Links = IEnumerable<Link>;
-    using SceneDefRefs = IEnumerable<SceneDefReference>;
-    using SceneDefs = IEnumerable<SceneDefinition>;
-    struct Link
-    {
-        public Link(SceneDefinition destination, SceneDefReference origin)
-        {
-            this.Destination = destination;
-            this.Origin = origin;
-        }
-
-        public readonly SceneDefinition Destination;
-        public readonly SceneDefReference Origin;
-    }
-
     //This attribute is required, and lists metadata for your plugin.
     //The GUID should be a unique ID for this plugin, which is human readable (as it is used in places like the config). I like to use the java package notation, which is "com.[your name here].[your plugin name here]"
 
@@ -67,7 +54,6 @@ namespace PassivePicasso.RainOfStages.Plugin
         private List<GameObject> gameModes = new List<GameObject>();
         private List<string> gameModeNames = new List<string> { "ClassicRun" };
         private List<SceneDef> sceneDefinitions = new List<SceneDef>();
-        private List<Manifest> manifests = new List<Manifest>();
 
         public ManualLogSource RoSLog => base.Logger;
 
@@ -178,7 +164,6 @@ namespace PassivePicasso.RainOfStages.Plugin
 
         private void Initialize()
         {
-            manifests = new List<Manifest>();
             stageManifestBundles = new List<AssetBundle>();
             runManifestBundles = new List<AssetBundle>();
             AssetBundles = new List<AssetBundle>();
@@ -214,11 +199,23 @@ namespace PassivePicasso.RainOfStages.Plugin
             RoSShared = AssetBundle.LoadFromFile(abmPath);
         }
 
+        public static string Hash(byte[] bytes)
+        {
+            using (var md5 = MD5.Create())
+            {
+                var shortNameHash = md5.ComputeHash(bytes);
+                var guid = new Guid(shortNameHash);
+                var cleanedGuid = guid.ToString().ToLower().Replace("-", "");
+                return cleanedGuid;
+            }
+        }
+
         void LoadAssetBundles(DirectoryInfo dir, LoadStaticContentAsyncArgs args, ref float progress)
         {
             RoSLog.LogDebug($"SimpleLoading: {dir.FullName}");
             var bundles = Directory.EnumerateFiles(dir.FullName, "*.ros", SearchOption.AllDirectories).ToArray();
             var progressStep = .8f / bundles.Length;
+            var hashSet = new HashSet<string>();
             foreach (var file in bundles)
             {
                 try
@@ -226,33 +223,28 @@ namespace PassivePicasso.RainOfStages.Plugin
                     RoSLog.LogDebug($"Loading bundle: {Path.GetFileName(file)}");
                     var directory = Path.GetDirectoryName(file);
                     var bundle = AssetBundle.LoadFromFile(file);
-                    if (bundle.isStreamedSceneAssetBundle)
-                    {
-                        sceneBundles.Add(bundle);
-                    }
-                    else
-                    {
-                        var manifest = bundle.LoadAsset<AssetBundleManifest>("assetbundlemanifest");
+                    var fileInfo = new FileInfo(file);
+                    var bytesToRead = (int)Mathf.Clamp(fileInfo.Length, 0, 1024 * 1024 * 100);
 
+                    byte[] bytes = new byte[bytesToRead];
+                    using (var stream = new BufferedStream(File.OpenRead(file), bytesToRead))
+                        stream.Read(bytes, 0, bytesToRead);
+
+                    var mapGuid = $"{bundle.name}@{Hash(bytes)}";
+                    NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append(mapGuid);
+                    RoSLog.LogInfo($"[NetworkCompatibility] Adding Map Guid: {mapGuid}");
+
+                    if (bundle.isStreamedSceneAssetBundle)
+                        sceneBundles.Add(bundle);
+                    else
                         AssetBundles.Add(bundle);
 
-                        var parentDir = Directory.GetParent(directory);
-                        var manifestPath = string.Empty;
-                        if ("plugins".Equals(Path.GetFileName(parentDir.Name), StringComparison.OrdinalIgnoreCase))
-                            manifestPath = Path.Combine(directory, "manifest.json");
-                        else
-                            manifestPath = Path.Combine(parentDir.FullName, "manifest.json");
-
-                        var tsmanifest = File.Exists(manifestPath) ? File.ReadAllText(manifestPath) : null;
-                        if (!string.IsNullOrEmpty(tsmanifest))
-                            manifests.Add(JsonUtility.FromJson<Manifest>(tsmanifest));
-                    }
                     progress += progressStep;
                     args.ReportProgress(progress);
                 }
                 catch (Exception e)
                 {
-                    RoSLog.LogDebug($"Didn't load {file}\r\n\r\n{e.Message}\r\n\r\n{e.StackTrace}");
+                    RoSLog.LogError($"Didn't load {file}\r\n\r\n{e.Message}\r\n\r\n{e.StackTrace}");
                 }
             }
 
@@ -339,59 +331,36 @@ namespace PassivePicasso.RainOfStages.Plugin
 
             var lookups = uniqueSceneDefs.ToDictionary(sd => sd.cachedName);
 
-            var sceneDefinitions = RainOfStages.Instance.SceneDefinitions.OfType<SceneDefinition>();
+            var sceneDefinitions = uniqueSceneDefs.OfType<SceneDefinition>().ToList();
 
-            var overrideMapping = MakeLinks(sceneDefinitions, def => def.reverseSceneNameOverrides);
-            var destinationsMapping = MakeLinks(sceneDefinitions, def => def.destinationInjections);
-
-            RainOfStages.Instance.RoSLog.LogMessage($"{lookups.Count} lookups found");
-            Weave(lookups, overrideMapping,
-                       sd => sd.Destination.baseSceneName,
-                       sd => sd.sceneNameOverrides,
-                       (sd, data) => sd.sceneNameOverrides = data.ToList());
-
-            Weave(lookups, destinationsMapping,
-                       sd => sd.Destination,
-                       sd => sd.destinations,
-                       (sd, data) => sd.destinations = data.ToArray());
-
-            foreach (var def in uniqueSceneDefs)
-                for (int i = 0; i < def.destinations.Length; i++)
-                    if (def.destinations[i] is SceneDefReference && lookups.ContainsKey(def.cachedName))
-                        def.destinations[i] = lookups[def.cachedName];
-
-            RoSLog.LogInfo($"found {manifests.Count} map manifests");
-            if (manifests.Count != 0)
+            foreach (var sceneDefinition in sceneDefinitions)
             {
-                var hashSet = new HashSet<string>();
-                var guids = manifests.Select(manifest => $"{manifest.name};{manifest.version_number}");
-                var orderedGuids = guids.OrderBy(value => value);
-                var newOrderedGuids = orderedGuids.Where(guid => !NetworkModCompatibilityHelper.networkModList.Contains(guid)).ToArray();
-
-                foreach (var mod in newOrderedGuids)
+                for (int i = 0; i < sceneDefinition.reverseSceneNameOverrides.Count; i++)
                 {
-                    NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append(mod);
-                    RoSLog.LogInfo($"[NetworkCompatibility] Adding: {mod}");
+                    var defRef = sceneDefinition.reverseSceneNameOverrides[i];
+                    var targetDef = lookups[defRef.cachedName];
+
+                    targetDef.sceneNameOverrides.Add(sceneDefinition.cachedName);
+                }
+
+                for (int i = 0; i < sceneDefinition.destinationInjections.Count; i++)
+                {
+                    var defRef = sceneDefinition.destinationInjections[i];
+                    var targetDef = lookups[defRef.cachedName];
+
+                    var destinations = targetDef.destinations.ToList();
+                    destinations.Add(sceneDefinition);
+                    targetDef.destinations = destinations.Distinct().ToArray();
                 }
             }
-        }
 
-        static Links MakeLinks(SceneDefs definitions, Func<SceneDefinition, SceneDefRefs> selectSource)
-               => definitions.SelectMany(def => selectSource(def).Select(sdr => new Link(def, sdr)));
+            RainOfStages.Instance.RoSLog.LogMessage($"{lookups.Count} lookups found");
 
-        static void Weave<T>(Dictionary<string, SceneDef> lookups, Links links, Func<Link, T> GetNewData, Func<SceneDef, IEnumerable<T>> GetAssignedData, Action<SceneDef, IEnumerable<T>> assignData)
-        {
-            foreach (var mapGroup in links.GroupBy(map => map.Origin.baseSceneName))
+            foreach (var def in uniqueSceneDefs)
             {
-                var newData = mapGroup.Select(GetNewData);
-                var key = mapGroup.Key;
-                var sceneDef = lookups[key];
-                var oldData = GetAssignedData(sceneDef);
-                var updatedData = oldData.Union(newData);
-                assignData(sceneDef, updatedData);
-
-                foreach (var dataElement in updatedData)
-                    Instance.RoSLog.LogDebug($"Added {dataElement} to SceneDef {mapGroup.Key}");
+                for (int i = 0; i < def.destinations.Length; i++)
+                    if (def.destinations[i] is SceneDefReference sdr && lookups.ContainsKey(sdr.cachedName))
+                        def.destinations[i] = lookups[sdr.cachedName];
             }
         }
 
